@@ -12,7 +12,7 @@
   <!-- === SEO ОПИСАНИЕ СТРАНИЦЫ === -->
   <meta name="description" content="Ремонт кирпичных печей без сноса. Вызвать печника. Решаем проблемы: дымит, не греет, трескается. Работаем с 1993 года.">
   
-  <!-- === СТРУКТУРИРОВАННЫЕ ДАННЫЕ ДЛЯ ПОИСКОВИКОВ === -->
+  <!-- === Schema.org - СТРУКТУРИРОВАННЫЕ ДАННЫЕ ДЛЯ ПОИСКОВИКОВ === -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -40,434 +40,463 @@
   
   <!-- === СТИЛИ САЙТА === -->
   <style>
-    /* ===== ТЕМЫ (Светлая/Тёмная) ===== */
+    /* ===== ОПРЕДЕЛЕНИЕ ЦВЕТОВЫХ ПЕРЕМЕННЫХ ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
     :root {
-      --text-primary-light: #1e293b;
-      --text-secondary-light: #475569;
-      --bg-light: #ffffff;
-      --card-bg-light: #ffffff;
-      --card-border-light: #e2e8f0;
-      --accent: #0ea5e9;
-      --accent2: #3b82f6;
-      --shadow-light: 0 4px 12px rgba(0,0,0,0.05);
+      --text-primary-light: #1e293b;       /* Основной цвет текста */
+      --text-secondary-light: #475569;     /* Второстепенный цвет текста */
+      --bg-light: #ffffff;                 /* Цвет фона */
+      --card-bg-light: #ffffff;            /* Цвет фона карточек */
+      --card-border-light: #e2e8f0;        /* Цвет границ карточек */
+      --accent: #0ea5e9;                   /* Акцентный цвет (голубой) */
+      --accent2: #3b82f6;                  /* Второй акцентный цвет (синий) */
+      --shadow-light: 0 4px 12px rgba(0,0,0,0.05); /* Легкая тень */
     }
+    
+    /* ===== КЛАСС ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
     .theme-light {
-      --bg: var(--bg-light);
-      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      --text: var(--text-primary-light);
-      --text-secondary: var(--text-secondary-light);
-      --card-bg: var(--card-bg-light);
-      --card-border: var(--card-border-light);
-      --shadow: var(--shadow-light);
-      --glass: blur(12px);
-    }
-    .theme-dark {
-      --bg: #0b0f1a;
-      --bg-gradient: linear-gradient(135deg, #0b0f1a 0%, #12182d 100%);
-      --text: #e2e8f0;
-      --text-secondary: #94a3b8;
-      --card-bg: rgba(20, 25, 45, 0.6);
-      --card-border: rgba(59, 130, 246, 0.2);
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      --glass: blur(16px);
+      --bg: var(--bg-light);               /* Переменная фона */
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); /* Градиент фона */
+      --text: var(--text-primary-light);   /* Цвет основного текста */
+      --text-secondary: var(--text-secondary-light); /* Цвет второстепенного текста */
+      --card-bg: var(--card-bg-light);     /* Цвет фона карточек */
+      --card-border: var(--card-border-light); /* Цвет границ карточек */
+      --shadow: var(--shadow-light);       /* Тень элементов */
+      --glass: blur(12px);                /* Эффект размытия для стеклянных элементов */
     }
 
-    /* ===== ОБЩИЕ СТИЛИ ===== */
+    /* ===== СБРОС СТАНДАРТНЫХ СТИЛЕЙ ===== */
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0;                          /* Убираем отступы по умолчанию */
+      padding: 0;                         /* Убираем внутренние отступы по умолчанию */
+      box-sizing: border-box;             /* Включаем box-sizing для точного расчёта размеров */
     }
+    
+    /* ===== ОСНОВНОЙ СТИЛЬ СТРАНИЦЫ ===== */
     body {
-      background: var(--bg-gradient);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
-      transition: background 0.4s;
-      overflow-x: hidden;
+      background: var(--bg-gradient);      /* Устанавливаем градиентный фон */
+      color: var(--text);                 /* Цвет текста */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* Шрифт */
+      line-height: 1.6;                   /* Межстрочный интервал */
+      transition: background 0.4s;        /* Плавный переход фона */
+      overflow-x: hidden;                 /* Скрываем горизонтальный скролл */
     }
+    
+    /* ===== ОГРАНИЧЕНИЕ ШИРИНЫ КОНТЕНТА ===== */
     .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 24px;
+      max-width: 1400px;                  /* Максимальная ширина контейнера */
+      margin: 0 auto;                     /* Центрирование */
+      padding: 0 24px;                    /* Внутренние отступы */
     }
+    
+    /* ===== ОСНОВНОЙ БЛОК СТРАНИЦЫ ===== */
     .page {
-      display: block;
-      min-height: 100vh;
+      display: block;                     /* Отображение как блок */
+      min-height: 100vh;                  /* Минимальная высота - 100% вьюпорта */
     }
 
-    /* ===== ШАПКА САЙТА ===== */
+    /* ===== СТИЛИ ШАПКИ САЙТА ===== */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: var(--glass);
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      padding: 0 24px;
-      height: 72px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .theme-dark header {
-      background: rgba(11, 15, 26, 0.9);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      position: sticky;                   /* Фиксированное позиционирование при скролле */
+      top: 0;                            /* Прикрепляем к верху */
+      z-index: 1000;                     /* Высокий z-index для отображения поверх других элементов */
+      backdrop-filter: var(--glass);      /* Эффект размытия фона */
+      background: rgba(255,255,255,0.85); /* Полупрозрачный белый фон */
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Тень под шапкой */
+      padding: 0 24px;                    /* Внутренние отступы */
+      height: 72px;                       /* Высота шапки */
+      display: flex;                      /* Flex-контейнер для выравнивания элементов */
+      justify-content: space-between;     /* Распределение элементов по краям */
+      align-items: center;                /* Выравнивание по вертикали */
     }
 
-    /* ===== ЛОГОТИП ===== */
+    /* ===== СТИЛИ ЛОГОТИПА ===== */
     .logo-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
+      display: flex;                      /* Flex-контейнер для логотипа */
+      align-items: center;                /* Выравнивание по вертикали */
+      gap: 12px;                          /* Отступ между иконкой и текстом */
+      text-decoration: none;              /* Убираем подчеркивание ссылки */
     }
+    
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      display: block;
+      width: 32px;                        /* Ширина иконки */
+      height: 32px;                       /* Высота иконки */
+      display: block;                     /* Отображение как блок */
     }
+    
     .logo-text {
-      font-size: 1.7rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      font-size: 1.7rem;                  /* Размер шрифта */
+      font-weight: 800;                   /* Жирность шрифта */
+      background: linear-gradient(90deg, var(--accent), var(--accent2)); /* Градиент текста */
+      -webkit-background-clip: text;      /* Обрезка градиента под текст */
+      background-clip: text;              /* Обрезка градиента под текст */
+      color: transparent;                 /* Прозрачный цвет текста */
     }
 
+    /* ===== КОНТЕЙНЕР ПРАВОЙ ЧАСТИ ШАПКИ ===== */
     .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 24px;
+      display: flex;                      /* Flex-контейнер */
+      align-items: center;                /* Выравнивание по вертикали */
+      gap: 24px;                          /* Отступ между элементами */
     }
+    
+    /* ===== КОНТЕЙНЕР НАВИГАЦИОННЫХ ССЫЛОК ===== */
     .nav-links {
-      display: flex;
-      gap: 28px;
+      display: flex;                      /* Flex-контейнер */
+      gap: 28px;                          /* Отступ между ссылками */
     }
+    
+    /* ===== СТИЛИ НАВИГАЦИОННЫХ ССЫЛОК ===== */
     .nav-link {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      transition: color 0.3s;
+      color: var(--text-secondary);       /* Цвет текста */
+      text-decoration: none;              /* Убираем подчеркивание */
+      font-weight: 500;                   /* Полужирность */
+      position: relative;                 /* Относительное позиционирование */
+      transition: color 0.3s;             /* Плавный переход цвета */
     }
+    
     .nav-link:hover,
     .nav-link.active {
-      color: var(--accent);
+      color: var(--accent);               /* Изменение цвета при наведении/активности */
     }
+    
+    /* ===== АНИМАЦИОННОЕ ПОДЧЕРКИВАНИЕ ССЫЛОК ===== */
     .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s;
+      content: '';                        /* Псевдоэлемент для подчеркивания */
+      position: absolute;                 /* Абсолютное позиционирование */
+      bottom: -6px;                       /* Отступ от нижнего края */
+      left: 0;                           /* Прижато к левому краю */
+      width: 0;                          /* Начальная ширина */
+      height: 2px;                       /* Высота подчеркивания */
+      background: var(--accent);          /* Цвет подчеркивания */
+      transition: width 0.3s;             /* Плавный переход ширины */
     }
+    
     .nav-link:hover::after,
     .nav-link.active::after {
-      width: 100%;
+      width: 100%;                       /* Полная ширина при наведении/активности */
     }
 
     /* ===== КНОПКА "Оставить заявку" — живая ===== */
     .header-claim-btn {
-      background: linear-gradient(135deg, var(--accent2), #1d4ed8);
-      color: white;
-      padding: 10px 22px;
-      border-radius: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: all 0.3s;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-      animation: pulseButton 2s infinite;
+      background: linear-gradient(135deg, var(--accent2), #1d4ed8); /* Градиентный фон */
+      color: white;                       /* Белый цвет текста */
+      padding: 10px 22px;                 /* Внутренние отступы */
+      border-radius: 14px;                /* Скругленные углы */
+      font-weight: 600;                   /* Полужирность текста */
+      text-decoration: none;              /* Убираем подчеркивание */
+      font-size: 1rem;                    /* Размер шрифта */
+      transition: all 0.3s;               /* Плавный переход всех свойств */
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); /* Тень */
+      animation: pulseButton 2s infinite; /* Анимация пульсации */
     }
+    
     .header-claim-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+      transform: translateY(-2px);        /* Поднятие при наведении */
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5); /* Более выраженная тень */
     }
 
     /* ===== КНОПКА "Вызвать печника" — живая ===== */
     .btn {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--accent2), #1d4ed8);
-      color: white;
-      padding: 18px 50px;
-      border-radius: 18px;
-      font-weight: 800;
-      text-decoration: none;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 12px 36px rgba(59, 130, 246, 0.4);
-      border: none;
-      font-size: 1.25rem;
-      letter-spacing: -0.5px;
-      animation: pulseButton 2s infinite;
+      display: inline-block;              /* Отображение как инлайн-блок */
+      background: linear-gradient(135deg, var(--accent2), #1d4ed8); /* Градиентный фон */
+      color: white;                       /* Белый цвет текста */
+      padding: 18px 50px;                 /* Внутренние отступы */
+      border-radius: 18px;                /* Скругленные углы */
+      font-weight: 800;                   /* Жирность текста */
+      text-decoration: none;              /* Убираем подчеркивание */
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Плавный переход */
+      box-shadow: 0 12px 36px rgba(59, 130, 246, 0.4); /* Тень */
+      border: none;                       /* Убираем границу */
+      font-size: 1.25rem;                 /* Размер шрифта */
+      letter-spacing: -0.5px;             /* Отрицательный кернинг */
+      animation: pulseButton 2s infinite; /* Анимация пульсации */
     }
+    
     .btn:hover {
-      transform: translateY(-6px) scale(1.04);
-      box-shadow: 0 18px 48px rgba(59, 130, 246, 0.6);
+      transform: translateY(-6px) scale(1.04); /* Поднятие и увеличение при наведении */
+      box-shadow: 0 18px 48px rgba(59, 130, 246, 0.6); /* Более выраженная тень */
     }
 
     /* ===== АНИМАЦИЯ КНОПОК ===== */
     @keyframes pulseButton {
       0% {
-        transform: scale(1);
+        transform: scale(1);              /* Начальный масштаб */
       }
       50% {
-        transform: scale(1.05);
+        transform: scale(1.05);           /* Увеличение в середине анимации */
       }
       100% {
-        transform: scale(1);
+        transform: scale(1);              /* Возврат к исходному масштабу */
       }
     }
 
+    /* ===== ИКОНКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===== */
     .theme-icon {
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
-      font-size: 1.25rem;
+      width: 30px;                        /* Ширина иконки */
+      height: 30px;                       /* Высота иконки */
+      cursor: pointer;                    /* Курсор-указатель */
+      display: flex;                      /* Flex-контейнер */
+      align-items: center;                /* Выравнивание по вертикали */
+      justify-content: center;            /* Выравнивание по горизонтали */
+      color: var(--text-secondary);       /* Цвет текста */
+      font-size: 1.25rem;                 /* Размер шрифта иконки */
     }
 
-    /* ===== ГЕРОЙ (ШАПКА СТРАНИЦЫ) ===== */
+    /* ===== СТИЛИ ГЕРОЯ (ШАПКА СТРАНИЦЫ) ===== */
     .hero {
-      text-align: center;
-      padding: 180px 0 140px;
-      position: relative;
-      overflow: hidden;
-      width: 100vw;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
+      text-align: center;                 /* Центрирование текста */
+      padding: 180px 0 140px;             /* Внутренние отступы */
+      position: relative;                 /* Относительное позиционирование */
+      overflow: hidden;                   /* Скрытие переполненного содержимого */
+      width: 100vw;                       /* Ширина на весь вьюпорт */
+      left: 50%;                          /* Смещение влево */
+      right: 50%;                         /* Смещение вправо */
+      margin-left: -50vw;                 /* Отрицательный левый отступ */
+      margin-right: -50vw;                /* Отрицательный правый отступ */
     }
+    
     .hero-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('images/hero-bg.jpg');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.5;
-      z-index: -1;
+      position: absolute;                 /* Абсолютное позиционирование */
+      top: 0;                            /* Прижато к верху */
+      left: 0;                           /* Прижато к левому краю */
+      width: 100%;                       /* Ширина 100% */
+      height: 100%;                      /* Высота 100% */
+      background-image: url('images/hero-bg.jpg'); /* Фоновое изображение */
+      background-size: cover;             /* Изображение заполняет контейнер */
+      background-position: center;        /* Центрирование изображения */
+      opacity: 0.5;                      /* Прозрачность */
+      z-index: -1;                       /* Отрицательный z-index для фона */
     }
+    
     .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 20px;
-      background: rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(8px);
-      border-radius: 24px;
-      padding: 40px 30px;
+      position: relative;                 /* Относительное позиционирование */
+      z-index: 2;                        /* Высокий z-index для отображения поверх фона */
+      max-width: 1000px;                  /* Максимальная ширина */
+      margin: 0 auto;                     /* Центрирование */
+      padding: 0 20px;                    /* Внутренние отступы */
+      background: rgba(0, 0, 0, 0.25);    /* Полупрозрачный черный фон */
+      backdrop-filter: blur(8px);         /* Эффект размытия */
+      border-radius: 24px;                /* Скругленные углы */
+      padding: 40px 30px;                 /* Внутренние отступы */
     }
+    
     .hero h1 {
-      font-size: 4.5rem;
-      font-weight: 800;
-      margin-bottom: 24px;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
-      line-height: 1.1;
+      font-size: 4.5rem;                  /* Размер шрифта заголовка */
+      font-weight: 800;                   /* Жирность шрифта */
+      margin-bottom: 24px;                /* Нижний отступ */
+      color: white;                       /* Белый цвет текста */
+      text-shadow: 0 2px 10px rgba(0,0,0,0.4); /* Тень текста */
+      line-height: 1.1;                   /* Межстрочный интервал */
     }
+    
     .hero p {
-      font-size: 1.4rem;
-      color: white;
-      max-width: 850px;
-      margin: 0 auto 40px;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+      font-size: 1.4rem;                  /* Размер шрифта параграфа */
+      color: white;                       /* Белый цвет текста */
+      max-width: 850px;                   /* Максимальная ширина */
+      margin: 0 auto 40px;                /* Центрирование и нижний отступ */
+      text-shadow: 0 1px 6px rgba(0,0,0,0.4); /* Тень текста */
     }
 
-    /* ===== СТЕКЛЯННАЯ КАРТОЧКА ===== */
+    /* ===== СТИЛИ СТЕКЛЯННОЙ КАРТОЧКИ ===== */
     .glass-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 48px;
-      backdrop-filter: var(--glass);
-      box-shadow: var(--shadow);
+      background: var(--card-bg);         /* Фон карточки */
+      border: 1px solid var(--card-border); /* Граница карточки */
+      border-radius: 24px;                /* Скругленные углы */
+      padding: 48px;                      /* Внутренние отступы */
+      backdrop-filter: var(--glass);      /* Эффект размытия */
+      box-shadow: var(--shadow);          /* Тень карточки */
     }
 
-    /* ===== КАРТОЧКА О ПЕЧНИКЕ ===== */
+    /* ===== СТИЛИ КАРТОЧКИ О ПЕЧНИКЕ ===== */
     .founder-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 48px;
-      backdrop-filter: var(--glass);
-      box-shadow: var(--shadow);
+      background: var(--card-bg);         /* Фон карточки */
+      border: 1px solid var(--card-border); /* Граница карточки */
+      border-radius: 24px;                /* Скругленные углы */
+      padding: 48px;                      /* Внутренние отступы */
+      backdrop-filter: var(--glass);      /* Эффект размытия */
+      box-shadow: var(--shadow);          /* Тень карточки */
     }
+    
     .founder-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
+      display: grid;                      /* Grid-контейнер */
+      grid-template-columns: 1fr 1fr;     /* Две равные колонки */
+      gap: 64px;                          /* Отступ между колонками */
+      align-items: center;                /* Выравнивание по вертикали */
     }
+    
     .founder-photo {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
+      width: 100%;                        /* Ширина 100% */
+      border-radius: 20px;                /* Скругленные углы */
+      box-shadow: var(--shadow);          /* Тень фото */
     }
 
-    /* ===== FAQ ===== */
+    /* ===== СТИЛИ ЧАСТО ЗАДАВАЕМЫХ ВОПРОСОВ ===== */
     .faq-section {
-      margin: 120px 0;
+      margin: 120px 0;                    /* Внешние отступы */
     }
+    
     .faq-item {
-      margin-bottom: 16px;
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      overflow: hidden;
+      margin-bottom: 16px;                /* Нижний отступ между вопросами */
+      border: 1px solid var(--card-border); /* Граница элемента */
+      border-radius: 16px;                /* Скругленные углы */
+      overflow: hidden;                   /* Скрытие переполненного содержимого */
     }
+    
     .faq-question {
-      padding: 18px 24px;
-      background: var(--card-bg);
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 18px 24px;                 /* Внутренние отступы */
+      background: var(--card-bg);         /* Фон вопроса */
+      font-weight: 600;                   /* Полужирность текста */
+      cursor: pointer;                    /* Курсор-указатель */
+      display: flex;                      /* Flex-контейнер */
+      justify-content: space-between;     /* Распределение по краям */
+      align-items: center;                /* Выравнивание по вертикали */
     }
+    
     .faq-answer {
-      padding: 0 24px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 24px;                    /* Начальные внутренние отступы */
+      max-height: 0;                      /* Начальная максимальная высота */
+      overflow: hidden;                   /* Скрытие переполненного содержимого */
+      transition: max-height 0.3s ease, padding 0.3s ease; /* Плавный переход */
     }
+    
     .faq-answer.open {
-      padding: 24px;
-      max-height: 500px;
+      padding: 24px;                      /* Внутренние отступы при открытии */
+      max-height: 500px;                  /* Максимальная высота при открытии */
     }
 
-    /* ===== ГАЛЕРЕЯ ===== */
+    /* ===== СТИЛИ ГАЛЕРЕИ ===== */
     .gallery-section {
-      margin: 120px 0;
+      margin: 120px 0;                    /* Внешние отступы */
     }
+    
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      display: grid;                      /* Grid-контейнер */
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Адаптивные колонки */
+      gap: 20px;                          /* Отступ между элементами */
     }
+    
     .gallery-item {
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
+      border-radius: 16px;                /* Скругленные углы */
+      overflow: hidden;                   /* Скрытие переполненного содержимого */
+      box-shadow: var(--shadow);          /* Тень элемента */
     }
+    
     .gallery-item img {
-      width: 100%;
-      height: auto;
-      display: block;
+      width: 100%;                        /* Ширина 100% */
+      height: auto;                       /* Автоматическая высота */
+      display: block;                     /* Отображение как блок */
     }
 
-    /* ===== ПОДВАЛ ===== */
+    /* ===== СТИЛИ ПОДВАЛА ===== */
     footer {
-      text-align: center;
-      padding: 70px 0 50px;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      margin-top: 100px;
-      border-top: 1px solid var(--card-border);
+      text-align: center;                 /* Центрирование текста */
+      padding: 70px 0 50px;               /* Внутренние отступы */
+      color: var(--text-secondary);       /* Цвет текста */
+      font-size: 0.95rem;                 /* Размер шрифта */
+      margin-top: 100px;                  /* Верхний отступ */
+      border-top: 1px solid var(--card-border); /* Граница сверху */
     }
 
-    /* ===== МОДАЛЬНОЕ ОКНО ===== */
+    /* ===== СТИЛИ МОДАЛЬНОГО ОКНА ===== */
     .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.65);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s ease;
+      position: fixed;                    /* Фиксированное позиционирование */
+      top: 0;                            /* Прижато к верху */
+      left: 0;                           /* Прижато к левому краю */
+      width: 100%;                       /* Ширина 100% */
+      height: 100%;                      /* Высота 100% */
+      background: rgba(0,0,0,0.65);       /* Полупрозрачный черный фон */
+      display: flex;                      /* Flex-контейнер */
+      align-items: center;                /* Выравнивание по вертикали */
+      justify-content: center;            /* Выравнивание по горизонтали */
+      z-index: 2000;                     /* Высокий z-index */
+      opacity: 0;                        /* Начальная прозрачность */
+      visibility: hidden;                 /* Начальное скрытие */
+      transition: all 0.4s ease;          /* Плавный переход */
     }
+    
     .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
+      opacity: 1;                        /* Полная видимость при активации */
+      visibility: visible;               /* Видимость при активации */
     }
+    
     .modal {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 44px;
-      max-width: 620px;
-      width: 92%;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.45);
-      transform: scale(0.92);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: var(--card-bg);         /* Фон модального окна */
+      border: 1px solid var(--card-border); /* Граница модального окна */
+      border-radius: 22px;                /* Скругленные углы */
+      padding: 44px;                      /* Внутренние отступы */
+      max-width: 620px;                   /* Максимальная ширина */
+      width: 92%;                         /* Ширина */
+      box-shadow: 0 24px 70px rgba(0,0,0,0.45); /* Тень */
+      transform: scale(0.92);             /* Начальный масштаб */
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Плавный переход */
     }
+    
     .modal-overlay.active .modal {
-      transform: scale(1);
+      transform: scale(1);                /* Полный масштаб при активации */
     }
+    
     .modal h3 {
-      font-size: 1.6rem;
-      margin-bottom: 22px;
-      color: var(--accent);
+      font-size: 1.6rem;                  /* Размер шрифта заголовка */
+      margin-bottom: 22px;                /* Нижний отступ */
+      color: var(--accent);               /* Цвет заголовка */
     }
+    
     .modal p {
-      margin-bottom: 26px;
-      font-size: 1.15rem;
-      line-height: 1.7;
+      margin-bottom: 26px;                /* Нижний отступ параграфа */
+      font-size: 1.15rem;                 /* Размер шрифта */
+      line-height: 1.7;                   /* Межстрочный интервал */
     }
+    
     .modal-close {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 13px 30px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 1.05rem;
-      cursor: pointer;
-      transition: background 0.25s;
+      background: var(--accent);          /* Фон кнопки */
+      color: white;                       /* Белый цвет текста */
+      border: none;                       /* Убираем границу */
+      padding: 13px 30px;                 /* Внутренние отступы */
+      border-radius: 14px;                /* Скругленные углы */
+      font-weight: 700;                   /* Полужирность текста */
+      font-size: 1.05rem;                 /* Размер шрифта */
+      cursor: pointer;                    /* Курсор-указатель */
+      transition: background 0.25s;       /* Плавный переход фона */
     }
+    
     .modal-close:hover {
-      background: #00c2a8;
+      background: #00c2a8;               /* Изменение фона при наведении */
     }
 
-    /* ===== АДАПТИВ ===== */
+    /* ===== АДАПТИВНЫЕ СТИЛИ ===== */
     @media (max-width: 900px) {
       .founder-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr;       /* Одна колонка для карточки печника */
       }
-      .hero h1 { font-size: 3.4rem; }
-      .hero p { font-size: 1.25rem; }
+      .hero h1 { font-size: 3.4rem; }     /* Уменьшение заголовка */
+      .hero p { font-size: 1.25rem; }     /* Уменьшение текста */
     }
+    
     @media (max-width: 600px) {
       .hero {
-        padding: 140px 0 100px;
+        padding: 140px 0 100px;           /* Уменьшение отступов героя */
       }
-      .hero h1 { font-size: 2.8rem; }
-      .hero p { font-size: 1.15rem; }
+      .hero h1 { font-size: 2.8rem; }     /* Дальнейшее уменьшение заголовка */
+      .hero p { font-size: 1.15rem; }     /* Дальнейшее уменьшение текста */
       .btn {
-        padding: 16px 40px;
-        font-size: 1.15rem;
+        padding: 16px 40px;               /* Уменьшение отступов кнопки */
+        font-size: 1.15rem;               /* Уменьшение размера шрифта кнопки */
       }
-      .nav-links { display: none; }
-      .header-claim-btn { display: none; }
-      .container { padding: 0 16px; }
+      .nav-links { display: none; }       /* Скрытие навигационных ссылок */
+      .header-claim-btn { display: none; } /* Скрытие кнопки заявки */
+      .container { padding: 0 16px; }     /* Уменьшение отступов контейнера */
       .glass-card,
       .founder-card {
-        padding: 36px 24px;
+        padding: 36px 24px;               /* Уменьшение отступов карточек */
       }
-      .logo-text { font-size: 1.5rem; }
-      .logo-icon { width: 28px; height: 28px; }
+      .logo-text { font-size: 1.5rem; }   /* Уменьшение размера логотипа */
+      .logo-icon { width: 28px; height: 28px; } /* Уменьшение размера иконки */
     }
   </style>
   <!-- === ШРИФТ === -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body class="theme-dark">
+<body class="theme-light"> <!-- Установлена светлая тема -->
 
   <!-- === ШАПКА САЙТА === -->
   <header>
@@ -485,7 +514,7 @@
         <a href="article.html" class="nav-link">Статьи</a>
       </nav>
       <a href="#" class="header-claim-btn" id="header-claim">Оставить заявку</a>
-      <div class="theme-icon" id="theme-toggle">☀️</div>
+      <!-- УБРАЛИ КНОПКУ ПЕРЕКЛЮЧЕНИЯ ТЕМЫ -->
     </div>
   </header>
 
@@ -670,23 +699,8 @@
   </div>
 
   <script>
-    // === ПЕРЕКЛЮЧЕНИЕ ТЕМЫ (светлая/тёмная) ===
-    const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const saved = localStorage.getItem('theme');
-    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved || (sysDark ? 'dark' : 'light');
-    body.classList.toggle('theme-dark', theme === 'dark');
-    body.classList.toggle('theme-light', theme === 'light');
-    toggle.textContent = theme === 'dark' ? '🌙' : '☀️';
-    toggle.addEventListener('click', () => {
-      const newTheme = body.classList.contains('theme-dark') ? 'light' : 'dark';
-      body.classList.toggle('theme-dark', newTheme === 'dark');
-      body.classList.toggle('theme-light', newTheme === 'light');
-      localStorage.setItem('theme', newTheme);
-      toggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-    });
-
+    // === УБРАЛИ ФУНКЦИОНАЛЬНОСТЬ ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===
+    
     // === МОДАЛЬНОЕ ОКНО ===
     const modal = document.getElementById('modal');
     const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim');
@@ -725,3 +739,4 @@
 
 </body>
 </html>
+
