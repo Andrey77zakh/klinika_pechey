@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
   <!-- === SEO ЗАГОЛОВОК СТРАНИЦЫ === -->
-  <title>Ремонт кирпичных печей в Петрозаводске и по РФ | Клиника Печей</title>
+  <title>Ремонт кирпичных печей по РФ | Клиника Печей</title>
   
   <!-- === SEO ОПИСАНИЕ СТРАНИЦЫ === -->
   <meta name="description" content="Ремонт кирпичных печей без сноса. Вызвать печника. Решаем проблемы: дымит, не греет, трескается. Работаем с 1993 года.">
@@ -18,14 +18,14 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Клиника Печей",
-    "image": "images/andrey.jpg", <!-- Изменил на относительный путь -->
+    "image": "images/andrey_photo.png", <!-- Изменил на относительный путь и новое имя -->
     "address": {
       "@type": "PostalAddress",
       "addressRegion": "Россия",
       "addressLocality": "Северо-Западный и Центральный округ"
     },
     "url": "https://example.com",
-    "telephone": "+7-XXX-XXX-XX-XX",
+    "telephone": "+7-960-218-84-00",
     "email": "librikapp@gmail.com",
     "areaServed": ["RU"],
     "serviceType": ["Ремонт кирпичных печей", "Консультации печника", "Диагностика"],
@@ -44,12 +44,13 @@
     :root {
       --text-primary-light: #1e293b;       /* Основной цвет текста */
       --text-secondary-light: #475569;     /* Второстепенный цвет текста */
-      --bg-light: #ffffff;                 /* Цвет фона */
+      --bg-light: #defdff;                 /* Цвет фона */
       --card-bg-light: #ffffff;            /* Цвет фона карточек */
-      --card-border-light: #e2e8f0;        /* Цвет границ карточек */
-      --accent: #0ea5e9;                   /* Акцентный цвет (голубой) */
-      --accent2: #3b82f6;                  /* Второй акцентный цвет (синий) */
+      --card-border-light: #d3dff0;        /* Цвет границ карточек */
+      --accent: #0da2e7;                   /* Акцентный цвет (голубой) */
+      --accent2: #0d2ee7;                  /* Второй акцентный цвет (синий) */
       --shadow-light: 0 4px 12px rgba(0,0,0,0.05); /* Легкая тень */
+      --timeline-color: #0da2e7;           /* Цвет линии последовательности */
     }
     
     /* ===== КЛАСС ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
@@ -83,7 +84,7 @@
     
     /* ===== ОГРАНИЧЕНИЕ ШИРИНЫ КОНТЕНТА ===== */
     .container {
-      max-width: 1400px;                  /* Максимальная ширина контейнера */
+      max-width: 100%;                    /* Убираем ограничение ширины */
       margin: 0 auto;                     /* Центрирование */
       padding: 0 24px;                    /* Внутренние отступы */
     }
@@ -178,7 +179,7 @@
 
     /* ===== КНОПКА "Оставить заявку" — живая ===== */
     .header-claim-btn {
-      background: linear-gradient(135deg, var(--accent2), #1d4ed8); /* Градиентный фон */
+      background: linear-gradient(135deg, #0da2e7, var(--accent2)); /* Градиентный фон */
       color: white;                       /* Белый цвет текста */
       padding: 10px 22px;                 /* Внутренние отступы */
       border-radius: 14px;                /* Скругленные углы */
@@ -198,7 +199,7 @@
     /* ===== КНОПКА "Вызвать печника" — живая ===== */
     .btn {
       display: inline-block;              /* Отображение как инлайн-блок */
-      background: linear-gradient(135deg, var(--accent2), #1d4ed8); /* Градиентный фон */
+      background: linear-gradient(135deg, #0da2e7, var(--accent2)); /* Градиентный фон */
       color: white;                       /* Белый цвет текста */
       padding: 18px 50px;                 /* Внутренние отступы */
       border-radius: 18px;                /* Скругленные углы */
@@ -223,7 +224,7 @@
         transform: scale(1);              /* Начальный масштаб */
       }
       50% {
-        transform: scale(1.05);           /* Увеличение в середине анимации */
+        transform: scale(1.1);           /* Увеличение в середине анимации */
       }
       100% {
         transform: scale(1);              /* Возврат к исходному масштабу */
@@ -243,35 +244,40 @@
     }
 
     /* ===== СТИЛИ ГЕРОЯ (ШАПКА СТРАНИЦЫ) ===== */
+    /* Убедитесь, что .hero имеет position: relative; (уже есть в вашем коде) */
     .hero {
       text-align: center;                 /* Центрирование текста */
       padding: 180px 0 140px;             /* Внутренние отступы */
-      position: relative;                 /* Относительное позиционирование */
+      position: relative;                 /* Относительное позиционирование - УЖЕ ЕСТЬ */
       overflow: hidden;                   /* Скрытие переполненного содержимого */
       width: 100vw;                       /* Ширина на весь вьюпорт */
       left: 50%;                          /* Смещение влево */
       right: 50%;                         /* Смещение вправо */
       margin-left: -50vw;                 /* Отрицательный левый отступ */
       margin-right: -50vw;                /* Отрицательный правый отступ */
+      /* margin-top: -72px; УБРАНО: убираем отступ от шапки */
     }
-    
+
+    /* ===== ИСПРАВЛЕННЫЙ СТИЛЬ ФОНОВОГО ИЗОБРАЖЕНИЯ ГЕРОЯ ===== */
     .hero-bg {
-      position: absolute;                 /* Абсолютное позиционирование */
-      top: 0;                            /* Прижато к верху */
-      left: 0;                           /* Прижато к левому краю */
-      width: 100%;                       /* Ширина 100% */
-      height: 100%;                      /* Высота 100% */
-      background-image: url('images/hero-bg.jpg'); /* Фоновое изображение */
-      background-size: cover;             /* Изображение заполняет контейнер */
+      position: absolute;                 /* ВЕРНУЛИСЬ к абсолютному позиционированию */
+      top: 0;                            /* Прижато к верху родителя (.hero) */
+      left: 0;                           /* Прижато к левому краю родителя (.hero) */
+      right: 0;                          /* НОВОЕ: Прижато к правому краю родителя (.hero) */
+      /* width: 100%; УБРАНО: больше не нужно */
+      height: 100%;                      /* Высота 100% от родителя (.hero) */
+      background-image: url('images/hero_bg.png'); /* Путь к изображению */
+      background-size: cover;             /* Изображение заполняет область */
       background-position: center;        /* Центрирование изображения */
-      opacity: 0.5;                      /* Прозрачность */
-      z-index: -1;                       /* Отрицательный z-index для фона */
+      background-repeat: no-repeat;       /* Изображение не повторяется */
+      opacity: 0.85;                      /* Прозрачность */
+      z-index: -1;                       /* Под содержимым .hero */
     }
-    
+        
     .hero-content {
       position: relative;                 /* Относительное позиционирование */
       z-index: 2;                        /* Высокий z-index для отображения поверх фона */
-      max-width: 1000px;                  /* Максимальная ширина */
+      max-width: 100%;                    /* Убираем ограничение ширины */
       margin: 0 auto;                     /* Центрирование */
       padding: 0 20px;                    /* Внутренние отступы */
       background: rgba(0, 0, 0, 0.25);    /* Полупрозрачный черный фон */
@@ -292,7 +298,7 @@
     .hero p {
       font-size: 1.4rem;                  /* Размер шрифта параграфа */
       color: white;                       /* Белый цвет текста */
-      max-width: 850px;                   /* Максимальная ширина */
+      max-width: 100%;                    /* Убираем ограничение ширины */
       margin: 0 auto 40px;                /* Центрирование и нижний отступ */
       text-shadow: 0 1px 6px rgba(0,0,0,0.4); /* Тень текста */
     }
@@ -305,6 +311,8 @@
       padding: 48px;                      /* Внутренние отступы */
       backdrop-filter: var(--glass);      /* Эффект размытия */
       box-shadow: var(--shadow);          /* Тень карточки */
+      width: 100%;                        /* Расширяем на всю ширину */
+      margin: 0;                          /* Убираем внешние отступы */
     }
 
     /* ===== СТИЛИ КАРТОЧКИ О ПЕЧНИКЕ ===== */
@@ -315,6 +323,8 @@
       padding: 48px;                      /* Внутренние отступы */
       backdrop-filter: var(--glass);      /* Эффект размытия */
       box-shadow: var(--shadow);          /* Тень карточки */
+      width: 100%;                        /* Расширяем на всю ширину */
+      margin: 0;                          /* Убираем внешние отступы */
     }
     
     .founder-content {
@@ -322,6 +332,7 @@
       grid-template-columns: 1fr 1fr;     /* Две равные колонки */
       gap: 64px;                          /* Отступ между колонками */
       align-items: center;                /* Выравнивание по вертикали */
+      width: 100%;                        /* Расширяем на всю ширину */
     }
     
     .founder-photo {
@@ -340,6 +351,7 @@
       border: 1px solid var(--card-border); /* Граница элемента */
       border-radius: 16px;                /* Скругленные углы */
       overflow: hidden;                   /* Скрытие переполненного содержимого */
+      width: 100%;                        /* Расширяем на всю ширину */
     }
     
     .faq-question {
@@ -352,11 +364,19 @@
       align-items: center;                /* Выравнивание по вертикали */
     }
     
+    .faq-question span {
+        font-size: 1.15rem;               /* Изменение: увеличен размер шрифта вопроса */
+    }
+    
     .faq-answer {
       padding: 0 24px;                    /* Начальные внутренние отступы */
       max-height: 0;                      /* Начальная максимальная высота */
       overflow: hidden;                   /* Скрытие переполненного содержимого */
       transition: max-height 0.3s ease, padding 0.3s ease; /* Плавный переход */
+    }
+    
+    .faq-answer p {
+        font-size: 1.15rem;               /* Изменение: увеличен размер шрифта ответа */
     }
     
     .faq-answer.open {
@@ -373,12 +393,14 @@
       display: grid;                      /* Grid-контейнер */
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Адаптивные колонки */
       gap: 20px;                          /* Отступ между элементами */
+      width: 100%;                        /* Расширяем на всю ширину */
     }
     
     .gallery-item {
       border-radius: 16px;                /* Скругленные углы */
       overflow: hidden;                   /* Скрытие переполненного содержимого */
       box-shadow: var(--shadow);          /* Тень элемента */
+      width: 100%;                        /* Расширяем на всю ширину */
     }
     
     .gallery-item img {
@@ -395,6 +417,7 @@
       font-size: 0.95rem;                 /* Размер шрифта */
       margin-top: 100px;                  /* Верхний отступ */
       border-top: 1px solid var(--card-border); /* Граница сверху */
+      width: 100%;                        /* Расширяем на всю ширину */
     }
 
     /* ===== СТИЛИ МОДАЛЬНОГО ОКНА ===== */
@@ -463,10 +486,255 @@
       background: #00c2a8;               /* Изменение фона при наведении */
     }
 
+    /* ===== СТИЛИ ЭТАПОВ РАБОТЫ (ГОРИЗОНТАЛЬНАЯ ЛИНИЯ) ===== */
+    .timeline-container {
+      display: flex;
+      flex-direction: row; /* на row */
+      justify-content: center;
+      align-items: center; /* Выравнивание по центру */
+      position: relative;
+      padding: 20px 0;
+      gap: 40px; /* Отступ между элементами */
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%; /* Линия по центру */
+      height: 4px; /* Высота линии */
+      background-color: var(--timeline-color);
+      transform: translateY(-50%); /* Смещение на половину высоты */
+      z-index: 1;
+      width: 100%;
+    }
+
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      min-width: 100px; /* Минимальная ширина для выравнивания */
+    }
+
+    .timeline-step-icon {
+      width: 64px;
+      height: 64px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--timeline-color);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+      z-index: 3;
+      position: relative; /* Чтобы иконка была поверх линии */
+    }
+
+    .timeline-step-icon img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+
+    .timeline-step p {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      /* background-color: var(--card-bg); УБРАНО: Фон для текста, чтобы линия не перекрывала */
+      padding: 0 10px;
+      display: inline-block;
+    }
+
+
+    /* ===== СТИЛИ МОДАЛЬНЫХ ОКНА ИЗОБРАЖЕНИЙ ===== */
+
+    /* Стили для изображений в секции сертификации */
+    .cert-image {
+      cursor: pointer; /* Курсор-указатель при наведении */
+      transition: transform 0.2s ease; /* Плавный переход при наведении */
+      border-radius: 16px; /* Сохраняем скругление */
+      box-shadow: var(--shadow); /* Сохраняем тень */
+      width: 100%; /* Ширина 100% от родительского контейнера */
+      max-width: 200px; /* Ограничение ширины */
+    }
+
+    .cert-image:hover {
+      transform: scale(1.03); /* Легкое увеличение при наведении */
+    }
+
+    /* Общие стили для оверлея модального окна */
+    .modal-overlay-cert,
+    .modal-overlay-warranty {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9); /* Более темный фон */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000; /* Высокий z-index */
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay-cert.active,
+    .modal-overlay-warranty.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Стили для контента модального окна */
+    .modal-cert,
+    .modal-warranty {
+      position: relative; /* Для позиционирования крестика */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 90%; /* Ширина контента */
+      height: 90%; /* Высота контента */
+    }
+
+    /* Стили для крестика закрытия */
+    .modal-close-cert,
+    .modal-close-warranty {
+      position: absolute;
+      top: 15px; /* Отступ сверху */
+      right: 20px; /* Отступ справа */
+      font-size: 2.5rem; /* Размер крестика */
+      color: white; /* Цвет крестика */
+      cursor: pointer; /* Курсор-указатель */
+      z-index: 10; /* Выше изображения */
+      background: rgba(0, 0, 0, 0.5); /* Фон для крестика */
+      border-radius: 50%; /* Круглый фон */
+      width: 40px; /* Ширина фона */
+      height: 40px; /* Высота фона */
+      display: flex; /* Flex для центрирования */
+      align-items: center; /* Центрирование по вертикали */
+      justify-content: center; /* Центрирование по горизонтали */
+      transition: background 0.3s; /* Плавный переход фона */
+    }
+
+    .modal-close-cert:hover,
+    .modal-close-warranty:hover {
+      background: rgba(0, 0, 0, 0.8); /* Темнее фон при наведении */
+    }
+
+    /* Стили для увеличенного изображения */
+    .modal-cert-img,
+    .modal-warranty-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* Изображение вписывается в контейнер */
+      border-radius: 8px; /* Небольшое скругление для изображения в модальном окне */
+      z-index: 5; /* Ниже крестика */
+    }
+
+
+    /* ===== СТИЛИ СЕКЦИИ "КТО МЫ" ===== */
+    .about-us-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr; /* Текст и изображение (порядок изменён) */
+      gap: 40px;
+      align-items: start;
+    }
+
+    .about-us-content img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      justify-self: end; /* Выравнивание изображения по правому краю контейнера */
+    }
+
+    .about-us-content .text-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ===== СТИЛИ ОБЪЕДИНЕННОЙ СЕКЦИИ "СЕРТИФИКАЦИЯ И ГАРАНТИИ" ===== */
+    .cert-and-warranty-section {
+        margin: 120px 0;
+    }
+
+    .cert-and-warranty-content {
+        display: grid;
+        grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+        gap: 40px;
+        align-items: start;
+    }
+
+    .images-container {
+        display: flex;
+        flex-direction: row; /* Изображения в ряд */
+        gap: 20px; /* Отступ между изображениями */
+        align-self: stretch; /* Растягиваем по высоте контента справа */
+    }
+
+    .images-container img {
+        width: 100%;
+        max-width: 200px; /* Ограничение ширины изображений */
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+    }
+
+    .text-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     /* ===== АДАПТИВНЫЕ СТИЛИ ===== */
     @media (max-width: 900px) {
       .founder-content {
         grid-template-columns: 1fr;       /* Одна колонка для карточки печника */
+      }
+      .about-us-content,
+      .cert-and-warranty-content {
+        grid-template-columns: 1fr; /* На мобильных - изображение и текст друг под другом */
+        grid-template-areas:
+          "text"
+          "images";
+      }
+      .about-us-content img,
+      .cert-and-warranty-content .images-container {
+        max-width: 100%;
+        justify-self: stretch; /* Сбрасываем выравнивание на мобильных */
+      }
+      .timeline-container {
+        flex-direction: column; /* На мобильных вернёмся к вертикальному расположению */
+        gap: 30px;
+      }
+      .timeline-container::before {
+        width: 4px; /* Ширина линии */
+        height: 100%; /* Высота линии */
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .timeline-step {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        width: 100%;
+        max-width: 600px;
+        margin: 0;
+      }
+      .timeline-step-icon {
+        margin-right: 15px;
+        margin-bottom: 0; /* Убираем нижний отступ, так как иконка теперь слева */
+      }
+      .timeline-step p {
+        background: none; /* Убираем фон текста на мобильных для лучшего отображения */
+        padding: 0;
       }
       .hero h1 { font-size: 3.4rem; }     /* Уменьшение заголовка */
       .hero p { font-size: 1.25rem; }     /* Уменьшение текста */
@@ -492,7 +760,9 @@
       .logo-text { font-size: 1.5rem; }   /* Уменьшение размера логотипа */
       .logo-icon { width: 28px; height: 28px; } /* Уменьшение размера иконки */
     }
+
   </style>
+
   <!-- === ШРИФТ === -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -510,7 +780,7 @@
     <div class="nav-right">
       <nav class="nav-links">
         <a href="index.html" class="nav-link active">Главная</a>
-        <a href="innor.html" class="nav-link">ИННОР</a>
+        <!-- УБРАНА ССЫЛКА НА ИННОР -->
         <a href="article.html" class="nav-link">Статьи</a>
       </nav>
       <a href="#" class="header-claim-btn" id="header-claim">Оставить заявку</a>
@@ -528,54 +798,288 @@
           <h1>Ремонт кирпичных печей — вызвать печного мастера</h1>
           <p>Ни одна из построенных нами печей с 1993 года не была снесена. Решаем: дымит, не греет, трескается — без сноса. Только результат.</p>
           <a href="#" class="btn" id="hero-claim">Вызвать печника</a>
+          <!-- === ДОПОЛНЕНО: Дополнительная информация под кнопкой === -->
+          <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px; flex-wrap: wrap;">
+              <div style="text-align: center;">
+                  <img src="images/contract_icon.png" alt="Работаем по договору" title="Работаем по договору" style="width: 40px; height: 40px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 0.9rem;">Работаем по договору</p>
+              </div>
+              <div style="text-align: center;">
+                  <img src="images/warranty_icon.png" alt="Гарантия на работы" title="Гарантия на работы" style="width: 40px; height: 40px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 0.9rem;">Гарантия на работы</p>
+              </div>
+              <div style="text-align: center;">
+                  <img src="images/engineering_icon.png" alt="Инженерный подход" title="Инженерный подход" style="width: 40px; height: 40px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 0.9rem;">Инженерный подход</p>
+              </div>
+              <div style="text-align: center;">
+                  <img src="images/certified_icon.png" alt="Сертифицированные услуги" title="Сертифицированные услуги" style="width: 40px; height: 40px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 0.9rem;">Сертифицированные услуги</p>
+              </div>
+          </div>
         </div>
       </section>
 
       <!-- === 2. ПРОБЛЕМЫ: дымит, не греет, трескается === -->
       <section>
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 100px 0 60px; color: var(--accent);">Почему ваша печь дымит, не греет или трескается?</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Почему ваша печь дымит, не греет или трескается?</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; width: 100%;">
           <div class="glass-card">
             <!-- ✅ SEO: Иконка проблемы -->
-            <img src="images/smoke.png" alt="Почему дымит печь — причины и решение от печника" title="Почему дымит печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy">
+            <img src="images/smoke_icon.png" alt="Почему дымит печь — причины и решение от печника" title="Почему дымит печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
             <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему дымит?</h3>
             <p>Плохая тяга, засор в дымоходе или неправильные дымообороты. Печной мастер устраняет причину — не маскирует симптомы.</p>
           </div>
           <div class="glass-card">
             <!-- ✅ SEO: Иконка проблемы -->
-            <img src="images/flame.png" alt="Почему не греет печь — причины и ремонт от печника" title="Почему не греет печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy">
+            <img src="images/no_heat_icon.png" alt="Почему не греет печь — причины и ремонт от печника" title="Почему не греет печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
             <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему не греет?</h3>
             <p>Пламя уходит в трубу, нет рекуперации, трещины в кладке. Проводим ремонт кирпичной печи — без сноса.</p>
           </div>
           <div class="glass-card">
             <!-- ✅ SEO: Иконка проблемы -->
-            <img src="images/crack.png" alt="Трещины в кирпичной печи — как устранить без сноса" title="Трещины в печи" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy">
+            <img src="images/crack_icon.png" alt="Трещины в кирпичной печи — как устранить без сноса" title="Трещины в печи" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
             <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Трещины в печи</h3>
             <p>Термические напряжения, неправильная кладка, отсутствие компенсационных швов. Устраняем корень проблемы.</p>
+          </div>
+          <div class="glass-card"> <!-- Новая карточка -->
+            <!-- ✅ SEO: Иконка проблемы -->
+            <img src="images/insulation_icon.png" alt="Утечка тепла из-за проблем с утеплением дома" title="Проблемы с утеплением" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Новое имя файла -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Утепление дома</h3>
+            <p>Утечка тепла из дома. Печь может не справляться с обогревом из-за плохой теплоизоляции здания.</p>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 40px;">
+            <a href="article.html" class="nav-link" style="color: var(--accent); text-decoration: underline; font-size: 1.2rem;">Описание Диагностики</a> <!-- Ссылка на статью/страницу диагностики, стилизована как ссылка -->
+        </p>
+      </section>
+
+      <!-- === 3. НАШ ПОДХОД (Новая секция) === -->
+    <section class="approach-section"> <!-- Добавлен класс для секции -->
+      <!-- Новый обертывающий контейнер -->
+      <div class="approach-content-wrapper">
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Инженерный подход к ремонту</h2>
+        <div class="glass-card">
+          <p style="font-size: 1.2rem; line-height: 1.8;">
+            Мы не просто чиним кирпичные печи — мы <strong>пересоздаём их изнутри</strong>, используя <strong>физику, расчёты и инженерный подход</strong>.
+            После диагностики и ремонта у вас будет <strong>документ с полными характеристиками вашей печи и её внутренним устройством</strong>.
+          </p>
+        </div>
+        <!-- Пример изображений для секции (нужно заменить на реальные) -->
+        <div style="display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap;">
+            <img src="images/schematic_example.png" alt="Схема устройства дымооборотов печи" title="Схема дымооборотов" style="width: 40%; max-width: 350px; border-radius: 16px; box-shadow: var(--shadow);" loading="lazy"> <!-- Предполагаемое имя файла, увеличено -->
+            <img src="images/doc_example.png" alt="Пример страницы документа с характеристиками печи" title="Пример документа" style="width: 40%; max-width: 350px; border-radius: 16px; box-shadow: var(--shadow);" loading="lazy"> <!-- Предполагаемое имя файла, увеличено -->
+        </div>
+      </div>
+    </section>
+
+      <!-- === 4. ЭТАПЫ РАБОТЫ (Новая секция) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Как мы работаем</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px;">
+            Заявка на ремонт и консультация - назначение даты ремонта - Выезд - Диагностика - Расчёт - Ремонт - Гарантия
+        </p>
+        <div class="timeline-container">
+            <div class="timeline-step">
+                <div class="timeline-step-icon">
+                    <img src="images/application_icon.png" alt="Заявка" loading="lazy">
+                </div>
+                <p>Заявка</p>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-icon">
+                    <img src="images/schedule_icon.png" alt="Назначение даты" loading="lazy">
+                </div>
+                <p>Дата</p>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-icon">
+                    <img src="images/visit_icon.png" alt="Выезд" loading="lazy">
+                </div>
+                <p>Выезд</p>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-icon">
+                    <img src="images/diagnostic_icon.png" alt="Диагностика" loading="lazy">
+                </div>
+                <p>Диагностика</p>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-icon">
+                    <img src="images/calculation_icon.png" alt="Расчёт" loading="lazy">
+                </div>
+                <p>Расчёт</p>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-icon">
+                    <img src="images/repair_icon.png" alt="Ремонт" loading="lazy">
+                </div>
+                <p>Ремонт</p>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-icon">
+                    <img src="images/warranty_icon.png" alt="Гарантия" loading="lazy">
+                </div>
+                <p>Гарантия</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- === 5. Наши услуги (оригинальная секция, немного изменена) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Услуги по ремонту кирпичных печей</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; width: 100%;"> <!-- Изменил min-width карточки -->
+          <div class="glass-card">
+            <img src="images/consultation_icon.png" alt="Консультация" title="Консультация" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Консультация</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Специалист ответит на все важные и сложные вопросы</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 5 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/diagnostic_icon.png" alt="Диагностика" title="Диагностика" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Диагностика</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">С заключением на профессиональном оборудовании</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 20 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/project_icon.png" alt="Разработка индивидуального проекта новой печи" title="Проект новой печи" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Проект новой печи</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Индивидуальная разработка</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 10 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/repair_no_demolition_icon.png" alt="Ремонт без сноса" title="Ремонт без сноса" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Ремонт без сноса</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Решение проблем: дымит, не греет.</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 30 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/inspection_icon.png" alt="Плановый технический осмотр" title="Плановый техосмотр" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Плановый осмотр</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Для профилактики и чистки печи</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 20 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/structural_repair_icon.png" alt="Конструкционный ремонт" title="Конструкционный ремонт" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Конструкционный ремонт</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Реконструкция устройсва печи</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 40 000 ₽</div>
+          </div>
+        </div>
+        <p style="text-align: center; margin: 28px 0; color: var(--text-secondary); font-size: 1.1rem;">Минимальная стоимость вызова мастера — от 20 000 ₽.</p>
+        <p style="text-align: center; margin: 14px 0; color: var(--text-secondary); font-size: 1.1rem;">Мы с радостью приедем - при условии, что набирается минимум 10–15 заявок в вашей местности.</p>
+        <p style="text-align: center; margin: 14px 0; color: var(--text-secondary); font-size: 1.1rem;">Работаем в СНТ, ДНП, деревнях, поселениях и загородных домах по Северо-Западному и Центральному округу РФ.</p>
+      </section>
+
+      <!-- === 6. Клиника Печей в цифрах (обновлённая секция) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Клиника Печей в цифрах</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; width: 100%;">
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">30+</div>
+                <p>Работаем с 1993 года</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">0!</div>
+                <p>Ни одной снесенной печи, построенной нами</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">400+</div>
+                <p>Печей построено или отремонтировано</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">22</div>
+                <p>Работаем в регионах России</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">4 ч.</div>
+                <p>Среднее время устранения проблемы (часа)</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">100+</div>
+                <p>Знаем если не все, то почти все типы печей и каминов</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">25%</div>
+                <p>Среднее повышение КПД после ремонта</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- === 7. О НАС (Новая секция) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Кто мы</h2>
+        <div class="glass-card">
+          <!-- <p style="font-size: 1.2rem; line-height: 1.8; text-align: center;"> -->
+            <!-- Команда инженеров и печников. -->
+          <!-- </p> -->
+          <!-- Пример изображений для секции (нужно заменить на реальные) -->
+          <div class="about-us-content">
+            <div class="text-content">
+              <p style="font-size: 1.2rem; line-height: 1.8;">
+                Команда инженеров и печников.
+              </p>
+              <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 15px;">
+                Мы объединяем глубокие технические знания и многолетний практический опыт в области печного дела. Наша цель — предоставить клиентам надёжные, долговечные и эффективные решения для отопления и уюта в доме.
+              </p>
+            </div>
+            <img src="images/team_photo.png" alt="Команда Клиники Печей" title="Команда специалистов" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy"> <!-- Предполагаемое имя файла, перемещено -->
           </div>
         </div>
       </section>
 
-      <!-- === 3. Почему мы — не просто печник -->
-      <section>
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 70px; color: var(--accent);">Почему мы — не просто печник?</h2>
-        <div class="glass-card">
-          <p style="font-size: 1.2rem; line-height: 1.8;">
-            Мы не просто чиним кирпичные печи — мы <strong>пересоздаём их изнутри</strong>, используя <strong>физику, расчёты и инженерный подход</strong>. 
-            С 1993 года <strong>ни одна печь не была снесена</strong> — даже при серьёзных трещинах и задымлении. 
-            Мы не перекладываем «по старинке» — мы <strong>перепроектируем дымообороты</strong>, улучшаем тягу, добавляем рекуперацию и подачу воздуха с улицы. 
-            Всё — без сноса и без потери внешнего вида.
-          </p>
-        </div>
+      <!-- === 8. ОБЪЕДИНЁННАЯ СЕКЦИЯ "СЕРТИФИКАЦИЯ И ГАРАНТИИ" === -->
+      <section class="cert-and-warranty-section">
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Сертификация и гарантии</h2>
+          <div class="glass-card">
+              <div class="cert-and-warranty-content">
+                  <div class="images-container">
+                      <!-- Изображения теперь являются кнопками для открытия модального окна -->
+                      <img src="images/certificate.png" alt="Сертификат соответствия услуг Клиники Печей" title="Сертификат" loading="lazy" class="cert-image" data-modal="cert-modal">
+                      <img src="images/warranty_document_example.png" alt="Образец гарантийного талона Клиники Печей" title="Гарантийный талон" loading="lazy" class="cert-image" data-modal="warranty-modal">
+                  </div>
+                  <div class="text-content">
+                      <p style="font-size: 1.2rem; line-height: 1.8;">
+                          Все наши услуги сертифицированы. Соответствие стандартам качества. Работаем честно. Даём гарантию на работы. Каждый клиент получает официальный гарантийный талон, подтверждающий качество выполненных работ и сроки их действия.
+                      </p>
+                      <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 15px;">
+                          Гарантия распространяется на все виды работ и оговаривается в договоре. Подробности об условиях гарантии обсуждаются индивидуально при заключении соглашения.
+                      </p>
+                  </div>
+              </div>
+          </div>
       </section>
 
-      <!-- === 4. О нашем печнике -->
+      <!-- === МОДАЛЬНЫЕ ОКНА ДЛЯ ИЗОБРАЖЕНИЙ === -->
+      <!-- Модальное окно для сертификата -->
+      <div class="modal-overlay-cert" id="cert-modal">
+        <div class="modal-cert">
+          <span class="modal-close-cert" data-modal="cert-modal">&times;</span> <!-- Крестик закрытия -->
+          <img src="images/certificate.png" alt="Сертификат соответствия услуг Клиники Печей" class="modal-cert-img">
+        </div>
+      </div>
+
+      <!-- Модальное окно для гарантийного талона -->
+      <div class="modal-overlay-warranty" id="warranty-modal">
+        <div class="modal-warranty">
+          <span class="modal-close-warranty" data-modal="warranty-modal">&times;</span> <!-- Крестик закрытия -->
+          <img src="images/warranty_document_example.png" alt="Образец гарантийного талона Клиники Печей" class="modal-warranty-img">
+        </div>
+      </div>
+
+      <!-- === 9. Технологии от Андрея Захарченко (оригинальная секция, немного изменена) === -->
       <section>
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 70px; color: var(--accent);">Инженер-печник с 30-летним стажем</h2>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Андрей Захарченко</h2>
         <div class="founder-card">
           <div class="founder-content">
             <div>
-              <h3 style="font-size: 2.0rem; margin-bottom: 26px;">Андрей Захарченко</h3>
+              <h3 style="font-size: 2.0rem; margin-bottom: 26px;">Инженер-физик, печник с 30-летним стажем</h3>
               <p style="margin-bottom: 26px; font-size: 1.1rem;">Андрей Олегович Захарченко — инженер-физик, архитектор, программист и эксперт в области печного дела. Окончил МФТИ. С 1993 года профессионально занимается проектированием и строительством печей в Республике Карелия.</p>
               <ul style="margin: 26px 0; padding-left: 30px; color: var(--text-secondary); font-size: 1.05rem;">
                 <li>Разработал технологию «Вихревой Смеситель в Топливнике»</li>
@@ -588,51 +1092,178 @@
             </div>
             <div>
               <!-- ✅ SEO: Фото печника -->
-              <img src="images/andrey.jpg" alt="Андрей Захарченко — инженер-печник с 30-летним стажем, основатель Клиники Печей" title="Андрей Захарченко — инженер-печник" class="founder-photo" loading="lazy">
+              <img src="images/andrey_photo.png" alt="Андрей Захарченко — инженер-печник с 30-летним стажем, основатель Клиники Печей" title="Андрей Захарченко — инженер-печник" class="founder-photo" loading="lazy"> <!-- Изменил имя файла -->
             </div>
           </div>
         </div>
       </section>
 
-      <!-- === 5. Наши услуги -->
-      <section>
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 70px; color: var(--accent);">Услуги по ремонту кирпичных печей</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
-          <div class="glass-card">
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Ремонт печки</h3>
-            <p style="margin-bottom: 22px;">Решим проблемы: дымит, не греет, плохая тяга, конденсат, трещины по швам или кирпичам.</p>
-            <div style="font-size: 1.3rem; font-weight: 800;">от 30 000 ₽</div>
-          </div>
-          <div class="glass-card">
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Конструктивный ремонт</h3>
-            <p style="margin-bottom: 22px;">Изменим конструкцию печи и её внутренних каналов на современные, без полного разбора.</p>
-            <div style="font-size: 1.3rem; font-weight: 800;">от 50 000 ₽</div>
-          </div>
-          <div class="glass-card">
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Плановая проверка</h3>
-            <p style="margin-bottom: 22px;">Раз в 1, 2 или 3 года — для профилактики и безопасности.</p>
-            <div style="font-size: 1.3rem; font-weight: 800;">от 20 000 ₽</div>
-          </div>
-          <div class="glass-card">
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Техосмотр с актом</h3>
-            <p style="margin-bottom: 22px;">Полная диагностика вашей печи с выдачей официального заключения.</p>
-            <div style="font-size: 1.3rem; font-weight: 800;">от 20 000 ₽</div>
-          </div>
-          <div class="glass-card">
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Консультация</h3>
-            <p style="margin-bottom: 22px;">Очная или по телефону.</p>
-            <div style="font-size: 1.3rem; font-weight: 800;">от 10 000 ₽</div>
-          </div>
+      <!-- === 10. РАБОТЫ (оригинальная секция, немного изменена) === -->
+      <section class="gallery-section">
+        <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--accent);">Наши работы</h2>
+        <div class="gallery-grid">
+          <!-- ✅ SEO: Фото из галереи -->
+          <div class="gallery-item"><img src="images/work_1.png" alt="Ремонт кирпичной печи до и после — пример работ Клиники Печей" loading="lazy"></div> <!-- Изменил имя файла -->
+          <div class="gallery-item"><img src="images/work_2.png" alt="Ремонт топки печи — до и после" loading="lazy"></div> <!-- Изменил имя файла -->
+          <div class="gallery-item"><img src="images/work_3.png" alt="Устранение трещин в кирпичной печи без сноса" loading="lazy"></div> <!-- Изменил имя файла -->
+          <div class="gallery-item"><img src="images/work_4.png" alt="Улучшение тяги в дымоходе печи" loading="lazy"></div> <!-- Изменил имя файла -->
+          <div class="gallery-item"><img src="images/work_5.png" alt="Ремонт дымооборота кирпичной печи" loading="lazy"></div> <!-- Изменил имя файла -->
+          <div class="gallery-item"><img src="images/work_6.png" alt="Конструктивный ремонт печи — до и после" loading="lazy"></div> <!-- Изменил имя файла -->
         </div>
-        <p style="text-align: center; margin: 28px 0; color: var(--text-secondary); font-size: 1.1rem;">Минимальная стоимость вызова мастера — от 20 000 ₽.</p>
-        <p style="text-align: center; margin: 14px 0; color: var(--text-secondary); font-size: 1.1rem;">Мы с радостью приедем — при условии, что набирается минимум 10–15 заявок в вашей местности.</p>
-        <p style="text-align: center; margin: 14px 0; color: var(--text-secondary); font-size: 1.1rem;">Работаем в СНТ, ДНП, деревнях, поселениях и загородных домах по Северо-Западному и Центральному округу РФ.</p>
+        <p style="text-align: center; margin-top: 40px;">
+            <a href="gallery.html" class="nav-link" style="color: var(--accent); text-decoration: underline; font-size: 1.2rem;">Посмотреть все</a> <!-- Предполагаемая ссылка на полную галерею -->
+        </p>
       </section>
 
-      <!-- === 6. Частые вопросы (FAQ) -->
+      <!-- === 11. БЛОГ (Новая секция - динамическая) === -->
+      <section id="blog-section-main">
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Истории ремонтов и полезные статьи</h2>
+          <!-- Контейнер для карточек статей -->
+          <div id="blog-grid-main" style="width: 100%;">
+              <!-- Карточки будут вставлены сюда JavaScript'ом -->
+          </div>
+          <p style="text-align: center; margin-top: 40px;"><a href="articles.html" class="nav-link" style="color: var(--accent); text-decoration: underline; font-size: 1.2rem;">Все статьи</a></p>
+      </section>
+
+      <!-- === 12. Частые вопросы (FAQ) (оригинальная секция + дополнения) === -->
       <section class="faq-section">
-        <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 70px; color: var(--accent);">Часто задаваемые вопросы</h2>
-        <div class="faq-list">
+        <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--accent);">Часто задаваемые вопросы</h2>
+        <div class="faq-list" style="width: 100%;">
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Сколько стоит ремонт печи и выезд мастера?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Стоимость ремонта зависит от сложности и объема работ. Минимальная стоимость вызова мастера — от 20 000 ₽. Точная цена оговаривается после диагностики.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Сколько времени занимает диагностика и ремонт?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Диагностика обычно занимает 1-2 часа. Время ремонта — от 1 дня до нескольких недель, в зависимости от состояния печи и объема работ.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Когда мастер сможет приехать ко мне?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Мы работаем по предварительной записи. При поступлении заявки мы согласуем удобную для вас дату и время визита специалиста.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Работаете ли Вы по договору и с гарантией?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Да, все работы оформляются официальным договором. Мы предоставляем гарантию на все виды работ, подробности в договоре.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Какие материалы Вы используете и можно ли использовать свои?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Мы используем только качественные и проверенные материалы. Клиент может предоставить свои материалы, но мы рекомендуем использовать наши, чтобы обеспечить соответствие проекту и гарантию.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Нужно ли освобождать помещение и как готовиться к ремонту?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Для удобства проведения работ рекомендуется освободить пространство вокруг печи. Подробные рекомендации по подготовке вы получите заранее.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Какие меры безопасности соблюдаются и как проверить качество работ?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Все работы выполняются с соблюдением правил пожарной и промышленной безопасности. Качество подтверждается документами и гарантийным талоном.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Работаете ли Вы в выходные и в пригородах?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Да, мы можем работать в выходные дни. Мы обслуживаем объекты в пригородах и загородных домах.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Как часто нужно обслуживать печь и чистить дымоход?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Рекомендуется проводить плановую проверку и чистку дымохода 1-2 раза в год перед отопительным сезоном.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Какие признаки указывают на необходимость ремонта?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Основные признаки: дым в помещении, слабый нагрев, трещины в кладке, посторонние шумы, задымление.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Как правильно эксплуатировать печь после ремонта?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>После ремонта важно соблюдать рекомендации по постепенному прогреву и правильной топке. Мы предоставляем инструкцию по эксплуатации.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Можно ли ускорить процесс ремонта и увеличить КПД?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Процесс ремонта может быть согласован по срокам. Улучшение КПД возможно за счет модернизации дымооборотов и утепления.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Как оплатить услуги и возможна ли безналичная оплата?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Мы принимаем как наличный, так и безналичный расчёт. Подробности об оплате обсуждаются индивидуально.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Есть ли у Вас акции, скидки или рекомендации от предыдущих клиентов?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Информация о действующих акциях и скидках доступна на нашем сайте. Мы также благодарим за рекомендации.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Можете ли Вы рассчитать стоимость онлайн или дать предварительную оценку?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Предварительную оценку можно дать по фото и описанию. Точный расчёт возможен только после осмотра печи специалистом на месте.</p>
+            </div>
+          </div>
           <div class="faq-item">
             <div class="faq-question">
               <span>Можно ли починить печь, если все сказали "сносить"?</span>
@@ -642,54 +1273,28 @@
               <p>Да, мы ремонтируем даже те печи, которые другие считают безнадёжными. С 1993 года ни одна не была снесена.</p>
             </div>
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              <span>Как долго длится ремонт?</span>
-              <span>+</span>
-            </div>
-            <div class="faq-answer">
-              <p>Срок зависит от сложности — от 1 дня до нескольких недель. Точный срок обсуждается на месте.</p>
-            </div>
-          </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              <span>Какие гарантии даёте?</span>
-              <span>+</span>
-            </div>
-            <div class="faq-answer">
-              <p>Даём гарантию на все виды работ. Подробности в договоре.</p>
-            </div>
-          </div>
         </div>
       </section>
 
-      <!-- === 7. Галерея работ -->
-      <section class="gallery-section">
-        <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 70px; color: var(--accent);">Галерея работ</h2>
-        <div class="gallery-grid">
-          <!-- ✅ SEO: Фото из галереи -->
-          <div class="gallery-item"><img src="images/gallery1.jpg" alt="Ремонт кирпичной печи до и после — пример работ Клиники Печей" loading="lazy"></div>
-          <div class="gallery-item"><img src="images/gallery2.jpg" alt="Ремонт топки печи — до и после" loading="lazy"></div>
-          <div class="gallery-item"><img src="images/gallery3.jpg" alt="Устранение трещин в кирпичной печи без сноса" loading="lazy"></div>
-          <div class="gallery-item"><img src="images/gallery4.jpg" alt="Улучшение тяги в дымоходе печи" loading="lazy"></div>
-          <div class="gallery-item"><img src="images/gallery5.jpg" alt="Ремонт дымооборота кирпичной печи" loading="lazy"></div>
-          <div class="gallery-item"><img src="images/gallery6.jpg" alt="Конструктивный ремонт печи — до и после" loading="lazy"></div>
-        </div>
-      </section>
-
-      <!-- === 8. Кнопка "Вызвать печника" -->
-      <section style="text-align: center; padding: 120px 0 100px;">
+      <!-- === 13. Кнопка "Вызвать печника" (оригинальная секция) === -->
+      <section style="text-align: center; padding: 60px 0 60px;">
         <a href="#" class="btn" id="footer-claim">Вызвать печного мастера</a>
       </section>
 
       <footer>
-        <p>© 2025 Клиника Печей. ИННОР — запатентованная технология. Основана инженером Андреем Захарченко.</p>
-        <p style="margin-top: 14px;">📧 Контакт: <a href="mailto:librikapp@gmail.com" style="color: var(--accent); text-decoration: none;">librikapp@gmail.com</a></p>
+        <p>© 2025 Андрей Захарченко.</p>
+        <p style="margin-top: 14px;">📧 Контакт: <a href="mailto:klinika-pechey@mail.ru" style="color: var(--accent); text-decoration: none;">klinika-pechey@mail.ru</a></p>
+        <!-- Добавлены навигационные ссылки в футер -->
+        <p style="margin-top: 14px;">
+            <a href="index.html" class="nav-link" style="margin: 0 10px;">Главная</a>
+            <a href="services.html" class="nav-link" style="margin: 0 10px;">Услуги</a>
+            <a href="article.html" class="nav-link" style="margin: 0 10px;">Блог</a>
+        </p>
       </footer>
     </div>
   </div>
 
-  <!-- === Модальное окно -->
+  <!-- === Модальное окно === -->
   <div class="modal-overlay" id="modal">
     <div class="modal">
       <h3>Перенаправление на форму</h3>
@@ -698,9 +1303,7 @@
     </div>
   </div>
 
-  <script>
-    // === УБРАЛИ ФУНКЦИОНАЛЬНОСТЬ ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===
-    
+  <script>  
     // === МОДАЛЬНОЕ ОКНО ===
     const modal = document.getElementById('modal');
     const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim');
@@ -735,8 +1338,159 @@
         }
       });
     });
-  </script>
 
+
+            // === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНЫХ ОКОН ИЗОБРАЖЕНИЙ ===
+
+    // Функция закрытия модального окна
+    function closeCertModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.remove('active');
+        }
+    }
+
+    // Обработчик клика по изображению в секции сертификации
+    document.querySelectorAll('.cert-image').forEach(img => {
+      img.addEventListener('click', () => {
+        const modalId = img.getAttribute('data-modal');
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add('active');
+        }
+      });
+    });
+
+    // Обработчик клика по крестику закрытия
+    document.querySelectorAll('.modal-close-cert, .modal-close-warranty').forEach(closeBtn => {
+      closeBtn.addEventListener('click', function() {
+        const modalId = this.getAttribute('data-modal');
+        closeCertModal(modalId);
+      });
+    });
+
+    // Закрытие модального окна при клике на оверлей (фон)
+    document.querySelectorAll('.modal-overlay-cert, .modal-overlay-warranty').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        // Проверяем, был ли клик именно на оверлее, а не на контенте модального окна
+        if (e.target === overlay) {
+          const modalId = overlay.id;
+          closeCertModal(modalId);
+        }
+      });
+    });
+
+    // Закрытие модального окна при клике на увеличенное изображение внутри него
+    document.querySelectorAll('.modal-cert-img, .modal-warranty-img').forEach(img => {
+      img.addEventListener('click', function() {
+        // Находим родительское модальное окно для этого изображения
+        const modalContainer = this.closest('.modal-cert, .modal-warranty');
+        if (modalContainer) {
+          // Находим оверлей, соответствующий этому модальному окну
+          const modalOverlay = modalContainer.closest('.modal-overlay-cert, .modal-overlay-warranty');
+          if (modalOverlay && modalOverlay.classList.contains('active')) {
+             // Находим ID оверлея и вызываем функцию закрытия
+             closeCertModal(modalOverlay.id);
+          }
+        }
+      });
+    });
+
+    // Закрытие модального окна при клике на любую область внутри контента (.modal-cert или .modal-warranty), кроме крестика
+    document.querySelectorAll('.modal-cert, .modal-warranty').forEach(modalContent => {
+      modalContent.addEventListener('click', function(e) {
+        // Проверяем, был ли клик *внутри* контента модального окна (например, на фоне изображения)
+        // и *не* был ли клик по крестику закрытия
+        if (e.currentTarget === this && !this.querySelector('.modal-close-cert, .modal-close-warranty').contains(e.target)) {
+          // Находим оверлей, соответствующий этому модальному контенту
+          const modalOverlay = this.closest('.modal-overlay-cert, .modal-overlay-warranty');
+          if (modalOverlay && modalOverlay.classList.contains('active')) {
+             closeCertModal(modalOverlay.id);
+          }
+        }
+      });
+    });
+
+<!-- === СКРИПТ ДЛЯ ЗАГРУЗКИ И ГЕНЕРАЦИИ КАРТОЧЕК БЛОГА (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ) === -->
+    // Скрипт для загрузки данных и генерации карточек на главной странице (горизонтальный скролл)
+    async function loadAndRenderBlogCardsMain(containerId, maxCards = 10) { // Увеличим maxCards для демонстрации скролла
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.error(`Контейнер с ID '${containerId}' не найден для рендеринга карточек на главной.`);
+            return;
+        }
+
+        try {
+            // Загружаем JSON файл
+            const response = await fetch('articles_list.json');
+            if (!response.ok) {
+                throw new Error(`Ошибка загрузки articles_list.json: ${response.status} ${response.statusText}`);
+            }
+            const blogPosts = await response.json();
+
+            // Очищаем контейнер
+            container.innerHTML = '';
+
+            // Ограничиваем количество отображаемых карточек (опционально, для примера)
+            const postsToShow = blogPosts.slice(0, maxCards);
+
+            // Создаём контейнер для карточек с горизонтальным скроллом
+            const scrollContainer = document.createElement('div');
+            scrollContainer.style.display = 'flex';
+            scrollContainer.style.gap = '40px'; // Отступ между карточками
+            scrollContainer.style.overflowX = 'auto'; // Горизонтальный скролл
+            scrollContainer.style.padding = '10px 0'; // Небольшие отступы сверху/снизу
+            scrollContainer.style.scrollbarWidth = 'thin'; // Для Firefox
+            scrollContainer.style.msOverflowStyle = 'auto'; // Для IE/Edge
+            // Стиль полосы прокрутки (опционально)
+            scrollContainer.style.cssText += `
+                scrollbar-width: thin;
+                -ms-overflow-style: auto;
+            `;
+            // Стили для Webkit (Chrome, Safari, Edge)
+            const style = document.createElement('style');
+            style.textContent = `
+                #${containerId} div::-webkit-scrollbar {
+                    height: 8px; /* Высота горизонтальной полосы прокрутки */
+                }
+                #${containerId} div::-webkit-scrollbar-track {
+                    background: rgba(211, 223, 240, 0.2); /* Цвет фона полосы */
+                    border-radius: 4px;
+                }
+                #${containerId} div::-webkit-scrollbar-thumb {
+                    background: var(--accent); /* Цвет бегунка */
+                    border-radius: 4px;
+                }
+                #${containerId} div::-webkit-scrollbar-thumb:hover {
+                    background: var(--accent2); /* Цвет бегунка при наведении */
+                }
+            `;
+            document.head.appendChild(style);
+
+            postsToShow.forEach(post => {
+                const cardHTML = `
+                    <div class="glass-card" style="flex: 0 0 auto; width: 300px;"> <!-- Устанавливаем фиксированную ширину карточки и запрещаем сжиматься -->
+                        <img src="${post.thumbnail}" alt="${post.alt}" title="${post.title}" style="width: 100%; height: auto; border-radius: 16px; margin-bottom: 15px;" loading="lazy">
+                        <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1.3rem;">${post.title}</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 1rem;">${post.description}</p>
+                        <a href="${post.slug}.html" class="nav-link" style="display: inline-block; color: var(--accent); font-weight: 600;">Читать далее</a>
+                    </div>
+                `;
+                scrollContainer.innerHTML += cardHTML; // Добавляем карточку в скроллящийся контейнер
+            });
+
+            container.appendChild(scrollContainer); // Добавляем скроллящийся контейнер в основной контейнер
+
+        } catch (error) {
+            console.error('Ошибка при загрузке или отображении статей на главной:', error);
+            container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Ошибка загрузки статей.</p>';
+        }
+    }
+
+    // Вызываем функцию при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        loadAndRenderBlogCardsMain('blog-grid-main', 10); // Показываем первые 10 статей или все, если меньше
+    });
+  </script>
 </body>
 </html>
-
