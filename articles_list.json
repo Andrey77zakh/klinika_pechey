@@ -4,7 +4,7 @@
         "slug": "blog1",
         "title": "Когда печь с ума сводит или «День сурка»",
         "description": "Ремонт кирпичной печи, которая дымит и не греет. История реанимации печи из жизни.",
-        "thumbnail": "blog/images/blog1/head.png",
+        "thumbnail": "images/blog1/head.png",
         "alt": "Изображение к статье «День сурка»"
     },
     {
@@ -12,7 +12,7 @@
         "slug": "blog2",
         "title": "Улучшение тяги в дымоходе",
         "description": "Анонс статьи о причинах плохой тяги и способах её улучшения...",
-        "thumbnail": "blog/images/blog2/head.png",
+        "thumbnail": "images/blog2/head.png",
         "alt": "Изображение к статье об улучшении тяги"
     },
     {
@@ -21,6 +21,6 @@
         "title": "Диагностика печи перед отопительным сезоном",
         "description": "Анонс статьи о важности плановой проверки печи осенью...",
         "thumbnail": "images/blog3.png",
-        "alt": "blog/images/blog3/head.png"
+        "alt": "images/blog3/head.png"
     }
 ]
