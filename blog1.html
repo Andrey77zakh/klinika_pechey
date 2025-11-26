@@ -430,8 +430,8 @@
     <!-- === НАВИГАЦИЯ И КНОПКА === -->
     <div class="nav-right">
       <nav class="nav-links">
-        <a href="index.html" class="nav-link active">Главная</a>
-        <a href="article.html" class="nav-link">Блог</a>
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="article.html" class="nav-link active">Блог</a>
       </nav>
       <a href="#" class="header-claim-btn" id="header-claim">Оставить заявку</a>
     </div>
@@ -698,6 +698,29 @@
             // Обновляем последнюю позицию прокрутки
             lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для iOS
         });
+    </script>
+
+    <script>
+        // === СКРИПТ ДЛЯ АКТИВАЦИИ ССЫЛКИ "БЛОГ" В ШАПКЕ ===
+        document.addEventListener('DOMContentLoaded', function() { // Открывающая скобка для функции
+            // Находим все навигационные ссылки
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Пройдемся по всем ссылкам
+            navLinks.forEach(link => {
+                // Проверяем, ведёт ли ссылка на articles.html (страницу со списком статей)
+                // или является ли текущая страница (например, blog1.html) отличной от index.html
+                // и при этом ссылка ведёт на articles.html
+                if (link.getAttribute('href') === 'articles.html') {
+                    // Убираем класс 'active' у всех ссылок
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Добавляем класс 'active' к найденной ссылке "Блог"
+                    link.classList.add('active');
+                    // Прерываем цикл, так как нашли нужную ссылку
+                    return;
+                }
+            });
+        }); // <--- Вот этой скобки не хватало, чтобы закрыть функцию, переданную в addEventListener
     </script>
 </body>
 </html>
