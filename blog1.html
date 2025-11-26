@@ -545,6 +545,91 @@
                     <div class="clear-float"></div>
                 </div>
             </section>
+
+            <!-- === СЕКЦИЯ "ДРУГИЕ СТАТЬИ" (Горизонтальный скролл) === -->
+            <section id="other-articles-section" style="margin: 100px 0;">
+                <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--accent);">Другие статьи</h2>
+                <!-- Контейнер для карточек статей -->
+                <div id="other-articles-grid" style="display: flex; gap: 40px; overflow-x: auto; padding: 10px 0; scrollbar-width: thin; -ms-overflow-style: auto;">
+                    <!-- Карточки будут вставлены сюда JavaScript'ом -->
+                </div>
+                <style>
+                    /* Стили полосы прокрутки (опционально) */
+                    #other-articles-grid {
+                        scrollbar-width: thin;
+                        -ms-overflow-style: auto;
+                    }
+                    #other-articles-grid::-webkit-scrollbar {
+                        height: 8px; /* Высота горизонтальной полосы прокрутки */
+                    }
+                    #other-articles-grid::-webkit-scrollbar-track {
+                        background: rgba(211, 223, 240, 0.2); /* Цвет фона полосы */
+                        border-radius: 4px;
+                    }
+                    #other-articles-grid::-webkit-scrollbar-thumb {
+                        background: var(--accent); /* Цвет бегунка */
+                        border-radius: 4px;
+                    }
+                    #other-articles-grid::-webkit-scrollbar-thumb:hover {
+                        background: var(--accent2); /* Цвет бегунка при наведении */
+                    }
+                </style>
+            </section>
+
+            <script>
+                // Скрипт для загрузки данных и генерации карточек других статей
+                async function loadAndRenderOtherBlogCards(containerId, currentSlug, maxCards = 10) { // maxCards - ограничение количества
+                    const container = document.getElementById(containerId);
+                    if (!container) {
+                        console.error(`Контейнер с ID '${containerId}' не найден для рендеринга других статей.`);
+                        return;
+                    }
+
+                    try {
+                        // Загружаем JSON файл
+                        const response = await fetch('articles_list.json');
+                        if (!response.ok) {
+                            throw new Error(`Ошибка загрузки articles_list.json: ${response.status} ${response.statusText}`);
+                        }
+                        const blogPosts = await response.json();
+
+                        // Очищаем контейнер
+                        container.innerHTML = '';
+
+                        // Фильтруем, чтобы исключить текущую статью
+                        const otherPosts = blogPosts.filter(post => post.slug !== currentSlug);
+
+                        // Ограничиваем количество отображаемых карточек
+                        const postsToShow = otherPosts.slice(0, maxCards);
+
+                        postsToShow.forEach(post => {
+                            const cardHTML = `
+                                <div class="glass-card" style="flex: 0 0 auto; width: 300px; margin: 0; height: fit-content;"> <!-- Устанавливаем фиксированную ширину карточки и запрещаем сжиматься -->
+                                    <img src="${post.thumbnail}" alt="${post.alt}" title="${post.title}" style="width: 100%; height: auto; border-radius: 16px; margin-bottom: 15px;" loading="lazy">
+                                    <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1.3rem;">${post.title}</h3>
+                                    <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 1rem;">${post.description}</p>
+                                    <a href="${post.slug}.html" class="nav-link" style="display: inline-block; color: var(--accent); font-weight: 600;">Читать далее</a>
+                                </div>
+                            `;
+                            container.innerHTML += cardHTML; // Добавляем карточку в контейнер
+                        });
+
+                        if (postsToShow.length === 0) {
+                            container.innerHTML = '<p style="text-align: center; width: 100%; color: var(--text-secondary);">Других статей пока нет.</p>';
+                        }
+
+                    } catch (error) {
+                        console.error('Ошибка при загрузке или отображении других статей:', error);
+                        container.innerHTML = '<p style="text-align: center; width: 100%; color: var(--text-secondary);">Ошибка загрузки других статей.</p>';
+                    }
+                }
+
+                // Вызываем функцию при загрузке страницы
+                document.addEventListener('DOMContentLoaded', function() {
+                    // ВАЖНО: Укажите slug ТЕКУЩЕЙ статьи, чтобы она не появилась в списке "другие"
+                    loadAndRenderOtherBlogCards('other-articles-grid', 'blog1', 10); // 'blog1' - slug текущей статьи
+                });
+            </script>
         </div>
     </div>
 
