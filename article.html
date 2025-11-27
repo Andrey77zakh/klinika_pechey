@@ -4,362 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Блог | Клиника Печей</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* ===== ОПРЕДЕЛЕНИЕ ЦВЕТОВЫХ ПЕРЕМЕННЫХ ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
-        :root {
-          --text-primary-light: #1e293b;
-          --text-secondary-light: #475569;
-          --bg-light: #defdff;
-          --card-bg-light: #ffffff;
-          --card-border-light: #d3dff0;
-          --accent: #0da2e7;
-          --accent2: #0d2ee7;
-          --shadow-light: 0 4px 12px rgba(0,0,0,0.05);
-          --timeline-color: #0da2e7;
-        }
 
-        .theme-light {
-          --bg: var(--bg-light);
-          --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-          --text: var(--text-primary-light);
-          --text-secondary: var(--text-secondary-light);
-          --card-bg: var(--card-bg-light);
-          --card-border: var(--card-border-light);
-          --shadow: var(--shadow-light);
-          --glass: blur(12px);
-        }
+  <!-- === СТИЛИ САЙТА === -->
+  <link rel="stylesheet" href="styles.css">
 
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
+  <!-- === ШРИФТ === -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        body {
-          background: var(--bg-gradient);
-          color: var(--text);
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          line-height: 1.6;
-          transition: background 0.4s;
-          overflow-x: hidden;
-        }
-
-        .container {
-          max-width: 100%;
-          margin: 0 auto;
-          padding: 0 24px;
-        }
-
-        .page {
-          display: block;
-          min-height: 100vh;
-        }
-
-        header {
-          position: sticky;
-          top: 0;
-          z-index: 1000;
-          backdrop-filter: var(--glass);
-          background: rgba(255,255,255,0.85);
-          box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-          padding: 0 24px;
-          height: 72px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .logo-link {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          text-decoration: none;
-        }
-
-        .logo-icon {
-          width: 32px;
-          height: 32px;
-          display: block;
-        }
-
-        .logo-text {
-          font-size: 1.7rem;
-          font-weight: 800;
-          background: linear-gradient(90deg, var(--accent), var(--accent2));
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-
-        .nav-right {
-          display: flex;
-          align-items: center;
-          gap: 24px;
-        }
-
-        .nav-links {
-          display: flex;
-          gap: 28px;
-        }
-
-        .nav-link {
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-weight: 500;
-          position: relative;
-          transition: color 0.3s;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-          color: var(--accent);
-        }
-
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: -6px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: var(--accent);
-          transition: width 0.3s;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-          width: 100%;
-        }
-
-        .header-claim-btn {
-          background: linear-gradient(135deg, #0da2e7, var(--accent2));
-          color: white;
-          padding: 10px 22px;
-          border-radius: 14px;
-          font-weight: 600;
-          text-decoration: none;
-          font-size: 1rem;
-          transition: all 0.3s;
-          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-          animation: pulseButton 2s infinite;
-        }
-
-        .header-claim-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
-        }
-
-        @keyframes pulseButton {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); }
-        }
-
-        .glass-card {
-          background: var(--card-bg);
-          border: 1px solid var(--card-border);
-          border-radius: 24px;
-          padding: 48px;
-          backdrop-filter: var(--glass);
-          box-shadow: var(--shadow);
-          width: 100%;
-          margin: 0;
-        }
-
-        .blog-section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 70px;
-            color: var(--accent);
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            width: 100%;
-        }
-
-        .blog-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 40px rgba(13, 162, 231, 0.2);
-        }
-
-        .blog-card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .blog-card-content {
-            padding: 24px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .blog-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--accent);
-        }
-
-        .blog-card p {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
-
-        .read-more-link {
-            display: inline-block;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: auto;
-        }
-
-        .read-more-link:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-          text-align: center;
-          padding: 70px 0 50px;
-          color: var(--text-secondary);
-          font-size: 0.95rem;
-          margin-top: 100px;
-          border-top: 1px solid var(--card-border);
-          width: 100%;
-        }
-
-        .modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0,0,0,0.65);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 2000;
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.4s ease;
-        }
-
-        .modal-overlay.active {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        .modal {
-          background: var(--card-bg);
-          border: 1px solid var(--card-border);
-          border-radius: 22px;
-          padding: 44px;
-          max-width: 620px;
-          width: 92%;
-          box-shadow: 0 24px 70px rgba(0,0,0,0.45);
-          transform: scale(0.92);
-          transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .modal-overlay.active .modal {
-          transform: scale(1);
-        }
-
-        .modal h3 {
-          font-size: 1.6rem;
-          margin-bottom: 22px;
-          color: var(--accent);
-        }
-
-        .modal p {
-          margin-bottom: 26px;
-          font-size: 1.15rem;
-          line-height: 1.7;
-        }
-
-        .modal-close {
-          background: var(--accent);
-          color: white;
-          border: none;
-          padding: 13px 30px;
-          border-radius: 14px;
-          font-weight: 700;
-          font-size: 1.05rem;
-          cursor: pointer;
-          transition: background 0.25s;
-        }
-
-        .modal-close:hover {
-          background: #00c2a8;
-        }
-
-        @media (max-width: 900px) {
-          .hero { padding: 160px 0 120px; }
-          .hero h1 { font-size: 2.8rem; }
-          .hero p { font-size: 1.25rem; }
-          .btn { padding: 18px 48px; font-size: 1.15rem; }
-          .nav-links { gap: 15px; }
-          .nav-link { font-size: 1rem; padding: 4px 8px; }
-          .header-claim-btn { padding: 10px 20px; font-size: 1rem; }
-          .section-title { font-size: 2rem; margin-bottom: 60px; }
-          .glass-card, .founder-card { padding: 36px 24px; }
-          .timeline-step-icon { width: 60px; height: 60px; }
-          .timeline-step p { font-size: 1rem; }
-          .faq-item { padding: 20px 24px; }
-          .blog-grid { gap: 30px; }
-          .blog-card-content { padding: 20px; }
-          .blog-card h3 { font-size: 1.2rem; }
-          .blog-card p { font-size: 0.95rem; }
-        }
-
-        @media (max-width: 600px) {
-          .hero { padding: 140px 0 100px; }
-          .hero h1 { font-size: 2.4rem; }
-          .hero p { font-size: 1.1rem; }
-          .btn { padding: 16px 40px; font-size: 1.1rem; }
-          .nav-links { display: none; }
-          .header-claim-btn { display: none; }
-          .container { padding: 0 16px; }
-          .glass-card, .founder-card { padding: 32px 20px; }
-          .logo-text { font-size: 1.4rem; }
-          .logo-icon { width: 28px; height: 28px; }
-          .section-title { font-size: 1.8rem; margin-bottom: 50px; }
-          .timeline-step { gap: 10px; }
-          .timeline-step-icon { width: 50px; height: 50px; }
-          .timeline-step p { font-size: 0.9rem; }
-          .faq-item { padding: 18px 20px; }
-          .blog-grid { grid-template-columns: 1fr; gap: 25px; }
-          .blog-card-img { height: 180px; }
-          .blog-card-content { padding: 18px; }
-          .blog-card h3 { font-size: 1.15rem; }
-          .blog-card p { font-size: 0.9rem; }
-          footer { padding: 60px 0 40px; margin-top: 80px; font-size: 0.9rem; }
-        }
-    </style>
 </head>
 <body class="theme-light">
     <header>
@@ -372,7 +23,7 @@
                 <a href="index.html" class="nav-link">Главная</a>
                 <a href="articles.html" class="nav-link active">Блог</a>
             </nav>
-            <a href="#" class="header-claim-btn" id="header-claim">Оставить заявку</a>
+            <a href="#" class="header-claim-btn" id="header-claim">Связаться с печником</a>
         </div>
     </header>
 
@@ -380,7 +31,7 @@
         <div class="container">
             <!-- === СЕКЦИЯ БЛОГА === -->
             <section class="blog-section">
-                <h2 class="section-title">Истории ремонтов и полезные статьи</h2>
+                <h2 class="section-title" style="text-align: center; margin-top: 40px; margin-bottom: 40px; color: var(--accent);">Истории ремонтов и полезные статьи</h2>
                 <!-- Контейнер для карточек статей -->
                 <div id="blog-grid-articles" class="blog-grid">
                     <!-- Карточки будут вставлены сюда JavaScript'ом -->
@@ -389,15 +40,78 @@
         </div>
     </div>
 
-    <footer>
-        </p>© 2025 Андрей Захарченко.</p>
-        <p style="margin-top: 14px;">📧 Контакт: <a href="mailto:klinika-pechey@mail.ru" style="color: var(--accent); text-decoration: none;">klinika-pechey@mail.ru</a></p>
-        <!-- Добавлены навигационные ссылки в футер -->
-        <p style="margin-top: 14px;">
-            <a href="index.html" class="nav-link" style="margin: 0 10px;">Главная</a>
-            <a href="article.html" class="nav-link" style="margin: 0 10px;">Блог</a>
-        </p>
-    </footer>
+  <!-- === ПОДВАЛ САЙТА (обновлённый) === -->
+  <footer style="background-color: var(--text-primary-light); margin-top: auto; padding: 40px 0 40px; border-top: 1px solid var(--card-border);">
+      <div class="container">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 40px; width: 100%;">
+              <!-- Столбец 1: Название и описание -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Клиника Печей</h3>
+                  <p style="color: var(--card-bg-light); font-size: 1rem; line-height: 1.6; margin: 0;">Ремонт печей по РФ.<br>Инженерный подход.<br>Без сноса.</p>
+              </div>
+
+              <!-- Столбец 2: Контакты -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Контакты</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                      <li style="margin-bottom: 10px;">
+                          <!-- Кнопка для копирования телефона -->
+                          <button id="copy-phone-btn" style="background: none; border: none; color: var(--card-bg-light); cursor: pointer; text-decoration: underline; font-size: 1rem; padding: 0;">
+                              +7 (960) 218-84-00
+                          </button>
+                          <span id="phone-copied-message" style="color: var(--accent); font-size: 0.9rem; display: none; margin-left: 5px;">Скопировано!</span>
+                      </li>
+                      <li style="margin-bottom: 10px;">
+                          <!-- Кнопка для копирования почты -->
+                          <button id="copy-email-btn" style="background: none; border: none; color: var(--card-bg-light); cursor: pointer; text-decoration: underline; font-size: 1rem; padding: 0;">
+                              klinika-pechey@mail.ru
+                          </button>
+                          <span id="email-copied-message" style="color: var(--accent); font-size: 0.9rem; display: none; margin-left: 5px;">Скопировано!</span>
+                      </li>
+                      <li style="color: var(--card-bg-light); font-size: 1rem;">
+                          Работаем по СЗФО и ЦФО
+                      </li>
+                  </ul>
+              </div>
+
+              <!-- Столбец 3: График работы -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">График работы</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0; color: var(--card-bg-light); font-size: 1rem; line-height: 1.6;">
+                      <li><strong>Вс-Чт:</strong> 9:00 до 20:00</li>
+                      <li><strong>Пт:</strong> 9:00 до 16:00</li>
+                      <li><strong>Сб:</strong> Выходной</li>
+                  </ul>
+              </div>
+
+              <!-- Столбец 4: Соц.сети -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Соц.сети</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">VK</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Telegram</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Авито</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Юла</a></li>
+                  </ul>
+              </div>
+
+              <!-- Столбец 5: Навигация -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Навигация</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                      <li style="margin-bottom: 8px;"><a href="index.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Главная</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#services" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Услуги</a></li>
+                      <li style="margin-bottom: 8px;"><a href="articles.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Блог</a></li>
+                  </ul>
+              </div>
+          </div>
+
+          <!-- Нижняя строка подвала -->
+          <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--card-bg-light); font-size: 0.95rem;">
+              <p>&copy; 2025 Андрей Захарченко. Клиника Печей. Все права защищены.</p>
+          </div>
+      </div>
+  </footer>
 
     <div class="modal-overlay" id="modal">
         <div class="modal">
@@ -407,80 +121,8 @@
         </div>
     </div>
 
-    <script>
-        // Скрипт для загрузки данных и генерации карточек на странице статей
-        async function loadAndRenderBlogCardsArticles(containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) {
-                console.error(`Контейнер с ID '${containerId}' не найден для рендеринга карточек на странице статей.`);
-                return;
-            }
 
-            try {
-                // Загружаем JSON файл
-                const response = await fetch('articles_list.json');
-                if (!response.ok) {
-                    throw new Error(`Ошибка загрузки articles_list.json: ${response.status} ${response.statusText}`);
-                }
-                const blogPosts = await response.json();
-
-                // Очищаем контейнер
-                container.innerHTML = '';
-
-                // Проходим по ВСЕМ статьям
-                blogPosts.forEach(post => {
-                    const cardHTML = `
-                        <a href="${post.slug}.html" class="blog-card">
-                            <img src="${post.thumbnail}" alt="${post.alt}" class="blog-card-img" loading="lazy">
-                            <div class="blog-card-content">
-                                <div>
-                                    <h3>${post.title}</h3>
-                                    <p>${post.description}</p>
-                                </div>
-                                <span class="read-more-link">Читать далее</span>
-                            </div>
-                        </a>
-                    `;
-                    container.innerHTML += cardHTML; // Добавляем карточку в контейнер
-                });
-
-            } catch (error) {
-                console.error('Ошибка при загрузке или отображении статей на странице блога:', error);
-                container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Ошибка загрузки статей.</p>';
-            }
-        }
-
-        // Вызываем функцию при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            loadAndRenderBlogCardsArticles('blog-grid-articles');
-        });
-    </script>
-    <script>
-        // === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА (из index.html) ===
-        const modal = document.getElementById('modal');
-        const modalTrigger = document.getElementById('header-claim');
-        const modalCloseBtn = document.getElementById('modal-continue');
-
-        function openModal() { modal.classList.add('active'); }
-        function closeModal() { modal.classList.remove('active'); }
-
-        modalTrigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal();
-        });
-
-        modalCloseBtn.addEventListener('click', () => {
-            // window.location.href = 'https://your-form-url.com';
-            closeModal();
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) { closeModal(); }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) { closeModal(); }
-        });
-    </script>
+    <!------СКРИПТ------->
+    <script src="script.js"></script> <!-- Путь к вашему общему файлу скрипта -->
 </body>
 </html>
