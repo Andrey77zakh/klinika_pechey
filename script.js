@@ -1,111 +1,132 @@
 //ФАЙЛ -------INDEX------!!!!!
 
-// === МОДАЛЬНОЕ ОКНО ===
-const modal = document.getElementById('modal');
-const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim');
-const modalContinue = document.getElementById('modal-continue');
+// === МОДАЛЬНОЕ ОКНО (только для index.html и других страниц, где есть #modal) ===
+function initializeModal() {
+    const modal = document.getElementById('modal');
+    const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim');
+    const modalContinue = document.getElementById('modal-continue');
 
-claimButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        modal.classList.add('active');
-    });
-});
-
-modalContinue.addEventListener('click', () => {
-    modal.classList.remove('active');
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSd43JD1m9aXU2vwiuilfgVJm-o7o_XOiPeAFBwVYSxU_r_9Mg/viewform  ', '_blank');
-});
-
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.classList.remove('active');
+    if (!modal || !claimButtons.length || !modalContinue) {
+        console.warn("Элементы модального окна не найдены, инициализация пропущена.");
+        return;
     }
-});
 
-// === FAQ АККОРДЕОН ===
-document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-        const answer = question.nextElementSibling;
-        const isOpen = answer.classList.contains('open');
-        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-        if (!isOpen) {
-            answer.classList.add('open');
+    claimButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('active');
+        });
+    });
+
+    modalContinue.addEventListener('click', () => {
+        modal.classList.remove('active');
+        window.open('https://docs.google.com/forms/d/e/1FAIpQLSd43JD1m9aXU2vwiuilfgVJm-o7o_XOiPeAFBwVYSxU_r_9Mg/viewform  ', '_blank');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
         }
     });
-});
-
-
-// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНЫХ ОКОН ИЗОБРАЖЕНИЙ ===
-
-// Функция закрытия модального окна
-function closeCertModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('active');
-    }
 }
 
-// Обработчик клика по изображению в секции сертификации
-document.querySelectorAll('.cert-image').forEach(img => {
-    img.addEventListener('click', () => {
-        const modalId = img.getAttribute('data-modal');
+// === FAQ АККОРДЕОН (только для index.html, где есть .faq-question) ===
+function initializeFaq() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    if (!faqQuestions.length) {
+        console.warn("Элементы FAQ не найдены, инициализация пропущена.");
+        return;
+    }
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const isOpen = answer.classList.contains('open');
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            if (!isOpen) {
+                answer.classList.add('open');
+            }
+        });
+    });
+}
+
+
+// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНЫХ ОКОН ИЗОБРАЖЕНИЙ (только для index.html, где есть .cert-image и .modal-overlay-cert/.modal-overlay-warranty) ===
+function initializeImageModals() {
+    // Функция закрытия модального окна
+    function closeCertModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
-            modal.classList.add('active');
+            modal.classList.remove('active');
         }
-    });
-});
+    }
 
-// Обработчик клика по крестику закрытия
-document.querySelectorAll('.modal-close-cert, .modal-close-warranty').forEach(closeBtn => {
-    closeBtn.addEventListener('click', function() {
-        const modalId = this.getAttribute('data-modal');
-        closeCertModal(modalId);
-    });
-});
+    // Обработчик клика по изображению в секции сертификации
+    const certImages = document.querySelectorAll('.cert-image');
+    if (certImages.length) { // Проверяем, есть ли элементы
+        certImages.forEach(img => {
+            img.addEventListener('click', () => {
+                const modalId = img.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('active');
+                }
+            });
+        });
 
-// Закрытие модального окна при клике на оверлей (фон)
-document.querySelectorAll('.modal-overlay-cert, .modal-overlay-warranty').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-        // Проверяем, был ли клик именно на оверлее, а не на контенте модального окна
-        if (e.target === overlay) {
-            const modalId = overlay.id;
-            closeCertModal(modalId);
-        }
-    });
-});
+        // Обработчик клика по крестику закрытия
+        document.querySelectorAll('.modal-close-cert, .modal-close-warranty').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal');
+                closeCertModal(modalId);
+            });
+        });
 
-// Закрытие модального окна при клике на увеличенное изображение внутри него
-document.querySelectorAll('.modal-cert-img, .modal-warranty-img').forEach(img => {
-    img.addEventListener('click', function() {
-        // Находим родительское модальное окно для этого изображения
-        const modalContainer = this.closest('.modal-cert, .modal-warranty');
-        if (modalContainer) {
-            // Находим оверлей, соответствующий этому модальному окну
-            const modalOverlay = modalContainer.closest('.modal-overlay-cert, .modal-overlay-warranty');
-            if (modalOverlay && modalOverlay.classList.contains('active')) {
-                // Находим ID оверлея и вызываем функцию закрытия
-                closeCertModal(modalOverlay.id);
-            }
-        }
-    });
-});
+        // Закрытие модального окна при клике на оверлей (фон)
+        document.querySelectorAll('.modal-overlay-cert, .modal-overlay-warranty').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                // Проверяем, был ли клик именно на оверлее, а не на контенте модального окна
+                if (e.target === overlay) {
+                    const modalId = overlay.id;
+                    closeCertModal(modalId);
+                }
+            });
+        });
 
-// Закрытие модального окна при клике на любую область внутри контента (.modal-cert или .modal-warranty), кроме крестика
-document.querySelectorAll('.modal-cert, .modal-warranty').forEach(modalContent => {
-    modalContent.addEventListener('click', function(e) {
-        // Проверяем, был ли клик *внутри* контента модального окна (например, на фоне изображения)
-        // и *не* был ли клик по крестику закрытия
-        if (e.currentTarget === this && !this.querySelector('.modal-close-cert, .modal-close-warranty').contains(e.target)) {
-            // Находим оверлей, соответствующий этому модальному контенту
-            const modalOverlay = this.closest('.modal-overlay-cert, .modal-overlay-warranty');
-            if (modalOverlay && modalOverlay.classList.contains('active')) {
-                closeCertModal(modalOverlay.id);
-            }
-        }
-    });
-});
+        // Закрытие модального окна при клике на увеличенное изображение внутри него
+        document.querySelectorAll('.modal-cert-img, .modal-warranty-img').forEach(img => {
+            img.addEventListener('click', function() {
+                // Находим родительское модальное окно для этого изображения
+                const modalContainer = this.closest('.modal-cert, .modal-warranty');
+                if (modalContainer) {
+                    // Находим оверлей, соответствующий этому модальному окну
+                    const modalOverlay = modalContainer.closest('.modal-overlay-cert, .modal-overlay-warranty');
+                    if (modalOverlay && modalOverlay.classList.contains('active')) {
+                        // Находим ID оверлея и вызываем функцию закрытия
+                        closeCertModal(modalOverlay.id);
+                    }
+                }
+            });
+        });
+
+        // Закрытие модального окна при клике на любую область внутри контента (.modal-cert или .modal-warranty), кроме крестика
+        document.querySelectorAll('.modal-cert, .modal-warranty').forEach(modalContent => {
+            modalContent.addEventListener('click', function(e) {
+                // Проверяем, был ли клик *внутри* контента модального окна (например, на фоне изображения)
+                // и *не* был ли клик по крестику закрытия
+                if (e.currentTarget === this && !this.querySelector('.modal-close-cert, .modal-close-warranty').contains(e.target)) {
+                    // Находим оверлей, соответствующий этому модальному контенту
+                    const modalOverlay = this.closest('.modal-overlay-cert, .modal-overlay-warranty');
+                    if (modalOverlay && modalOverlay.classList.contains('active')) {
+                        closeCertModal(modalOverlay.id);
+                    }
+                }
+            });
+        });
+    } else {
+        console.warn("Элементы модальных окон изображений не найдены, инициализация пропущена.");
+    }
+}
 
 // КРИПТ ДЛЯ ЗАГРУЗКИ И ГЕНЕРАЦИИ КАРТОЧЕК//
 // Скрипт для загрузки данных и генерации карточек на главной странице (горизонтальный скролл)
@@ -276,16 +297,22 @@ async function loadAndRenderOtherBlogCards(containerId, currentSlug, maxCards = 
     }
 }
 
-// === ФУНКЦИОНАЛЬНОСТЬ КОПИРОВАНИЯ ТЕЛЕФОНА И ПОЧТЫ ===
-document.addEventListener('DOMContentLoaded', function() {
+
+// === ФУНКЦИОНАЛЬНОСТЬ КОПИРОВАНИЯ ТЕЛЕФОНА И ПОЧТЫ (только для страниц, где есть #copy-phone-btn и #copy-email-btn) ===
+function initializeCopyButtons() {
     const phoneBtn = document.getElementById('copy-phone-btn');
     const emailBtn = document.getElementById('copy-email-btn');
     const phoneMsg = document.getElementById('phone-copied-message');
     const emailMsg = document.getElementById('email-copied-message');
 
+    if (!phoneBtn || !emailBtn) {
+        console.warn("Кнопки копирования не найдены, инициализация пропущена.");
+        return;
+    }
+
     // Тексты для копирования
-    const phoneNumber = '+7 (960) 218-84-00'; 
-    const emailAddress = 'klinika-pechey@mail.ru'; 
+    const phoneNumber = '+7 (960) 218-84-00';
+    const emailAddress = 'klinika-pechey@mail.ru';
 
     // Функция для копирования текста и показа сообщения
     function copyToClipboard(text, messageElement) {
@@ -303,83 +330,77 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Обработчики кликов
-    phoneBtn?.addEventListener('click', () => {
+    phoneBtn.addEventListener('click', () => {
         copyToClipboard(phoneNumber, phoneMsg);
     });
 
-    emailBtn?.addEventListener('click', () => {
+    emailBtn.addEventListener('click', () => {
         copyToClipboard(emailAddress, emailMsg);
     });
-});
+}
 
 
+// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА (для страниц, где есть #header-claim и #modal-continue) ===
+function initializePageModal() {
+    const modalTrigger = document.getElementById('header-claim');
+    const modalCloseBtn = document.getElementById('modal-continue');
+    const modal = document.getElementById('modal'); // Ищем модальное окно
 
-// === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ ===
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('blog-grid-main')) {
-        // Находимся на index.html, вызываем функцию для главной страницы
-        loadAndRenderBlogCardsMain('blog-grid-main', 10);
-    }
-    if (document.getElementById('-')) { // Используем ID из Вашего article.html
-        loadAndRenderBlogCardsArticles('-');
-    }
-    if (document.getElementById('other-articles-grid')) {
-        const path = window.location.pathname;
-        const slug = path.split('/').pop().replace('.html', '');
-        loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
-    }
-});
-
-
-
-// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА ===
-const modalTrigger = document.getElementById('header-claim');
-const modalCloseBtn = document.getElementById('modal-continue');
-
-function openModal() { modal.classList.add('active'); }
-function closeModal() { modal.classList.remove('active'); }
-
-modalTrigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal();
-});
-
-modalCloseBtn.addEventListener('click', () => {
-    // window.location.href = 'https://your-form-url.com  ';
-    closeModal();
-});
-
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) { closeModal(); }
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) { closeModal(); }
-});
-
-// === ФУНКЦИОНАЛЬНОСТЬ СКРЫТИЯ/ПОЯВЛЕНИЯ ШАПКИ ===
-let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-window.addEventListener('scroll', function() {
-    const header = document.getElementById('main-header');
-    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Если прокручиваем вниз
-    if (currentScrollTop > lastScrollTop) {
-        header.classList.add('hidden');
-    // Если прокручиваем вверх
-    } else {
-        header.classList.remove('hidden');
+    if (!modal || !modalTrigger || !modalCloseBtn) {
+        console.warn("Элементы модального окна на странице статьи не найдены, инициализация пропущена.");
+        return;
     }
 
-    // Обновляем последнюю позицию прокрутки
-    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для iOS
-});
+    function openModal() { modal.classList.add('active'); }
+    function closeModal() { modal.classList.remove('active'); }
 
+    modalTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+    });
+
+    modalCloseBtn.addEventListener('click', () => {
+        closeModal();
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) { closeModal(); }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) { closeModal(); }
+    });
+}
+
+// === ФУНКЦИОНАЛЬНОСТЬ СКРЫТИЯ/ПОЯВЛЕНИЯ ШАПКИ (только для страниц, где есть #main-header) ===
+function initializeHeaderHide() {
+    const header = document.getElementById('main-header'); // Проверяем, есть ли элемент
+    if (!header) {
+        console.warn("Элемент шапки #main-header не найден, инициализация пропущена.");
+        return;
+    }
+
+    let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    window.addEventListener('scroll', function() {
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Если прокручиваем вниз
+        if (currentScrollTop > lastScrollTop) {
+            header.classList.add('hidden');
+        // Если прокручиваем вверх
+        } else {
+            header.classList.remove('hidden');
+        }
+
+        // Обновляем последнюю позицию прокрутки
+        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для iOS
+    });
+}
 
 
 // === СКРИПТ ДЛЯ АКТИВАЦИИ ССЫЛКИ "БЛОГ" В ШАПКЕ ===
-document.addEventListener('DOMContentLoaded', function() { 
+function initializeBlogLink() {
     // Находим все навигационные ссылки
     const navLinks = document.querySelectorAll('.nav-link');
 
@@ -397,4 +418,44 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
     });
-}); 
+}
+
+
+// === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация функций, которые могут понадобиться на разных страницах
+    initializeBlogLink(); // Активация ссылки "Блог" работает везде
+
+    // Проверяем, находимся ли мы на странице index.html
+    if (document.getElementById('blog-grid-main')) {
+        // Находимся на index.html
+        loadAndRenderBlogCardsMain('blog-grid-main', 10);
+        initializeModal(); // Инициализируем модальное окно для index.html
+        initializeFaq(); // Инициализируем FAQ для index.html
+        initializeImageModals(); // Инициализируем модальные окна изображений для index.html
+    }
+
+    // Проверяем, находимся ли мы на странице article.html
+    if (document.getElementById('-')) { // Используем ID из Вашего article.html
+        // Находимся на article.html
+        loadAndRenderBlogCardsArticles('-');
+        initializePageModal(); // Инициализируем модальное окно для article.html
+    }
+
+    // Проверяем, находимся ли мы на странице статьи (например, blog1.html, blog2.html и т.д.)
+    if (document.getElementById('other-articles-grid')) {
+        // Находимся на странице статьи (например, blog1.html)
+        // Определяем slug текущей статьи из URL
+        // Берём последнюю часть URL (путь) и убираем .html
+        const path = window.location.pathname;
+        const slug = path.split('/').pop().replace('.html', '');
+        // Вызываем функцию для загрузки *других* статей
+        // Например, если находимся на blog1.html, slug будет 'blog1'
+        loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
+        initializePageModal(); // Инициализируем модальное окно для страниц статей
+    }
+
+    // Инициализация копирования и скрытия шапки, если элементы существуют
+    initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
+    initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
+});
