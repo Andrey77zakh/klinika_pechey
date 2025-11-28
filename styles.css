@@ -234,34 +234,131 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный оверлей */
+    /* Убираем полупрозрачный фон */
+    /* background-color: rgba(0, 0, 0, 0.8); */
+    /* Добавляем эффект затемнения фона сайта */
+    background: linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
     z-index: 1000; /* Выше всего, кроме кнопок закрытия и гамбургера */
     display: none; /* Скрыто по умолчанию */
-    align-items: flex-end; /* Прижимаем меню к правому краю */
-    justify-content: flex-end;
+    /* Оставляем место слева для затемнения */
+    /* При открытии меню будет сдвигаться вправо */
+}
+
+.mobile-menu-overlay.active {
+    display: block; /* Показываем оверлей при активации */
 }
 
 .mobile-menu {
-    position: relative;
+    position: fixed;
+    top: 0;
+    /* Начальное положение: скрыто за правым краем */
+    right: -100%;
     width: 80%; /* Ширина меню */
     max-width: 350px; /* Максимальная ширина */
     height: 100%;
-    background-color: var(--card-bg);
+    background-color: var(--card-bg); /* Белый фон меню */
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     padding: 60px 20px 20px 20px; /* Отступы сверху, сбоку, снизу */
-    transform: translateX(100%); /* Изначально скрыто за правым краем */
-    transition: transform 0.3s ease-in-out;
+    /* Убираем transform, теперь позиционирование через right */
+    transition: right 0.3s ease-in-out; /* Плавный сдвиг */
+    z-index: 1001; /* Выше оверлея */
 }
 
 .mobile-menu.active {
-    transform: translateX(0); /* Появление меню */
+    /* right: 0; - меню выезжает на 0% от правого края (т.е. к правому краю экрана) */
+    /* Оставляем немного места слева (например, 20%) */
+    right: 20%;
+    /* Или, если хотите фиксированную ширину, например, 300px: */
+    /* right: calc(100% - 300px); */
+    /* Но проще использовать проценты, чтобы оставалась "занавеска" */
+    /* right: 20% оставит 20% справа под меню и 20% слева как "занавеска" */
+    /* Чтобы оставалась *только* "занавеска" слева, нужно right = ширина_меню */
+    /* right: 80% - оставит 20% слева, 80% справа занято меню */
+    /* Правильный вариант: */
+    right: 0; /* Меню выезжает полностью */
+    width: calc(80% - 20px); /* Ширина меню 80% - 20px отступ */
+    left: auto; /* Убедимся, что left не мешает */
+    /* Лучше использовать right и width, чем left и width */
+    /* Альтернатива: */
+    /* right: 20%; */
+    /* width: 80%; */
+    /* Но тогда оверлей должен быть затемнением только слева */
+    /* Используем вариант, где меню выезжает справа и оставляет "занавеску" слева */
+    /* Правильный расчет: если меню 80%, то 20% остается слева */
+    /* right: 20% - это правильно для "занавески" слева */
+    right: 20%; /* Оставляем 20% справа под меню, 20% слева - "занавеска" */
+    width: 80%; /* Занимаем 80% экрана */
+    /* Это означает, что меню выезжает с right: -100% на right: 20% */
+    /* И оставляет 20% от экрана слева не закрытым (затемнённым оверлеем) */
+    /* Это и есть "чуть остается место, где видно прозрачно часть сайта" */
+    /* width: 80%; - правильно */
 }
 
+/* Альтернативный вариант, если хотите фиксированную ширину меню (например, 300px) */
+/* .mobile-menu.active {
+    right: 300px; /!* Меню оставляет 300px слева *!/
+    width: 300px; /!* Ширина меню фиксирована *!/
+    left: auto;
+} */
+
+
+/* Контейнер для навигационных ссылок (верхняя часть меню) */
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Отступ между ссылками */
+    flex-grow: 1; /* Растягиваем, чтобы занять доступное пространство сверху */
+    overflow-y: auto; /* Добавляем прокрутку, если контента много */
+    padding-right: 10px; /* Отступ для полосы прокрутки */
+    /* Убираем border-bottom, так как контакты будут внизу */
+}
+
+/* Контейнер для контактных данных (нижняя часть меню) */
+.mobile-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Отступ между элементами контактов */
+    margin-top: auto; /* Прижимаем к низу */
+    padding-top: 20px; /* Отступ сверху от основного контента */
+    border-top: 1px solid var(--card-border); /* Линия сверху */
+}
+
+/* Стили для ссылок в навигации */
+.mobile-nav-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 12px 0; /* Внутренние отступы */
+    transition: color 0.3s;
+}
+
+.mobile-nav-link:hover {
+    color: var(--accent);
+}
+
+/* Стили для кнопки в меню */
+.mobile-nav-link.btn {
+    background: linear-gradient(135deg, #0da2e7, var(--accent2));
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+/* Стили для кнопки закрытия */
 .mobile-menu-close {
     position: absolute;
     top: 15px;
+    /* right: 15px; /!* Было справа *!/
+    /* left: auto; /!* Убедимся, что left не мешает *!/
+    /* Теперь, когда меню смещено, крестик должен быть внутри видимой части */
+    /* Если меню имеет width 80% и right 20%, то крестик должен быть справа от видимой части меню */
+    /* right: 15px от края меню */
+    /* Учитывая, что меню начинается с right: 20%, крестик будет на 15px левее правого края экрана */
+    /* Это правильно */
     right: 15px;
     background: none;
     border: none;
@@ -270,34 +367,6 @@ header {
     cursor: pointer;
     padding: 5px; /* Увеличим область клика */
     z-index: 1003; /* Выше содержимого меню */
-}
-
-.mobile-nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Отступ между ссылками */
-}
-
-.mobile-nav-link {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 1.2rem;
-    padding: 12px 0; /* Внутренние отступы */
-    border-bottom: 1px solid var(--card-border); /* Легкая линия между пунктами */
-    transition: color 0.3s;
-}
-
-.mobile-nav-link:hover {
-    color: var(--accent);
-}
-
-.mobile-nav-link.btn {
-    background: linear-gradient(135deg, #0da2e7, var(--accent2));
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-    margin-top: 10px;
-    font-weight: 600;
 }
 
 /* ===== АДАПТИВНОСТЬ ГАМБУРГЕР МЕНЮ ===== */
@@ -324,8 +393,17 @@ header {
 /* Дополнительно: если ширина экрана меньше 600px, можно немного изменить ширину меню */
 @media (max-width: 600px) {
     .mobile-menu {
-        width: 100%; /* Занимает всю ширину на очень маленьких экранах */
+        width: 90%; /* Занимает больше ширины на очень маленьких экранах */
     }
+    .mobile-menu.active {
+        right: 10%; /* Оставляет 10% слева */
+        width: 90%;
+    }
+    /* Альтернатива: фиксированная ширина */
+    /* .mobile-menu.active {
+        right: 300px;
+        width: 300px;
+    } */
 }
 
 

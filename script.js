@@ -425,10 +425,14 @@ function initializeBlogLink() {
 function initializeHamburgerMenu() {
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenu = document.getElementById('mobile-menu'); // Теперь получаем по ID
     const mobileMenuClose = document.getElementById('mobile-menu-close');
-    const navLinks = document.querySelectorAll('.mobile-nav-link'); // Ссылки внутри меню
+    const navLinks = document.querySelectorAll('.mobile-nav-link'); // Ссылки внутри меню (кроме контактов)
     const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim, #mobile-claim'); // Все кнопки "Вызвать/Оставить заявку"
+
+    // Переменные для отслеживания свайпа
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     if (!hamburgerBtn) {
         console.warn("Кнопка гамбургер-меню не найдена, инициализация пропущена.");
@@ -437,7 +441,7 @@ function initializeHamburgerMenu() {
 
     // Функция открытия меню
     function openMenu() {
-        mobileMenuOverlay.style.display = 'flex'; // Показываем оверлей
+        mobileMenuOverlay.classList.add('active'); // Показываем оверлей
         setTimeout(() => {
             mobileMenu.classList.add('active'); // Анимируем появление меню
         }, 10); // Небольшая задержка для корректной анимации
@@ -448,7 +452,7 @@ function initializeHamburgerMenu() {
     function closeMenu() {
         mobileMenu.classList.remove('active'); // Анимируем скрытие меню
         setTimeout(() => {
-            mobileMenuOverlay.style.display = 'none'; // Скрываем оверлей после анимации
+            mobileMenuOverlay.classList.remove('active'); // Скрываем оверлей после анимации
         }, 300); // Соответствует времени transition
         document.body.style.overflow = ''; // Восстанавливаем прокрутку
     }
@@ -483,6 +487,39 @@ function initializeHamburgerMenu() {
             }, 100); // Закрываем через 100мс
         });
     });
+
+    // === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ ===
+    // Touch events для мобильных устройств
+    mobileMenu.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true }); // passive: true для лучшей производительности
+
+    mobileMenu.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    // Mouse events для тестирования на десктопе (опционально)
+    mobileMenu.addEventListener('mousedown', e => {
+        touchStartX = e.screenX;
+    });
+
+    document.addEventListener('mouseup', e => {
+        if (mobileMenu.classList.contains('active')) { // Проверяем, открыто ли меню
+            touchEndX = e.screenX;
+            handleSwipe();
+        }
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50; // Минимальное расстояние для срабатывания свайпа
+
+        if (touchStartX - touchEndX > swipeThreshold) {
+            // Свайп влево (пользователь "возвращает" меню обратно)
+            closeMenu();
+        }
+        // Свайп вправо не обрабатываем, так как меню и так открыто
+    }
 }
 
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
@@ -524,7 +561,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
     initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
 });
-
 
 
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
