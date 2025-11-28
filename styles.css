@@ -1147,7 +1147,212 @@ footer {
     .logo-icon { width: 28px; height: 28px; } /* Уменьшение размера иконки */
 }
 
-/* Стили для страниц BLOG1   BLOG2     BLOG3    и т.д. */
+
+
+
+/*-----------------------ФАЙЛ ARTICLE--------------------------------------*\
+
+
+/* ===== СЕКЦИЯ БЛОГА ===== */
+.blog-section {
+    padding: 100px 0; /* Отступы сверху и снизу секции */
+}
+
+.section-title {
+    font-size: 2.2rem; /* Размер шрифта заголовка */
+    text-align: center; /* Центрирование заголовка */
+    margin-bottom: 70px; /* Внешний отступ снизу */
+    color: var(--accent); /* Цвет заголовка */
+}
+
+.blog-grid {
+    display: grid; /* Сетка для карточек */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Адаптивные колонки */
+    gap: 40px; /* Отступ между карточками */
+    width: 100%; /* Ширина сетки */
+}
+
+/* ===== КАРТОЧКА БЛОГА ===== */
+.blog-card {
+    background: var(--card-bg); /* Фон карточки */
+    border: 1px solid var(--card-border); /* Граница карточки */
+    border-radius: 24px; /* Скругление углов */
+    overflow: hidden; /* Скрытие переполнения */
+    box-shadow: var(--shadow); /* Тень карточки */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit; /* Наследование цвета текста */
+    display: flex; /* Flexbox для содержимого */
+    flex-direction: column; /* Направление колонки */
+}
+
+.blog-card:hover {
+    transform: translateY(-10px); /* Поднятие при наведении */
+    box-shadow: 0 12px 40px rgba(13, 162, 231, 0.2); /* Увеличенная тень */
+}
+
+.blog-card-img {
+    width: 100%; /* Ширина изображения */
+    height: 200px; /* Высота изображения */
+    object-fit: cover; /* Обрезка изображения */
+    border-bottom: 1px solid var(--card-border); /* Граница снизу */
+}
+
+.blog-card-content {
+    padding: 24px; /* Внутренние отступы */
+    flex-grow: 1; /* Растягивание по высоте */
+    display: flex; /* Flexbox для содержимого */
+    flex-direction: column; /* Направление колонки */
+    justify-content: space-between; /* Распределение по краям */
+}
+
+.blog-card h3 {
+    font-size: 1.3rem; /* Размер шрифта заголовка */
+    margin-bottom: 10px; /* Внешний отступ снизу */
+    color: var(--accent); /* Цвет заголовка */
+}
+
+.blog-card p {
+    color: var(--text-secondary); /* Цвет текста */
+    margin-bottom: 15px; /* Внешний отступ снизу */
+    flex-grow: 1; /* Растягивание по высоте */
+}
+
+.read-more-link {
+    display: inline-block; /* Отображение как блок */
+    color: var(--accent); /* Цвет ссылки */
+    text-decoration: none; /* Убирает подчеркивание */
+    font-weight: 600; /* Полужирный шрифт */
+    margin-top: auto; /* Прижатие к низу */
+}
+
+.read-more-link:hover {
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+/* ===== АДАПТИВНОСТЬ (медиазапросы) ===== */
+@media (max-width: 900px) {
+    .blog-grid { gap: 30px; } /* Отступ между карточками блога */
+    .blog-card-content { padding: 20px; } /* Отступы содержимого карточки */
+    .blog-card h3 { font-size: 1.2rem; } /* Размер шрифта заголовка карточки */
+    .blog-card p { font-size: 0.95rem; } /* Размер шрифта текста карточки */
+}
+
+@media (max-width: 600px) {
+    .blog-grid { grid-template-columns: 1fr; gap: 25px; } /* Одна колонка в сетке */
+    .blog-card-img { height: 180px; } /* Высота изображения карточки */
+    .blog-card-content { padding: 18px; } /* Отступы содержимого карточки */
+    .blog-card h3 { font-size: 1.15rem; } /* Размер шрифта заголовка карточки */
+    .blog-card p { font-size: 0.9rem; } /* Размер шрифта текста карточки */
+}
+
+
+
+
+/* --------------------- ФАЙЛЫ BLOG1   BLOG2     BLOG3    и т.д. -------------------------*/
+
+
+/* ===== СЕКЦИЯ БЛОГА ===== */
+.blog-section {
+    padding: 100px 0; /* Отступы сверху и снизу секции */
+}
+
+.section-title {
+    font-size: 2.2rem; /* Размер шрифта заголовка */
+    text-align: center; /* Центрирование заголовка */
+    margin-bottom: 70px; /* Внешний отступ снизу */
+    color: var(--accent); /* Цвет заголовка */
+}
+
+.blog-grid {
+    display: grid; /* Сетка для карточек */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Адаптивные колонки */
+    gap: 40px; /* Отступ между карточками */
+    width: 100%; /* Ширина сетки */
+}
+
+/* ===== КАРТОЧКА БЛОГА ===== */
+.blog-card {
+    background: var(--card-bg); /* Фон карточки */
+    border: 1px solid var(--card-border); /* Граница карточки */
+    border-radius: 24px; /* Скругление углов */
+    overflow: hidden; /* Скрытие переполнения */
+    box-shadow: var(--shadow); /* Тень карточки */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit; /* Наследование цвета текста */
+    display: flex; /* Flexbox для содержимого */
+    flex-direction: column; /* Направление колонки */
+}
+
+.blog-card:hover {
+    transform: translateY(-10px); /* Поднятие при наведении */
+    box-shadow: 0 12px 40px rgba(13, 162, 231, 0.2); /* Увеличенная тень */
+}
+
+.blog-card-img {
+    width: 100%; /* Ширина изображения */
+    height: 200px; /* Высота изображения */
+    object-fit: cover; /* Обрезка изображения */
+    border-bottom: 1px solid var(--card-border); /* Граница снизу */
+}
+
+.blog-card-content {
+    padding: 24px; /* Внутренние отступы */
+    flex-grow: 1; /* Растягивание по высоте */
+    display: flex; /* Flexbox для содержимого */
+    flex-direction: column; /* Направление колонки */
+    justify-content: space-between; /* Распределение по краям */
+}
+
+.blog-card h3 {
+    font-size: 1.3rem; /* Размер шрифта заголовка */
+    margin-bottom: 10px; /* Внешний отступ снизу */
+    color: var(--accent); /* Цвет заголовка */
+}
+
+.blog-card p {
+    color: var(--text-secondary); /* Цвет текста */
+    margin-bottom: 15px; /* Внешний отступ снизу */
+    flex-grow: 1; /* Растягивание по высоте */
+}
+
+.read-more-link {
+    display: inline-block; /* Отображение как блок */
+    color: var(--accent); /* Цвет ссылки */
+    text-decoration: none; /* Убирает подчеркивание */
+    font-weight: 600; /* Полужирный шрифт */
+    margin-top: auto; /* Прижатие к низу */
+}
+
+.read-more-link:hover {
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+/* ===== АДАПТИВНОСТЬ (медиазапросы) ===== */
+@media (max-width: 900px) {
+    .blog-grid { gap: 30px; } /* Отступ между карточками блога */
+    .blog-card-content { padding: 20px; } /* Отступы содержимого карточки */
+    .blog-card h3 { font-size: 1.2rem; } /* Размер шрифта заголовка карточки */
+    .blog-card p { font-size: 0.95rem; } /* Размер шрифта текста карточки */
+}
+
+@media (max-width: 600px) {
+    .blog-grid { grid-template-columns: 1fr; gap: 25px; } /* Одна колонка в сетке */
+    .blog-card-img { height: 180px; } /* Высота изображения карточки */
+    .blog-card-content { padding: 18px; } /* Отступы содержимого карточки */
+    .blog-card h3 { font-size: 1.15rem; } /* Размер шрифта заголовка карточки */
+    .blog-card p { font-size: 0.9rem; } /* Размер шрифта текста карточки */
+}
+
+
+
+
+
+
+
+
+
 
 /* ===== СТИЛИ СЕКЦИИ СТАТЬИ (с фоновой картинкой) ===== */
 .article-section {
