@@ -119,6 +119,7 @@ header {
     color: var(--accent);               /* Изменение цвета при наведении/активности */
 }
 
+
 /* ===== АНИМАЦИОННОЕ ПОДЧЕРКИВАНИЕ ССЫЛОК ===== */
 .nav-link::after {
     content: '';                        /* Псевдоэлемент для подчеркивания */
@@ -201,6 +202,132 @@ header {
     color: var(--text-secondary);       /* Цвет текста */
     font-size: 1.25rem;                 /* Размер шрифта иконки */
 }
+
+
+/* ===== СТИЛИ ГАМБУРГЕР МЕНЮ ===== */
+.hamburger-btn {
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1002; /* Выше остального контента */
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 10px;
+    transition: all 0.3s;
+    position: relative;
+    transform-origin: center;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный оверлей */
+    z-index: 1000; /* Выше всего, кроме кнопок закрытия и гамбургера */
+    display: none; /* Скрыто по умолчанию */
+    align-items: flex-end; /* Прижимаем меню к правому краю */
+    justify-content: flex-end;
+}
+
+.mobile-menu {
+    position: relative;
+    width: 80%; /* Ширина меню */
+    max-width: 350px; /* Максимальная ширина */
+    height: 100%;
+    background-color: var(--card-bg);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    padding: 60px 20px 20px 20px; /* Отступы сверху, сбоку, снизу */
+    transform: translateX(100%); /* Изначально скрыто за правым краем */
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu.active {
+    transform: translateX(0); /* Появление меню */
+}
+
+.mobile-menu-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 5px; /* Увеличим область клика */
+    z-index: 1003; /* Выше содержимого меню */
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Отступ между ссылками */
+}
+
+.mobile-nav-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 12px 0; /* Внутренние отступы */
+    border-bottom: 1px solid var(--card-border); /* Легкая линия между пунктами */
+    transition: color 0.3s;
+}
+
+.mobile-nav-link:hover {
+    color: var(--accent);
+}
+
+.mobile-nav-link.btn {
+    background: linear-gradient(135deg, #0da2e7, var(--accent2));
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+/* ===== АДАПТИВНОСТЬ ГАМБУРГЕР МЕНЮ ===== */
+@media (max-width: 900px) {
+    .hamburger-btn {
+        display: flex; /* Показываем гамбургер */
+    }
+
+    .nav-links,
+    .header-claim-btn {
+        display: none; /* Скрываем стандартные ссылки и кнопку */
+    }
+
+    .logo-text {
+        font-size: 1.5rem; /* Уменьшаем размер логотипа */
+    }
+
+    .logo-icon {
+        width: 28px; /* Уменьшаем размер иконки */
+        height: 28px;
+    }
+}
+
+/* Дополнительно: если ширина экрана меньше 600px, можно немного изменить ширину меню */
+@media (max-width: 600px) {
+    .mobile-menu {
+        width: 100%; /* Занимает всю ширину на очень маленьких экранах */
+    }
+}
+
 
 /* ===== СТИЛИ ГЕРОЯ (ШАПКА СТРАНИЦЫ) ===== */
 /* Убедитесь, что .hero имеет position: relative; (уже есть в вашем коде) */

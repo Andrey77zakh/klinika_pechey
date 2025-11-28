@@ -421,6 +421,112 @@ function initializeBlogLink() {
 }
 
 
+// === ФУНКЦИОНАЛЬНОСТЬ ГАМБУРГЕР МЕНЮ ===
+function initializeHamburgerMenu() {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const navLinks = document.querySelectorAll('.mobile-nav-link'); // Ссылки внутри меню
+    const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim, #mobile-claim'); // Все кнопки "Вызвать/Оставить заявку"
+
+    if (!hamburgerBtn) {
+        console.warn("Кнопка гамбургер-меню не найдена, инициализация пропущена.");
+        return;
+    }
+
+    // Функция открытия меню
+    function openMenu() {
+        mobileMenuOverlay.style.display = 'flex'; // Показываем оверлей
+        setTimeout(() => {
+            mobileMenu.classList.add('active'); // Анимируем появление меню
+        }, 10); // Небольшая задержка для корректной анимации
+        document.body.style.overflow = 'hidden'; // Блокируем прокрутку основного контента
+    }
+
+    // Функция закрытия меню
+    function closeMenu() {
+        mobileMenu.classList.remove('active'); // Анимируем скрытие меню
+        setTimeout(() => {
+            mobileMenuOverlay.style.display = 'none'; // Скрываем оверлей после анимации
+        }, 300); // Соответствует времени transition
+        document.body.style.overflow = ''; // Восстанавливаем прокрутку
+    }
+
+    // Обработчик клика по гамбургеру
+    hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Останавливаем всплытие, чтобы не закрылось сразу
+        openMenu();
+    });
+
+    // Обработчик клика по крестику закрытия
+    mobileMenuClose.addEventListener('click', closeMenu);
+
+    // Обработчик клика по оверлею (вне меню)
+    mobileMenuOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileMenuOverlay) {
+            closeMenu();
+        }
+    });
+
+    // Обработчик клика по ссылкам внутри меню - закрывает меню
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Обработчик клика по кнопке "Вызвать печника" внутри меню - закрывает меню
+    claimButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // Закрываем меню, но не предотвращаем стандартное поведение кнопки (например, открытие модального окна)
+            setTimeout(() => { // Небольшая задержка, чтобы модальное окно открылось после закрытия меню
+                closeMenu();
+            }, 100); // Закрываем через 100мс
+        });
+    });
+}
+
+// === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация функций, которые могут понадобиться на разных страницах
+    initializeBlogLink(); // Активация ссылки "Блог" работает везде
+    initializeHamburgerMenu(); // Инициализация гамбургер-меню работает везде
+
+    // Проверяем, находимся ли мы на странице index.html
+    if (document.getElementById('blog-grid-main')) {
+        // Находимся на index.html
+        loadAndRenderBlogCardsMain('blog-grid-main', 10);
+        initializeModal(); // Инициализируем модальное окно для index.html
+        initializeFaq(); // Инициализируем FAQ для index.html
+        initializeImageModals(); // Инициализируем модальные окна изображений для index.html
+    }
+
+    // Проверяем, находимся ли мы на странице article.html
+    if (document.getElementById('-')) { // Используем ID из Вашего article.html
+        // Находимся на article.html
+        loadAndRenderBlogCardsArticles('-');
+        initializePageModal(); // Инициализируем модальное окно для article.html
+    }
+
+    // Проверяем, находимся ли мы на странице статьи (например, blog1.html, blog2.html и т.д.)
+    if (document.getElementById('other-articles-grid')) {
+        // Находимся на странице статьи (например, blog1.html)
+        // Определяем slug текущей статьи из URL
+        // Берём последнюю часть URL (путь) и убираем .html
+        const path = window.location.pathname;
+        const slug = path.split('/').pop().replace('.html', '');
+        // Вызываем функцию для загрузки *других* статей
+        // Например, если находимся на blog1.html, slug будет 'blog1'
+        loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
+        initializePageModal(); // Инициализируем модальное окно для страниц статей
+    }
+
+    // Инициализация копирования и скрытия шапки, если элементы существуют
+    initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
+    initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
+});
+
+
+
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация функций, которые могут понадобиться на разных страницах
@@ -459,3 +565,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
     initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
 });
+
+
+
