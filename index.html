@@ -76,15 +76,21 @@
         <!-- === МОБИЛЬНОЕ МЕНЮ === -->
         <div class="mobile-menu-overlay" id="mobile-menu-overlay">
             <div class="mobile-menu" id="mobile-menu">
-                <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Закрыть меню">&times;</button>
+                <!-- === ОСНОВНОЕ МЕНЮ === -->
                 <nav class="mobile-nav-links">
-                    <a href="index.html" class="nav-link mobile-nav-link">Главная</a>
-                    <a href="index.html#services" class="nav-link mobile-nav-link">Услуги</a>
-                    <a href="article.html" class="nav-link mobile-nav-link">Блог</a>
-                    <!-- Кнопка "Вызвать печника" в навигации -->
+                    <a href="index.html#problems" class="nav-link mobile-nav-link">Частые проблемы в печах</a>
+                    <a href="index.html#approach" class="nav-link mobile-nav-link">Наш подход к ремонту</a>
+                    <a href="index.html#how-we-work" class="nav-link mobile-nav-link">Как мы работаем</a>
+                    <a href="index.html#services" class="nav-link mobile-nav-link">Наши услуги</a>
+                    <a href="index.html#about1" class="nav-link mobile-nav-link">О нас</a>
+                    <a href="index.html#warranty" class="nav-link mobile-nav-link">Наши гарантии</a>
+                    <a href="index.html#author" class="nav-link mobile-nav-link">Автор новых технологий ремонта</a>
+                    <a href="index.html#gallery" class="nav-link mobile-nav-link">Галерея работ</a>
+                    <a href="index.html#blog-section-main" class="nav-link mobile-nav-link">Блог</a>
+                    <a href="index.html#faq" class="nav-link mobile-nav-link">Частые вопросы</a>
                     <a href="#" class="btn mobile-nav-link" id="mobile-claim">Вызвать печника</a>
                 </nav>
-                <!-- === КОНТАКТЫ В МЕНЮ === -->
+                <!-- === КОНТАКТЫ В МЕНЮ (внизу) === -->
                 <div class="mobile-contacts">
                     <a href="tel:+79602188400" class="nav-link mobile-nav-link">+7 (960) 218-84-00</a>
                     <a href="mailto:klinika-pechey@mail.ru" class="nav-link mobile-nav-link">klinika-pechey@mail.ru</a>
@@ -127,7 +133,7 @@
       </section>
 
       <!-- === 2. ПРОБЛЕМЫ: дымит, не греет, трескается === -->
-      <section>
+      <section id = "problems">
         <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Почему в печах часто бывают проблемы?</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; width: 100%; justify-items: center;">
           <div class="glass-card">
@@ -177,7 +183,7 @@
       </section>
 
       <!-- === 3. НАШ ПОДХОД (Новая секция) === -->
-      <section class="approach-section"> <!-- Добавлен класс для секции -->
+      <section id = "approach" class="approach-section"> <!-- Добавлен класс для секции -->
         <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Наш подход - Инженерный подход к ремонту</h2>
         <div class="approach-content">
           <div class="images-container-approach">
@@ -199,7 +205,7 @@
       </section>
 
       <!-- === 4. ЭТАПЫ РАБОТЫ (Новая секция) === -->
-      <section>
+      <section id = "how-we-work">
         <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Как мы работаем</h2>
         <p style="text-align: center; font-size: 1.2rem; margin-bottom: 0px;">
             Мы начинаем с диагностики печи на профессиональном оборудовании, с выявления корня проблемы.<br>
@@ -301,7 +307,7 @@
       </section>
 
       <!-- === 6. Клиника Печей в цифрах (обновлённая секция) === -->
-      <section>
+      <section id ="about1">
         <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Клиника Печей в цифрах</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; width: 100%;">
             <div style="text-align: center;">
@@ -336,7 +342,7 @@
       </section>
 
       <!-- === 7. О НАС (Новая секция) === -->
-      <section>
+      <section id = "about2">
         <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Кто мы?</h2>
         <div class="glass-card">
           <!-- <p style="font-size: 1.2rem; line-height: 1.8; text-align: center;"> -->
@@ -361,7 +367,7 @@
       </section>
 
       <!-- === 8. СЕРТИФИКАЦИЯ И ГАРАНТИИ === -->
-      <section class="cert-and-warranty-section">
+      <section id = "warranty" class="cert-and-warranty-section">
           <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Сертификация услуг и наши гарантии</h2>
           <div class="glass-card">
               <div class="cert-and-warranty-content">
@@ -410,7 +416,7 @@
       </div>
 
       <!-- === 9. Технологии от Андрея Захарченко (оригинальная секция, немного изменена) === -->
-      <section>
+      <section id = "author">
         <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Автор инновационных решений в ремонте печей</h2>
         <div class="founder-card">
           <div class="founder-content">
@@ -436,7 +442,7 @@
       </section>
 
       <!-- === 10. НАШИ РАБОТЫ (анимированная лента) === -->
-      <section class="works-slider-section">
+      <section id = "gallery" class="works-slider-section">
           <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 20px; color: var(--accent);">Галерея работ</h2>
           <div class="works-slider-container">
               <div class="works-slider-track">
@@ -510,7 +516,7 @@
       </section>
 
       <!-- === 12. Частые вопросы (FAQ) (оригинальная секция + дополнения) === -->
-      <section class="faq-section">
+      <section id = "faq" class="faq-section">
         <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--accent);">Часто задаваемые вопросы</h2>
         <div class="faq-list" style="width: 100%;">
           <div class="faq-item">
