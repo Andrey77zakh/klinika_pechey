@@ -1150,8 +1150,7 @@ footer {
 
 
 
-/*-----------------------ФАЙЛ
---------------------------------------*\
+/*-----------------------ФАЙЛ ARTICLE--------------------------------------*\
 
 
 /* ===== СЕКЦИЯ БЛОГА ===== */
@@ -1194,7 +1193,7 @@ footer {
 
 .blog-card-img {
     width: 100%; /* Ширина изображения */
-    height: 250px; /* Высота изображения */
+    height: 20px; /* Высота изображения */
     object-fit: cover; /* Обрезка изображения */
     border-bottom: 1px solid var(--card-border); /* Граница снизу */
 }
@@ -1356,15 +1355,13 @@ footer {
 
 
 /* ===== СТИЛИ СЕКЦИИ СТАТЬИ (с фоновой картинкой) ===== */
-
--section {
+.article-section {
     padding: 0 0 80px 0; /* Убираем отступ сверху */
     position: relative; /* Для правильного позиционирования фона */
 }
 
 /* Контейнер для фоновой картинки */
-
--hero {
+.article-hero {
     position: relative;
     height: 70vh; /* Высота области с фоном */
     display: flex;
@@ -1374,8 +1371,7 @@ footer {
 }
 
 /* Фоновое изображение */
-
--hero-bg {
+.article-hero-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -1389,8 +1385,7 @@ footer {
 }
 
 /* Контент, который появляется поверх фона */
-
--hero-content {
+.article-hero-content {
     position: relative;
     z-index: 1; /* Поверх фона */
     color: #ffffff; /* Цвет текста для контраста с фоном */
@@ -1401,21 +1396,18 @@ footer {
     border-radius: 16px;
 }
 
-
--hero-content h1 {
+.article-hero-content h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
-
--hero-content p {
+.article-hero-content p {
     font-size: 1.2rem;
     font-style: italic; /* Подзаголовок курсивом */
 }
 
 /* Основной контент статьи */
-
--content {
+.article-content {
     max-width: 100%;
     margin: 0 auto;
     padding: 20px 20px 0;
@@ -1428,22 +1420,18 @@ footer {
     transform: translateY(-48px); /* Поднимаем основной контент вверх, чтобы он перекрывал нижнюю часть фона */
 }
 
-
--content h1 {
-    /* Убираем заголовок из основного контента, он в 
-    -hero-content */
+.article-content h1 {
+    /* Убираем заголовок из основного контента, он в .article-hero-content */
     display: none;
 }
 
-
--content p {
+.article-content p {
     font-size: 1.2rem;
     line-height: 1.9;
     margin-bottom: 25px;
 }
 
-
--content img {
+.article-content img {
     max-width: 500px;
     height: auto;
     border-radius: 16px;
@@ -1479,3 +1467,5 @@ header {
 header.hidden {
     transform: translateY(-100%); /* Скрываем за верхнюю границу */
 }
+
+

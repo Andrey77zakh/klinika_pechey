@@ -275,37 +275,6 @@ async function loadAndRenderBlogCardsArticles(containerId) {
     }
 }
 
-// Вызываем функцию при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    loadAndRenderBlogCardsArticles('blog-grid-articles');
-});
-// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА (из index.html) ===
-const modalTrigger = document.getElementById('header-claim');
-const modalCloseBtn = document.getElementById('modal-continue');
-
-function openModal() { modal.classList.add('active'); }
-function closeModal() { modal.classList.remove('active'); }
-
-modalTrigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal();
-});
-
-modalCloseBtn.addEventListener('click', () => {
-    // window.location.href = 'https://your-form-url.com';
-    closeModal();
-});
-
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) { closeModal(); }
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) { closeModal(); }
-});
-
-
-
 
 //ФАЙЛ ------BLOG1   BLOG2    BLOG3     и др.------- !!!!!!!!
 
@@ -361,3 +330,72 @@ document.addEventListener('DOMContentLoaded', function() {
     // ВАЖНО: Укажите slug ТЕКУЩЕЙ статьи, чтобы она не появилась в списке "другие"
     loadAndRenderOtherBlogCards('other-articles-grid', 'blog1', 10); // 'blog1' - slug текущей статьи
 });
+
+
+
+// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА ===
+const modalTrigger = document.getElementById('header-claim');
+const modalCloseBtn = document.getElementById('modal-continue');
+
+function openModal() { modal.classList.add('active'); }
+function closeModal() { modal.classList.remove('active'); }
+
+modalTrigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal();
+});
+
+modalCloseBtn.addEventListener('click', () => {
+    // window.location.href = 'https://your-form-url.com';
+    closeModal();
+});
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) { closeModal(); }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) { closeModal(); }
+});
+
+// === ФУНКЦИОНАЛЬНОСТЬ СКРЫТИЯ/ПОЯВЛЕНИЯ ШАПКИ ===
+let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+window.addEventListener('scroll', function() {
+    const header = document.getElementById('main-header');
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Если прокручиваем вниз
+    if (currentScrollTop > lastScrollTop) {
+        header.classList.add('hidden');
+    // Если прокручиваем вверх
+    } else {
+        header.classList.remove('hidden');
+    }
+
+    // Обновляем последнюю позицию прокрутки
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для iOS
+});
+
+
+
+// === СКРИПТ ДЛЯ АКТИВАЦИИ ССЫЛКИ "БЛОГ" В ШАПКЕ ===
+document.addEventListener('DOMContentLoaded', function() { 
+    // Находим все навигационные ссылки
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Пройдемся по всем ссылкам
+    navLinks.forEach(link => {
+        // Проверяем, ведёт ли ссылка на article.html (страницу со списком статей)
+        // или является ли текущая страница (например, blog1.html) отличной от index.html
+        // и при этом ссылка ведёт на article.html
+        if (link.getAttribute('href') === 'article.html') {
+            // Убираем класс 'active' у всех ссылок
+            navLinks.forEach(l => l.classList.remove('active'));
+            // Добавляем класс 'active' к найденной ссылке "Блог"
+            link.classList.add('active');
+            // Прерываем цикл, так как нашли нужную ссылку
+            return;
+        }
+    });
+}); 
