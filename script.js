@@ -1,6 +1,4 @@
-
 //ФАЙЛ -------INDEX------!!!!!
-
 
 // === МОДАЛЬНОЕ ОКНО ===
 const modal = document.getElementById('modal');
@@ -9,36 +7,36 @@ const modalContinue = document.getElementById('modal-continue');
 
 claimButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.classList.add('active');
+        e.preventDefault();
+        modal.classList.add('active');
     });
 });
 
 modalContinue.addEventListener('click', () => {
     modal.classList.remove('active');
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLSd43JD1m9aXU2vwiuilfgVJm-o7o_XOiPeAFBwVYSxU_r_9Mg/viewform', '_blank');
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSd43JD1m9aXU2vwiuilfgVJm-o7o_XOiPeAFBwVYSxU_r_9Mg/viewform  ', '_blank');
 });
 
 modal.addEventListener('click', (e) => {
     if (e.target === modal) {
-    modal.classList.remove('active');
+        modal.classList.remove('active');
     }
 });
 
 // === FAQ АККОРДЕОН ===
 document.querySelectorAll('.faq-question').forEach(question => {
     question.addEventListener('click', () => {
-    const answer = question.nextElementSibling;
-    const isOpen = answer.classList.contains('open');
-    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-    if (!isOpen) {
-        answer.classList.add('open');
-    }
+        const answer = question.nextElementSibling;
+        const isOpen = answer.classList.contains('open');
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+        if (!isOpen) {
+            answer.classList.add('open');
+        }
     });
 });
 
 
-        // === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНЫХ ОКОН ИЗОБРАЖЕНИЙ ===
+// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНЫХ ОКОН ИЗОБРАЖЕНИЙ ===
 
 // Функция закрытия модального окна
 function closeCertModal(modalId) {
@@ -51,61 +49,61 @@ function closeCertModal(modalId) {
 // Обработчик клика по изображению в секции сертификации
 document.querySelectorAll('.cert-image').forEach(img => {
     img.addEventListener('click', () => {
-    const modalId = img.getAttribute('data-modal');
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add('active');
-    }
+        const modalId = img.getAttribute('data-modal');
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.classList.add('active');
+        }
     });
 });
 
 // Обработчик клика по крестику закрытия
 document.querySelectorAll('.modal-close-cert, .modal-close-warranty').forEach(closeBtn => {
     closeBtn.addEventListener('click', function() {
-    const modalId = this.getAttribute('data-modal');
-    closeCertModal(modalId);
+        const modalId = this.getAttribute('data-modal');
+        closeCertModal(modalId);
     });
 });
 
 // Закрытие модального окна при клике на оверлей (фон)
 document.querySelectorAll('.modal-overlay-cert, .modal-overlay-warranty').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
-    // Проверяем, был ли клик именно на оверлее, а не на контенте модального окна
-    if (e.target === overlay) {
-        const modalId = overlay.id;
-        closeCertModal(modalId);
-    }
+        // Проверяем, был ли клик именно на оверлее, а не на контенте модального окна
+        if (e.target === overlay) {
+            const modalId = overlay.id;
+            closeCertModal(modalId);
+        }
     });
 });
 
 // Закрытие модального окна при клике на увеличенное изображение внутри него
 document.querySelectorAll('.modal-cert-img, .modal-warranty-img').forEach(img => {
     img.addEventListener('click', function() {
-    // Находим родительское модальное окно для этого изображения
-    const modalContainer = this.closest('.modal-cert, .modal-warranty');
-    if (modalContainer) {
-        // Находим оверлей, соответствующий этому модальному окну
-        const modalOverlay = modalContainer.closest('.modal-overlay-cert, .modal-overlay-warranty');
-        if (modalOverlay && modalOverlay.classList.contains('active')) {
-            // Находим ID оверлея и вызываем функцию закрытия
-            closeCertModal(modalOverlay.id);
+        // Находим родительское модальное окно для этого изображения
+        const modalContainer = this.closest('.modal-cert, .modal-warranty');
+        if (modalContainer) {
+            // Находим оверлей, соответствующий этому модальному окну
+            const modalOverlay = modalContainer.closest('.modal-overlay-cert, .modal-overlay-warranty');
+            if (modalOverlay && modalOverlay.classList.contains('active')) {
+                // Находим ID оверлея и вызываем функцию закрытия
+                closeCertModal(modalOverlay.id);
+            }
         }
-    }
     });
 });
 
 // Закрытие модального окна при клике на любую область внутри контента (.modal-cert или .modal-warranty), кроме крестика
 document.querySelectorAll('.modal-cert, .modal-warranty').forEach(modalContent => {
     modalContent.addEventListener('click', function(e) {
-    // Проверяем, был ли клик *внутри* контента модального окна (например, на фоне изображения)
-    // и *не* был ли клик по крестику закрытия
-    if (e.currentTarget === this && !this.querySelector('.modal-close-cert, .modal-close-warranty').contains(e.target)) {
-        // Находим оверлей, соответствующий этому модальному контенту
-        const modalOverlay = this.closest('.modal-overlay-cert, .modal-overlay-warranty');
-        if (modalOverlay && modalOverlay.classList.contains('active')) {
-            closeCertModal(modalOverlay.id);
+        // Проверяем, был ли клик *внутри* контента модального окна (например, на фоне изображения)
+        // и *не* был ли клик по крестику закрытия
+        if (e.currentTarget === this && !this.querySelector('.modal-close-cert, .modal-close-warranty').contains(e.target)) {
+            // Находим оверлей, соответствующий этому модальному контенту
+            const modalOverlay = this.closest('.modal-overlay-cert, .modal-overlay-warranty');
+            if (modalOverlay && modalOverlay.classList.contains('active')) {
+                closeCertModal(modalOverlay.id);
+            }
         }
-    }
     });
 });
 
@@ -185,53 +183,7 @@ async function loadAndRenderBlogCardsMain(containerId, maxCards = 10) { // Ув�
     }
 }
 
-// Вызываем функцию при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    loadAndRenderBlogCardsMain('blog-grid-main', 10); // Показываем первые 10 статей или все, если меньше
-});
-
-// === ФУНКЦИОНАЛЬНОСТЬ КОПИРОВАНИЯ ТЕЛЕФОНА И ПОЧТЫ ===
-document.addEventListener('DOMContentLoaded', function() {
-    const phoneBtn = document.getElementById('copy-phone-btn');
-    const emailBtn = document.getElementById('copy-email-btn');
-    const phoneMsg = document.getElementById('phone-copied-message');
-    const emailMsg = document.getElementById('email-copied-message');
-
-    // Тексты для копирования
-    const phoneNumber = '+7 (960) 218-84-00'; 
-    const emailAddress = 'klinika-pechey@mail.ru'; 
-
-    // Функция для копирования текста и показа сообщения
-    function copyToClipboard(text, messageElement) {
-        navigator.clipboard.writeText(text).then(function() {
-            // Показываем сообщение
-            messageElement.style.display = 'inline';
-            // Скрываем через 2 секунды
-            setTimeout(() => {
-                messageElement.style.display = 'none';
-            }, 2000);
-        }).catch(err => {
-            console.error('Ошибка копирования: ', err);
-            // Можно показать альтернативное сообщение об ошибке
-        });
-    }
-
-    // Обработчики кликов
-    phoneBtn?.addEventListener('click', () => {
-        copyToClipboard(phoneNumber, phoneMsg);
-    });
-
-    emailBtn?.addEventListener('click', () => {
-        copyToClipboard(emailAddress, emailMsg);
-    });
-});
-
-
-
-
-
 //ФАЙЛ ------ARTICLE------- !!!!!!!!
-
 
 // Скрипт для загрузки данных и генерации карточек на странице статей
 async function loadAndRenderBlogCardsArticles(containerId) {
@@ -274,7 +226,6 @@ async function loadAndRenderBlogCardsArticles(containerId) {
         container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Ошибка загрузки статей.</p>';
     }
 }
-
 
 //ФАЙЛ ------BLOG1   BLOG2    BLOG3     и др.------- !!!!!!!!
 
@@ -325,11 +276,65 @@ async function loadAndRenderOtherBlogCards(containerId, currentSlug, maxCards = 
     }
 }
 
-// Вызываем функцию при загрузке страницы
+// === ФУНКЦИОНАЛЬНОСТЬ КОПИРОВАНИЯ ТЕЛЕФОНА И ПОЧТЫ ===
 document.addEventListener('DOMContentLoaded', function() {
-    // ВАЖНО: Укажите slug ТЕКУЩЕЙ статьи, чтобы она не появилась в списке "другие"
-    loadAndRenderOtherBlogCards('other-articles-grid', 'blog1', 10); // 'blog1' - slug текущей статьи
+    const phoneBtn = document.getElementById('copy-phone-btn');
+    const emailBtn = document.getElementById('copy-email-btn');
+    const phoneMsg = document.getElementById('phone-copied-message');
+    const emailMsg = document.getElementById('email-copied-message');
+
+    // Тексты для копирования
+    const phoneNumber = '+7 (960) 218-84-00'; 
+    const emailAddress = 'klinika-pechey@mail.ru'; 
+
+    // Функция для копирования текста и показа сообщения
+    function copyToClipboard(text, messageElement) {
+        navigator.clipboard.writeText(text).then(function() {
+            // Показываем сообщение
+            messageElement.style.display = 'inline';
+            // Скрываем через 2 секунды
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }).catch(err => {
+            console.error('Ошибка копирования: ', err);
+            // Можно показать альтернативное сообщение об ошибке
+        });
+    }
+
+    // Обработчики кликов
+    phoneBtn?.addEventListener('click', () => {
+        copyToClipboard(phoneNumber, phoneMsg);
+    });
+
+    emailBtn?.addEventListener('click', () => {
+        copyToClipboard(emailAddress, emailMsg);
+    });
 });
+
+
+
+// === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ ===
+// Вызываем функцию при загрузке страницы для главной
+document.addEventListener('DOMContentLoaded', function() {
+    loadAndRenderBlogCardsMain('blog-grid-main', 10); // Показываем первые 10 статей или все, если меньше
+});
+
+// === ВЫЗОВ ФУНКЦИИ ЗАГРУЗКИ СТАТЕЙ ДЛЯ СТРАНИЦЫ БЛОГА ===
+// Проверяем, находимся ли мы на странице article.html
+// Это можно сделать, проверив, существует ли элемент с ID, уникальным для article.html
+// Например, контейнер, в который должны загружаться карточки на article.html (id="-")
+if (document.getElementById('-')) { // Используем ID из Вашего article.html
+    document.addEventListener('DOMContentLoaded', function() {
+        loadAndRenderBlogCardsArticles('-'); // Вызываем функцию с правильным ID контейнера
+    });
+}
+
+// Вызываем функцию при загрузке страницы для других статей (например, blog1.html)
+// document.addEventListener('DOMContentLoaded', function() {
+//     // ВАЖНО: Укажите slug ТЕКУЩЕЙ статьи, чтобы она не появилась в списке "другие"
+//     loadAndRenderOtherBlogCards('other-articles-grid', 'blog1', 10); // 'blog1' - пример slug текущей статьи
+// });
 
 
 
@@ -346,7 +351,7 @@ modalTrigger.addEventListener('click', (e) => {
 });
 
 modalCloseBtn.addEventListener('click', () => {
-    // window.location.href = 'https://your-form-url.com';
+    // window.location.href = 'https://your-form-url.com  ';
     closeModal();
 });
 
