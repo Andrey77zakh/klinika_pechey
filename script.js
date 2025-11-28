@@ -315,26 +315,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ ===
-// Вызываем функцию при загрузке страницы для главной
 document.addEventListener('DOMContentLoaded', function() {
-    loadAndRenderBlogCardsMain('blog-grid-main', 10); // Показываем первые 10 статей или все, если меньше
+    if (document.getElementById('blog-grid-main')) {
+        // Находимся на index.html, вызываем функцию для главной страницы
+        loadAndRenderBlogCardsMain('blog-grid-main', 10);
+    }
+    if (document.getElementById('-')) { // Используем ID из Вашего article.html
+        loadAndRenderBlogCardsArticles('-');
+    }
+    if (document.getElementById('other-articles-grid')) {
+        const path = window.location.pathname;
+        const slug = path.split('/').pop().replace('.html', '');
+        loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
+    }
 });
-
-// === ВЫЗОВ ФУНКЦИИ ЗАГРУЗКИ СТАТЕЙ ДЛЯ СТРАНИЦЫ БЛОГА ===
-// Проверяем, находимся ли мы на странице article.html
-// Это можно сделать, проверив, существует ли элемент с ID, уникальным для article.html
-// Например, контейнер, в который должны загружаться карточки на article.html (id="-")
-if (document.getElementById('-')) { // Используем ID из Вашего article.html
-    document.addEventListener('DOMContentLoaded', function() {
-        loadAndRenderBlogCardsArticles('-'); // Вызываем функцию с правильным ID контейнера
-    });
-}
-
-// Вызываем функцию при загрузке страницы для других статей (например, blog1.html)
-// document.addEventListener('DOMContentLoaded', function() {
-//     // ВАЖНО: Укажите slug ТЕКУЩЕЙ статьи, чтобы она не появилась в списке "другие"
-//     loadAndRenderOtherBlogCards('other-articles-grid', 'blog1', 10); // 'blog1' - пример slug текущей статьи
-// });
 
 
 
