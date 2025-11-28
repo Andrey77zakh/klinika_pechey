@@ -583,71 +583,82 @@
             </section>
 
             <script>
-                // Скрипт для загрузки данных и генерации карточек других статей
-                async function loadAndRenderOtherBlogCards(containerId, currentSlug, maxCards = 10) { // maxCards - ограничение количества
-                    const container = document.getElementById(containerId);
-                    if (!container) {
-                        console.error(`Контейнер с ID '${containerId}' не найден для рендеринга других статей.`);
-                        return;
-                    }
-
-                    try {
-                        // Загружаем JSON файл
-                        const response = await fetch('articles_list.json');
-                        if (!response.ok) {
-                            throw new Error(`Ошибка загрузки articles_list.json: ${response.status} ${response.statusText}`);
-                        }
-                        const blogPosts = await response.json();
-
-                        // Очищаем контейнер
-                        container.innerHTML = '';
-
-                        // Фильтруем, чтобы исключить текущую статью
-                        const otherPosts = blogPosts.filter(post => post.slug !== currentSlug);
-
-                        // Ограничиваем количество отображаемых карточек
-                        const postsToShow = otherPosts.slice(0, maxCards);
-
-                        postsToShow.forEach(post => {
-                            const cardHTML = `
-                                <div class="glass-card" style="flex: 0 0 auto; width: 300px; margin: 0; height: fit-content;"> <!-- Устанавливаем фиксированную ширину карточки и запрещаем сжиматься -->
-                                    <img src="${post.thumbnail}" alt="${post.alt}" title="${post.title}" style="width: 100%; height: auto; border-radius: 16px; margin-bottom: 15px;" loading="lazy">
-                                    <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1.3rem;">${post.title}</h3>
-                                    <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 1rem;">${post.description}</p>
-                                    <a href="${post.slug}.html" class="nav-link" style="display: inline-block; color: var(--accent); font-weight: 600;">Читать далее</a>
-                                </div>
-                            `;
-                            container.innerHTML += cardHTML; // Добавляем карточку в контейнер
-                        });
-
-                        if (postsToShow.length === 0) {
-                            container.innerHTML = '<p style="text-align: center; width: 100%; color: var(--text-secondary);">Других статей пока нет.</p>';
-                        }
-
-                    } catch (error) {
-                        console.error('Ошибка при загрузке или отображении других статей:', error);
-                        container.innerHTML = '<p style="text-align: center; width: 100%; color: var(--text-secondary);">Ошибка загрузки других статей.</p>';
-                    }
-                }
-
-                // Вызываем функцию при загрузке страницы
-                document.addEventListener('DOMContentLoaded', function() {
-                    // ВАЖНО: Укажите slug ТЕКУЩЕЙ статьи, чтобы она не появилась в списке "другие"
-                    loadAndRenderOtherBlogCards('other-articles-grid', 'blog1', 10); // 'blog1' - slug текущей статьи
-                });
             </script>
         </div>
     </div>
 
-    <footer>
-        <p>© 2025 Андрей Захарченко.</p>
-        <p style="margin-top: 14px;">📧 Контакт: <a href="mailto:klinika-pechey@mail.ru" style="color: var(--accent); text-decoration: none;">klinika-pechey@mail.ru</a></p>
-        <!-- Добавлены навигационные ссылки в футер -->
-        <p style="margin-top: 14px;">
-            <a href="index.html" class="nav-link" style="margin: 0 10px;">Главная</a>
-            <a href="article.html" class="nav-link" style="margin: 0 10px;">Блог</a>
-        </p>
-      </footer>
+      <!-- === ПОДВАЛ САЙТА (обновлённый) === -->
+    <footer style="background-color: var(--text-primary-light); margin-top: auto; padding: 40px 0 40px; border-top: 1px solid var(--card-border);">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 40px; width: 100%;">
+                <!-- Столбец 1: Название и описание -->
+                <div style="text-align: left;">
+                    <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Клиника Печей</h3>
+                    <p style="color: var(--card-bg-light); font-size: 1rem; line-height: 1.6; margin: 0;">Ремонт печей по РФ.<br>Инженерный подход.<br>Без сноса.</p>
+                </div>
+
+                <!-- Столбец 2: Контакты -->
+                <div style="text-align: left;">
+                    <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Контакты</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 10px;">
+                            <!-- Кнопка для копирования телефона -->
+                            <button id="copy-phone-btn" style="background: none; border: none; color: var(--card-bg-light); cursor: pointer; text-decoration: underline; font-size: 1rem; padding: 0;">
+                                +7 (960) 218-84-00
+                            </button>
+                            <span id="phone-copied-message" style="color: var(--accent); font-size: 0.9rem; display: none; margin-left: 5px;">Скопировано!</span>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <!-- Кнопка для копирования почты -->
+                            <button id="copy-email-btn" style="background: none; border: none; color: var(--card-bg-light); cursor: pointer; text-decoration: underline; font-size: 1rem; padding: 0;">
+                                klinika-pechey@mail.ru
+                            </button>
+                            <span id="email-copied-message" style="color: var(--accent); font-size: 0.9rem; display: none; margin-left: 5px;">Скопировано!</span>
+                        </li>
+                        <li style="color: var(--card-bg-light); font-size: 1rem;">
+                            Работаем по СЗФО и ЦФО
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Столбец 3: График работы -->
+                <div style="text-align: left;">
+                    <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">График работы</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: var(--card-bg-light); font-size: 1rem; line-height: 1.6;">
+                        <li><strong>Вс-Чт:</strong> 9:00 до 20:00</li>
+                        <li><strong>Пт:</strong> 9:00 до 16:00</li>
+                        <li><strong>Сб:</strong> Выходной</li>
+                    </ul>
+                </div>
+
+                <!-- Столбец 4: Соц.сети -->
+                <div style="text-align: left;">
+                    <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Соц.сети</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">VK</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Telegram</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Авито</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Юла</a></li>
+                    </ul>
+                </div>
+
+                <!-- Столбец 5: Навигация -->
+                <div style="text-align: left;">
+                    <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Навигация</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px;"><a href="index.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Главная</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#services" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Услуги</a></li>
+                        <li style="margin-bottom: 8px;"><a href="article.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Блог</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Нижняя строка подвала -->
+            <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--card-bg-light); font-size: 0.95rem;">
+                <p>&copy; 2025 Андрей Захарченко. Клиника Печей. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
 
     <div class="modal-overlay" id="modal">
         <div class="modal">
