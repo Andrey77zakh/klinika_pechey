@@ -421,123 +421,199 @@ function initializeBlogLink() {
 }
 
 
-// === ФУНКЦИОНАЛЬНОСТЬ ГАМБУРГЕР МЕНЮ ===
+
+// === ФУНКЦИОНАЛЬНОСТЬ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с правой стороны, с интерактивным свайпом) ===
 function initializeHamburgerMenu() {
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    const mobileMenu = document.getElementById('mobile-menu'); // Теперь получаем по ID
-    // const mobileMenuClose = document.getElementById('mobile-menu-close'); // Убираем
-    const navLinks = document.querySelectorAll('.mobile-nav-link'); // Ссылки внутри меню (включая контакты и кнопку)
-    const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim, #mobile-claim'); // Все кнопки "Вызвать/Оставить заявку"
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navLinks = document.querySelectorAll('.mobile-nav-link');
+  const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim, #mobile-claim');
 
-    // Переменные для отслеживания свайпа
-    let touchStartX = 0;
-    let touchEndX = 0;
+  // Переменные для отслеживания свайпа
+  let touchStartX = 0;
+  let touchCurrentX = 0;
+  let touchEndX = 0;
+  let menuWidth = 0;
+  let initialMenuLeft = 0;
+  let isDragging = false;
 
-    if (!hamburgerBtn) {
-        console.warn("Кнопка гамбургер-меню не найдена, инициализация пропущена.");
-        return;
+  if (!hamburgerBtn) {
+    console.warn("Кнопка гамбургер-меню не найдена, инициализация пропущена.");
+    return;
+  }
+
+  // Функция открытия меню
+  function openMenu() {
+    mobileMenu.style.left = '';
+    mobileMenu.classList.remove('active');
+    menuWidth = mobileMenu.getBoundingClientRect().width;
+    mobileMenu.classList.add('active');
+    mobileMenu.style.left = '0';
+
+    mobileMenuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Функция закрытия меню
+  function closeMenu() {
+    mobileMenu.classList.remove('active');
+    setTimeout(() => {
+      mobileMenuOverlay.classList.remove('active');
+    }, 300);
+    document.body.style.overflow = '';
+  }
+
+  // Обработчик клика по гамбургеру
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openMenu();
+  });
+
+  // Обработчик клика по оверлею (вне меню)
+  mobileMenuOverlay.addEventListener('click', (e) => {
+    if (e.target === mobileMenuOverlay) {
+      closeMenu();
     }
+  });
 
-    // Функция открытия меню
-    function openMenu() {
-        mobileMenuOverlay.classList.add('active'); // Показываем оверлей (теперь прозрачный)
+  // Обработчик клика по ссылкам и кнопке внутри меню
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
         setTimeout(() => {
-            mobileMenu.classList.add('active'); // Анимируем появление меню
-        }, 10); // Небольшая задержка для корректной анимации
-        document.body.style.overflow = 'hidden'; // Блокируем прокрутку основного контента
+          closeMenu();
+        }, 100);
+      } else {
+        closeMenu();
+      }
+    });
+  });
+
+  claimButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      setTimeout(() => {
+        closeMenu();
+      }, 100);
+    });
+  });
+
+  // === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ (Telegram-стиль: свайп вправо по меню) ===
+  // Touch events для мобильных устройств
+  mobileMenu.addEventListener('touchstart', e => {
+    if (!mobileMenu.classList.contains('active')) return;
+    touchStartX = e.changedTouches[0].screenX;
+    initialMenuLeft = parseFloat(getComputedStyle(mobileMenu).left) || 0;
+    isDragging = true;
+    if (e.cancelable) e.preventDefault();
+  }, { passive: false });
+
+  mobileMenu.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    touchCurrentX = e.changedTouches[0].screenX;
+    let newLeft = initialMenuLeft + (touchCurrentX - touchStartX);
+    newLeft = Math.min(Math.max(newLeft, 0), menuWidth);
+    mobileMenu.style.left = `${newLeft}px`;
+    mobileMenu.classList.remove('active');
+    if (e.cancelable) e.preventDefault();
+  }, { passive: false });
+
+  mobileMenu.addEventListener('touchend', e => {
+    if (!isDragging) return;
+    touchEndX = e.changedTouches[0].screenX;
+    const currentLeft = parseFloat(mobileMenu.style.left) || 0;
+    const threshold = menuWidth * 0.3;
+
+    mobileMenu.style.left = '';
+    mobileMenu.classList.add('active');
+
+    if (currentLeft > threshold || (touchEndX - touchStartX) > 50) {
+      mobileMenu.style.transition = 'left 0.3s ease-out';
+      mobileMenu.style.left = `${menuWidth}px`;
+
+      const handleTransitionEnd = () => {
+        mobileMenu.classList.remove('active');
+        mobileMenu.style.transition = '';
+        mobileMenu.style.left = '';
+        closeMenu();
+        mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    } else {
+      mobileMenu.style.transition = 'left 0.3s ease-out';
+      mobileMenu.style.left = '0px';
+
+      const handleReturnTransitionEnd = () => {
+        mobileMenu.style.transition = '';
+        mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
     }
 
-    // Функция закрытия меню
-    function closeMenu() {
-        mobileMenu.classList.remove('active'); // Анимируем скрытие меню
-        setTimeout(() => {
-            mobileMenuOverlay.classList.remove('active'); // Скрываем оверлей после анимации
-        }, 300); // Соответствует времени transition
-        document.body.style.overflow = ''; // Восстанавливаем прокрутку
+    isDragging = false;
+  });
+
+  // Mouse events для тестирования на десктопе
+  mobileMenu.addEventListener('mousedown', e => {
+    if (!mobileMenu.classList.contains('active')) return;
+    touchStartX = e.screenX;
+    initialMenuLeft = parseFloat(getComputedStyle(mobileMenu).left) || 0;
+    isDragging = true;
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    touchCurrentX = e.screenX;
+    let newLeft = initialMenuLeft + (touchCurrentX - touchStartX);
+    newLeft = Math.min(Math.max(newLeft, 0), menuWidth);
+    mobileMenu.style.left = `${newLeft}px`;
+    mobileMenu.classList.remove('active');
+    e.preventDefault();
+  });
+
+  document.addEventListener('mouseup', e => {
+    if (!isDragging) return;
+    touchEndX = e.screenX;
+    const currentLeft = parseFloat(mobileMenu.style.left) || 0;
+    const threshold = menuWidth * 0.3;
+
+    mobileMenu.style.left = '';
+    mobileMenu.classList.add('active');
+
+    if (currentLeft > threshold || (touchEndX - touchStartX) > 50) {
+      mobileMenu.style.transition = 'left 0.3s ease-out';
+      mobileMenu.style.left = `${menuWidth}px`;
+
+      const handleTransitionEnd = () => {
+        mobileMenu.classList.remove('active');
+        mobileMenu.style.transition = '';
+        mobileMenu.style.left = '';
+        closeMenu();
+        mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    } else {
+      mobileMenu.style.transition = 'left 0.3s ease-out';
+      mobileMenu.style.left = '0px';
+
+      const handleReturnTransitionEnd = () => {
+        mobileMenu.style.transition = '';
+        mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
     }
 
-    // Обработчик клика по гамбургеру
-    hamburgerBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Останавливаем всплытие, чтобы не закрылось сразу
-        openMenu();
-    });
-
-    // УБРАНО: Обработчик клика по крестику закрытия
-
-    // Обработчик клика по оверлею (вне меню) - ЗАКРЫВАЕТ МЕНЮ
-    mobileMenuOverlay.addEventListener('click', (e) => {
-        if (e.target === mobileMenuOverlay) {
-            closeMenu();
-        }
-    });
-
-    // Обработчик клика по ссылкам внутри меню - закрывает меню (кроме якорных ссылок на этой же странице)
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            // Проверяем, является ли ссылка якорной (начинается с #) и ведёт на текущую страницу
-            const href = link.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                // Это якорная ссылка, не закрываем меню сразу, дадим время на прокрутку
-                setTimeout(() => {
-                     closeMenu();
-                }, 100); // Закрываем через 100мс после клика
-            } else {
-                // Это обычная ссылка (на другую страницу или тел/почта), закрываем меню
-                closeMenu();
-            }
-        });
-    });
-
-    // Обработчик клика по кнопке "Вызвать печника" внутри меню - закрывает меню
-    claimButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // Закрываем меню, но не предотвращаем стандартное поведение кнопки (например, открытие модального окна)
-            setTimeout(() => { // Небольшая задержка, чтобы модальное окно открылось после закрытия меню
-                closeMenu();
-            }, 100); // Закрываем через 100мс
-        });
-    });
-
-    // === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ ===
-    // Touch events для мобильных устройств
-    mobileMenu.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true }); // passive: true для лучшей производительности
-
-    mobileMenu.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, { passive: true });
-
-    // Mouse events для тестирования на десктопе (опционально)
-    mobileMenu.addEventListener('mousedown', e => {
-        touchStartX = e.screenX;
-    });
-
-    document.addEventListener('mouseup', e => {
-        if (mobileMenu.classList.contains('active')) { // Проверяем, открыто ли меню
-            touchEndX = e.screenX;
-            handleSwipe();
-        }
-    });
-
-    function handleSwipe() {
-        const swipeThreshold = 50; // Минимальное расстояние для срабатывания свайпа
-
-        if (touchStartX - touchEndX > swipeThreshold) {
-            // Свайп влево (пользователь "возвращает" меню обратно)
-            closeMenu();
-        }
-        // Свайп вправо не обрабатываем, так как меню и так открыто
-    }
+    isDragging = false;
+  });
 }
 
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация функций, которые могут понадобиться на разных страницах
     initializeBlogLink(); // Активация ссылки "Блог" работает везде
-    initializeHamburgerMenu(); // Инициализация гамбургер-меню работает везде
+    initializeHamburgerMenu(); // Инициализация гамбургер-меню (Telegram-стиль) работает везде
 
     // Проверяем, находимся ли мы на странице index.html
     if (document.getElementById('blog-grid-main')) {

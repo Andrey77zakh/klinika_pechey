@@ -204,197 +204,158 @@ header {
 }
 
 
-/* ===== СТИЛИ ГАМБУРГЕР МЕНЮ ===== */
+/* ===== СТИЛИ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с правой стороны, с интерактивным свайпом) ===== */
+
+/* Стили для кнопки гамбургера */
 .hamburger-btn {
-    display: none; /* Скрыто по умолчанию */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 30px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 1002; /* Выше остального контента */
-    /* Убираем margin или padding, если были, чтобы точно прижать к краю */
+  display: none; /* Скрыта по умолчанию */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1002;
+  margin-right: 20px;
 }
 
 .hamburger-line {
-    width: 100%;
-    height: 3px;
-    background: var(--accent);
-    border-radius: 10px;
-    transition: all 0.3s;
-    position: relative;
-    transform-origin: center;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 10px;
+  transition: all 0.3s;
+  position: relative;
+  transform-origin: center;
 }
 
+/* Оверлей для затемнения фона сайта */
 .mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Убираем полупрозрачный фон и градиент */
-    /* background-color: rgba(0, 0, 0, 0.8); */
-    /* background: linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%); */
-    /* Оставляем оверлей прозрачным */
-    background: transparent;
-    z-index: 1000; /* Выше всего, кроме кнопок закрытия и гамбургера */
-    display: none; /* Скрыто по умолчанию */
-    /* Убираем align-items и justify-content */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: none;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .mobile-menu-overlay.active {
-    display: block; /* Показываем оверлей при активации */
+  display: flex;
 }
 
+/* Основное меню */
 .mobile-menu {
-    position: fixed;
-    top: 0;
-    /* Изменяем позиционирование: прижимаем к правому краю */
-    right: 0; /* Прижимаем к правому краю */
-    left: auto; /* Убираем левое позиционирование */
-    width: 80%; /* Ширина меню */
-    max-width: 350px; /* Максимальная ширина */
-    height: 100%;
-    background-color: white; /* Сплошной белый фон */
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3); /* Тень слева от меню */
-    display: flex;
-    flex-direction: column;
-    padding: 20px; /* Отступы внутри меню */
-    /* Убираем transform, теперь позиционирование через right */
-    transition: right 0.3s ease-in-out; /* Плавный сдвиг */
-    z-index: 1001; /* Выше оверлея */
-    /* Начальное положение: скрыто за правым краем */
-    right: -80%; /* Или calc(-1 * (80% или max-width)), чтобы точно скрыть */
-    /* Если max-width 350px, а ширина 80%, можно указать: */
-    /* right: -350px; */
-    /* Но проще использовать ширину меню: */
-    right: -80%;
+  position: relative;
+  width: 80%;
+  max-width: 350px;
+  height: 100vh;
+  background-color: var(--card-bg); /* Белый или светлый фон */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  z-index: 1001;
+  left: -100%; /* Изначально скрыто за правым краем */
+  box-sizing: border-box;
 }
 
 .mobile-menu.active {
-    /* right: 0; - меню выезжает на 0% от правого края (т.е. к правому краю экрана) */
-    /* Оставляем немного места слева (например, 20%) */
-    /* right: 20%; - НЕ НУЖНО, так как меню прижато к краю */
-    right: 0; /* Меню выезжает полностью к правому краю */
-    /* width: 80%; /!* Оставляем ширину *!/ */
-    /* left: auto; /!* Убедимся, что left не мешает *!/ */
-    /* width: 80%; /!* Занимаем 80% экрана *!/ */
-    /* Это означает, что меню выезжает с right: -80% на right: 0 */
-    /* И оставляет 20% от экрана слева не закрытым (теперь прозрачным оверлеем) */
+  left: 0;
+  width: 80%;
+  max-width: 350px;
+  transition: left 0.3s ease-in-out; /* Анимация при открытии/возврате */
 }
 
-/* Альтернативный вариант, если хотите фиксированную ширину меню (например, 300px) */
-/* .mobile-menu {
-    right: -300px; /!* Скрыто за правым краем *!/
-    width: 300px;
-    max-width: none; /!* Отключаем max-width *!/
-}
-.mobile-menu.active {
-    right: 0; /!* Показано у правого края *!/
-    width: 300px;
-} */
-
-
-/* Контейнер для навигационных ссылок (основная часть меню) */
+/* Контейнер навигационных ссылок */
 .mobile-nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Отступ между ссылками */
-    flex-grow: 1; /* Растягиваем, чтобы занять доступное пространство сверху */
-    overflow-y: auto; /* Добавляем прокрутку, если контента много */
-    padding-right: 10px; /* Отступ для полосы прокрутки */
-    padding-top: 20px; /* Отступ сверху от начала меню */
-    /* Убираем border-bottom, так как контакты будут внизу */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1; /* Занимает место сверху */
+  overflow-y: auto;
+  padding-right: 10px;
+  padding-top: 20px;
 }
 
-/* Контейнер для контактных данных (нижняя часть меню) */
+/* Контейнер контактов */
 .mobile-contacts {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Отступ между элементами контактов */
-    margin-top: auto; /* Прижимаем к низу */
-    padding-top: 20px; /* Отступ сверху от основного контента */
-    border-top: 1px solid var(--card-border); /* Линия сверху */
-    padding-bottom: 10px; /* Небольшой отступ снизу */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto; /* Прижимает к низу */
+  padding-top: 20px;
+  border-top: 1px solid var(--card-border);
+  padding-bottom: 10px;
 }
 
-/* Стили для ссылок в навигации */
+/* Стили для ссылок и кнопок внутри меню */
 .mobile-nav-link {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 1.1rem; /* Чуть меньше размер шрифта */
-    padding: 10px 0; /* Внутренние отступы */
-    transition: color 0.3s;
-    border-bottom: 1px solid transparent; /* Легкая линия по умолчанию */
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 10px 0;
+  transition: color 0.3s;
+  border-bottom: 1px solid transparent;
+  display: block; /* Каждый элемент в отдельном блоке */
+  word-wrap: break-word; /* Перенос текста */
+  overflow-wrap: break-word;
 }
 
 .mobile-nav-link:hover {
-    color: var(--accent);
-    border-bottom: 1px solid var(--accent); /* Линия при наведении */
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
 }
 
-/* Стили для кнопки в меню */
+/* Стили для кнопки */
 .mobile-nav-link.btn {
-    background: linear-gradient(135deg, #0da2e7, var(--accent2));
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-    margin-top: 15px; /* Отступ сверху от предыдущего элемента */
-    font-weight: 600;
-    border-bottom: none; /* Убираем линию у кнопки */
+  background: linear-gradient(135deg, #0da2e7, var(--accent2));
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 600;
+  border-bottom: none;
+  padding: 12px 0; /* Внутренние отступы для кнопки */
 }
-
-/* Убираем стили для кнопки закрытия */
-/* .mobile-menu-close { ... } - УДАЛЯЕМ */
-
 
 /* ===== АДАПТИВНОСТЬ ГАМБУРГЕР МЕНЮ ===== */
 @media (max-width: 900px) {
-    .hamburger-btn {
-        display: flex; /* Показываем гамбургер */
-        margin-left: auto; /* Прижимаем к правому краю */
-        margin-right: 20px; /* Отступ от правого края */
-    }
+  .hamburger-btn {
+    display: flex;
+  }
 
-    .nav-links,
-    .header-claim-btn {
-        display: none; /* Скрываем стандартные ссылки и кнопку */
-    }
+  .nav-links,
+  .header-claim-btn {
+    display: none;
+  }
 
-    .logo-text {
-        font-size: 1.5rem; /* Уменьшаем размер логотипа */
-    }
+  .logo-text {
+    font-size: 1.5rem;
+  }
 
-    .logo-icon {
-        width: 28px; /* Уменьшаем размер иконки */
-        height: 28px;
-    }
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+  }
 }
 
-/* Дополнительно: если ширина экрана меньше 600px, можно немного изменить ширину меню */
-@media (max-width: 600px) {
-    .mobile-menu {
-        width: 90%; /* Занимает больше ширины на очень маленьких экранах */
-        right: -90%; /* Соответственно скрываем на 90% */
-    }
-    .mobile-menu.active {
-        right: 0; /* Показываем на 0% от правого края */
-        width: 90%;
-    }
-    /* Альтернатива: фиксированная ширина */
-    /* .mobile-menu {
-        width: 280px;
-        right: -280px;
-    }
-    .mobile-menu.active {
-        right: 0;
-        width: 280px;
-    } */
+@media (max-width: 500px) {
+  .mobile-menu {
+    width: 90%;
+    max-width: none;
+    left: -100%;
+  }
+  .mobile-menu.active {
+    left: 0;
+    width: 90%;
+    max-width: none;
+  }
 }
-
 
 
 
