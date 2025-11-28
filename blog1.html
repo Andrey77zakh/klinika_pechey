@@ -8,6 +8,420 @@
    
      <!-- === СТИЛИ САЙТА === -->
     <link rel="stylesheet" href="styles.css">
+
+    <!--<style>
+        /* ===== ОПРЕДЕЛЕНИЕ ЦВЕТОВЫХ ПЕРЕМЕННЫХ ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
+        :root {
+          --text-primary-light: #1e293b;
+          --text-secondary-light: #475569;
+          --bg-light: #defdff;
+          --card-bg-light: #ffffff;
+          --card-border-light: #d3dff0;
+          --accent: #0da2e7;
+          --accent2: #0d2ee7;
+          --shadow-light: 0 4px 12px rgba(0,0,0,0.05);
+          --timeline-color: #0da2e7;
+        }
+
+        .theme-light {
+          --bg: var(--bg-light);
+          --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+          --text: var(--text-primary-light);
+          --text-secondary: var(--text-secondary-light);
+          --card-bg: var(--card-bg-light);
+          --card-border: var(--card-border-light);
+          --shadow: var(--shadow-light);
+          --glass: blur(12px);
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          background: var(--bg-gradient);
+          color: var(--text);
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          line-height: 1.6;
+          transition: background 0.4s;
+          overflow-x: hidden;
+        }
+
+        .container {
+          max-width: 100%;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
+
+        .page {
+          display: block;
+          min-height: 100vh;
+        }
+
+        /* ===== СТИЛИ ШАПКИ САЙТА (с анимацией скрытия/появления) ===== */
+        header {
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          backdrop-filter: var(--glass);
+          background: rgba(255,255,255,0.85);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+          padding: 0 24px;
+          height: 72px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: transform 0.3s ease; /* Плавный переход для скрытия/появления */
+        }
+
+        /* Класс для скрытия шапки */
+        header.hidden {
+          transform: translateY(-100%); /* Скрываем за верхнюю границу */
+        }
+
+        .logo-link {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          text-decoration: none;
+        }
+
+        .logo-icon {
+          width: 32px;
+          height: 32px;
+          display: block;
+        }
+
+        .logo-text {
+          font-size: 1.7rem;
+          font-weight: 800;
+          background: linear-gradient(90deg, var(--accent), var(--accent2));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .nav-right {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+        }
+
+        .nav-links {
+          display: flex;
+          gap: 28px;
+        }
+
+        .nav-link {
+          color: var(--text-secondary);
+          text-decoration: none;
+          font-weight: 500;
+          position: relative;
+          transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+          color: var(--accent);
+        }
+
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -6px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--accent);
+          transition: width 0.3s;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+          width: 100%;
+        }
+
+        .header-claim-btn {
+          background: linear-gradient(135deg, #0da2e7, var(--accent2));
+          color: white;
+          padding: 10px 22px;
+          border-radius: 14px;
+          font-weight: 600;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: all 0.3s;
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+          animation: pulseButton 2s infinite;
+        }
+
+        .header-claim-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+        }
+
+        @keyframes pulseButton {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
+        }
+
+        .glass-card {
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
+          border-radius: 24px;
+          padding: 48px;
+          backdrop-filter: var(--glass);
+          box-shadow: var(--shadow);
+          width: 100%;
+          margin: 0;
+        }
+
+        /* ===== СТИЛИ СЕКЦИИ СТАТЬИ (с фоновой картинкой) ===== */
+        .article-section {
+            padding: 0 0 80px 0; /* Убираем отступ сверху */
+            position: relative; /* Для правильного позиционирования фона */
+        }
+
+        /* Контейнер для фоновой картинки */
+        .article-hero {
+            position: relative;
+            height: 60vh; /* Высота области с фоном */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Прижимаем контент к низу */
+            padding: 0 24px 48px; /* Внутренние отступы */
+        }
+
+        /* Фоновое изображение */
+        .article-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/blog1/head.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0; /* Под контентом */
+        }
+
+        /* Контент, который появляется поверх фона */
+        .article-hero-content {
+            position: relative;
+            z-index: 1; /* Поверх фона */
+            color: #ffffff; /* Цвет текста для контраста с фоном */
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3); /* Полупрозрачный фон для текста */
+            backdrop-filter: blur(5px);
+            border-radius: 16px;
+        }
+
+        .article-hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .article-hero-content p {
+            font-size: 1.2rem;
+            font-style: italic; /* Подзаголовок курсивом */
+        }
+
+        /* Основной контент статьи */
+        .article-content {
+            max-width: 100%;
+            margin: 0 auto;
+             padding: 20px 20px 0;
+            position: relative;
+            z-index: 2; /* Поверх фона и hero-контента */
+            background: var(--card-bg); /* Белый фон для основного текста */
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: var(--shadow);
+            transform: translateY(-48px); /* Поднимаем основной контент вверх, чтобы он перекрывал нижнюю часть фона */
+        }
+
+        .article-content h1 {
+            /* Убираем заголовок из основного контента, он в .article-hero-content */
+            display: none;
+        }
+
+        .article-content p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .article-content img {
+            max-width: 500px; 
+            height: auto;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin: 10px 0;
+            display: block;
+        }
+
+        .float-right {
+            float: right;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .float-left {
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 15px;
+        }
+
+        .clear-float {
+            clear: both;
+        }
+
+        footer {
+          text-align: center;
+          padding: 70px 0 50px;
+          color: var(--text-secondary);
+          font-size: 0.95rem;
+          margin-top: 100px;
+          border-top: 1px solid var(--card-border);
+          width: 100%;
+        }
+
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.65);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 2000;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.4s ease;
+        }
+
+        .modal-overlay.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .modal {
+          background: var(--card-bg);
+          border: 1px solid var(--card-border);
+          border-radius: 22px;
+          padding: 44px;
+          max-width: 620px;
+          width: 92%;
+          box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+          transform: scale(0.92);
+          transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal {
+          transform: scale(1);
+        }
+
+        .modal h3 {
+          font-size: 1.6rem;
+          margin-bottom: 22px;
+          color: var(--accent);
+        }
+
+        .modal p {
+          margin-bottom: 26px;
+          font-size: 1.15rem;
+          line-height: 1.7;
+        }
+
+        .modal-close {
+          background: var(--accent);
+          color: white;
+          border: none;
+          padding: 13px 30px;
+          border-radius: 14px;
+          font-weight: 700;
+          font-size: 1.05rem;
+          cursor: pointer;
+          transition: background 0.25s;
+        }
+
+        .modal-close:hover {
+          background: #00c2a8;
+        }
+
+        @media (max-width: 900px) {
+          .hero { padding: 160px 0 120px; }
+          .hero h1 { font-size: 2.8rem; }
+          .hero p { font-size: 1.25rem; }
+          .btn { padding: 18px 48px; font-size: 1.15rem; }
+          .nav-links { gap: 15px; }
+          .nav-link { font-size: 1rem; padding: 4px 8px; }
+          .header-claim-btn { padding: 10px 20px; font-size: 1rem; }
+          .section-title { font-size: 2rem; margin-bottom: 60px; }
+          .glass-card, .founder-card { padding: 36px 24px; }
+          .timeline-step-icon { width: 60px; height: 60px; }
+          .timeline-step p { font-size: 1rem; }
+          .faq-item { padding: 20px 24px; }
+          .blog-grid { gap: 30px; }
+          .blog-card-content { padding: 20px; }
+          .blog-card h3 { font-size: 1.2rem; }
+          .blog-card p { font-size: 0.95rem; }
+          .article-hero-content h1 { font-size: 2.2rem; }
+          .article-content p { font-size: 1.15rem; }
+          /* Адаптация картинок */
+          .article-content img {
+              max-width: 100%;
+              float: none;
+              margin-left: auto;
+              margin-right: auto;
+          }
+          .float-right,
+          .float-left {
+              float: none;
+              margin-left: auto;
+              margin-right: auto;
+          }
+          /* Адаптация высоты hero */
+          .article-hero {
+              height: 50vh;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .hero { padding: 140px 0 100px; }
+          .hero h1 { font-size: 2.4rem; }
+          .hero p { font-size: 1.1rem; }
+          .btn { padding: 16px 40px; font-size: 1.1rem; }
+          .nav-links { display: none; }
+          .header-claim-btn { display: none; }
+          .container { padding: 0 16px; }
+          .glass-card, .founder-card { padding: 32px 20px; }
+          .logo-text { font-size: 1.4rem; }
+          .logo-icon { width: 28px; height: 28px; }
+          .section-title { font-size: 1.8rem; margin-bottom: 50px; }
+          .timeline-step { gap: 10px; }
+          .timeline-step-icon { width: 50px; height: 50px; }
+          .timeline-step p { font-size: 0.9rem; }
+          .faq-item { padding: 18px 20px; }
+          .blog-grid { grid-template-columns: 1fr; gap: 25px; }
+          .blog-card-img { height: 180px; }
+          .blog-card-content { padding: 18px; }
+          .blog-card h3 { font-size: 1.15rem; }
+          .blog-card p { font-size: 0.9rem; }
+          footer { padding: 60px 0 40px; margin-top: 80px; font-size: 0.9rem; }
+          .article-hero-content h1 { font-size: 2rem; }
+          .article-content p { font-size: 1.1rem; }
+          .article-hero {
+              height: 40vh;
+          }
+        }
+    </style>-->
 </head>
 <body class="theme-light">
     <header>
@@ -216,7 +630,7 @@
                         <li><strong>Сб:</strong> Выходной</li>
                     </ul>
                 </div>
-
+articles
                 <!-- Столбец 4: Соц.сети -->
                 <div style="text-align: left;">
                     <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Соц.сети</h3>
@@ -233,7 +647,7 @@
                     <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Навигация</h3>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 8px;"><a href="index.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Главная</a></li>
-                        <li style="margin-bottom: 8px;"><a href="#services" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Услуги</a></li>
+                        <li style="margin-bottom: 8px;"><a href="index.html#services" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Услуги</a></li>
                         <li style="margin-bottom: 8px;"><a href="article.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Блог</a></li>
                     </ul>
                 </div>
@@ -309,10 +723,10 @@
 
             // Пройдемся по всем ссылкам
             navLinks.forEach(link => {
-                // Проверяем, ведёт ли ссылка на articles.html (страницу со списком статей)
+                // Проверяем, ведёт ли ссылка на article.html (страницу со списком статей)
                 // или является ли текущая страница (например, blog1.html) отличной от index.html
-                // и при этом ссылка ведёт на articles.html
-                if (link.getAttribute('href') === 'articles.html') {
+                // и при этом ссылка ведёт на article.html
+                if (link.getAttribute('href') === 'article.html') {
                     // Убираем класс 'active' у всех ссылок
                     navLinks.forEach(l => l.classList.remove('active'));
                     // Добавляем класс 'active' к найденной ссылке "Блог"

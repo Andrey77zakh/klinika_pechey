@@ -1150,7 +1150,8 @@ footer {
 
 
 
-/*-----------------------ФАЙЛ ARTICLE--------------------------------------*\
+/*-----------------------ФАЙЛ
+--------------------------------------*\
 
 
 /* ===== СЕКЦИЯ БЛОГА ===== */
@@ -1355,13 +1356,15 @@ footer {
 
 
 /* ===== СТИЛИ СЕКЦИИ СТАТЬИ (с фоновой картинкой) ===== */
-.article-section {
+
+-section {
     padding: 0 0 80px 0; /* Убираем отступ сверху */
     position: relative; /* Для правильного позиционирования фона */
 }
 
 /* Контейнер для фоновой картинки */
-.article-hero {
+
+-hero {
     position: relative;
     height: 70vh; /* Высота области с фоном */
     display: flex;
@@ -1371,7 +1374,8 @@ footer {
 }
 
 /* Фоновое изображение */
-.article-hero-bg {
+
+-hero-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -1385,7 +1389,8 @@ footer {
 }
 
 /* Контент, который появляется поверх фона */
-.article-hero-content {
+
+-hero-content {
     position: relative;
     z-index: 1; /* Поверх фона */
     color: #ffffff; /* Цвет текста для контраста с фоном */
@@ -1396,18 +1401,21 @@ footer {
     border-radius: 16px;
 }
 
-.article-hero-content h1 {
+
+-hero-content h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
-.article-hero-content p {
+
+-hero-content p {
     font-size: 1.2rem;
     font-style: italic; /* Подзаголовок курсивом */
 }
 
 /* Основной контент статьи */
-.article-content {
+
+-content {
     max-width: 100%;
     margin: 0 auto;
     padding: 20px 20px 0;
@@ -1420,18 +1428,22 @@ footer {
     transform: translateY(-48px); /* Поднимаем основной контент вверх, чтобы он перекрывал нижнюю часть фона */
 }
 
-.article-content h1 {
-    /* Убираем заголовок из основного контента, он в .article-hero-content */
+
+-content h1 {
+    /* Убираем заголовок из основного контента, он в 
+    -hero-content */
     display: none;
 }
 
-.article-content p {
+
+-content p {
     font-size: 1.2rem;
     line-height: 1.9;
     margin-bottom: 25px;
 }
 
-.article-content img {
+
+-content img {
     max-width: 500px;
     height: auto;
     border-radius: 16px;
