@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<!-- === ОСНОВНОЙ HTML ДОКУМЕНТ === -->
+<html lang="ru">
+<head>
+  <!-- === БАЗОВЫЕ МЕТА-ТЕГИ === -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- === SEO ЗАГОЛОВОК СТРАНИЦЫ === -->
+  <title>Ремонт печей по РФ | Клиника Печей</title>
+  
+  <!-- === SEO ОПИСАНИЕ СТРАНИЦЫ === -->
+  <meta name="description" content="
+  Печник Клиники Печей. Ремонт без сноса.. 
+  Починить печку, если дымит, не греет, плохая тяга или трещины — наша специализация.
+  Работаем с 1993 года.">
+  
+  <!-- === Schema.org - СТРУКТУРИРОВАННЫЕ ДАННЫЕ ДЛЯ ПОИСКОВИКОВ === -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Клиника Печей",
+    "image": "images/andrey_photo.png", 
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Россия",
+      "addressLocality": "Северо-Западный и Центральный округ"
+    },
+    "url": "https://example.com",
+    "telephone": "+7-960-218-84-00",
+    "email": "klinika-pechey@mail.ru",
+    "areaServed": ["RU"],
+    "serviceType": ["Ремонт печки", "Консультации от печника", "Диагностика печей"],
+    "description": "Ремонт кирпичных печей. Вызвать печника. Решаем проблемы: печь дымит, не греет, появились трещины."
+  }
+  </script>
+  
+  <!-- === FAVICON (иконка сайта) === -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon.ico" sizes="32x32" type="image/x-icon">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  
+  <!-- === СТИЛИ САЙТА === -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- === ШРИФТ === -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light"> <!-- Установлена светлая тема -->
+
+  <!-- === ШАПКА САЙТА === -->
+  <header>
+    <!-- === ЛОГОТИП И НАЗВАНИЕ === -->
+    <a href="index.html" class="logo-link">
+      <!-- ✅ SEO: Логотип -->
+      <img src="images/icon.png" alt="Ремонт кирпичной печки" title="Логотип Клиника Печей" class="logo-icon" loading="lazy">
+      <span class="logo-text">Клиника Печей</span>
+    </a>
+    <!-- === НАВИГАЦИЯ И КНОПКА === -->
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Главная</a>
+        <a href="article.html" class="nav-link">Блог</a>
+      </nav>
+      <a href="#" class="header-claim-btn" id="header-claim">Оставить заявку</a>
+    </div>
+  </header>
+
+  <!-- === ГЛАВНАЯ СТРАНИЦА === -->
+  <div class="page">
+    <div class="container">
+      <!-- === 1. ГЕРОЙ (ШАПКА СТРАНИЦЫ) === -->
+      <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+          <h1>Починить - не сносить</h1>
+          <p>Возродим старую печь - по-новому. Чтобы было тепло, как в первый день. Или сделаем так, как никогда не было.</p>
+          <a href="#" class="btn" id="hero-claim">Вызвать печника</a>
+          <!-- === ДОПОЛНЕНО: Дополнительная информация под кнопкой === -->
+          <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px; flex-wrap: wrap;">
+              <div style="text-align: center;">
+                  <img src="images/contract_icon.png" alt="Ремонт печи" title="Печник" style="width: 50px; height: 50px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 1.2rem;">Работаем по договору</p>
+              </div>
+              <div style="text-align: center;">
+                  <img src="images/warranty_icon.png" alt="Замена печи" title="Печной мастер" style="width: 50px; height: 50px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 1.2rem;">Гарантия на работы</p>
+              </div>
+              <div style="text-align: center;">
+                  <img src="images/engineering_icon.png" alt="Как отремонтировать печь" title="ремонт печи из кирпича" style="width: 50px; height: 50px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 1.2rem;">Инженерный подход</p>
+              </div>
+              <div style="text-align: center;">
+                  <img src="images/certified_icon.png" alt="Печник для ремонта" title="Ремонт дровяной печи" style="width: 50px; height: 50px; margin-bottom: 8px;" loading="lazy">
+                  <p style="color: white; margin: 0; font-size: 1.2rem;">Сертифицированные услуги</p>
+              </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 2. ПРОБЛЕМЫ: дымит, не греет, трескается === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Почему в печах часто бывают проблемы?</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; width: 100%; justify-items: center;">
+          <div class="glass-card">
+            <!-- ✅ SEO: Иконка проблемы -->
+            <img src="images/smoke_icon.png" alt="Почему дымит печь — причины и решение от печника" title="Почему дымит печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему печь дымит?</h3>
+            <p>
+              - Плохая тяга,</p> 
+              - Нарушена герметичность,</p>
+              - Ошибочная система каналов,</p>
+              - Не выдержаны технологии кладки
+          </div>
+          <div class="glass-card">
+            <!-- ✅ SEO: Иконка проблемы -->
+            <img src="images/no_heat_icon.png" alt="Почему не греет печь — причины и ремонт от печника" title="Почему не греет печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему печь не греет?</h3>
+            <p>
+              - Тепло уходит в трубу,</p>
+              - Неправильная конструкция топливника,</p> 
+              - Нарушена циркуляция воздуха,</p> 
+              - Утечка тепла из печи
+          </div>
+          <div class="glass-card">
+            <!-- ✅ SEO: Иконка проблемы -->
+            <img src="images/crack_icon.png" alt="Трещины в кирпичной печи — как устранить без сноса" title="Трещины в печи" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Из-за чего трещины в печи?</h3>
+            <p>
+              - Результат неправильной эксплуатации,</p>
+              - Узкие швы,</p>
+              - В печи нет термоизоляции,</p>
+              - Просадка фундамента или дома
+          </div>
+          <div class="glass-card"> <!-- Новая карточка -->
+            <!-- ✅ SEO: Иконка проблемы -->
+            <img src="images/insulation_icon.png" alt="Плохая тяга - Печник из Клиники Печей сможет починить печку" title="Плохая тяга причины" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Новое имя файла -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему плохая тяга?</h3>
+            <p>
+              - Незначительная утепленность дома</p>
+              - Короткая труба</p>
+              - Засажены каналы или труба</p>
+              - Перекрыта подача воздуха
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 40px;">
+            <a href="article.html" class="nav-link" style="color: var(--accent); text-decoration: underline; font-size: 1.2rem;">Немного о диагностике</a> <!-- Ссылка на статью/страницу диагностики, стилизована как ссылка -->
+        </p>
+      </section>
+
+      <!-- === 3. НАШ ПОДХОД (Новая секция) === -->
+      <section class="approach-section"> <!-- Добавлен класс для секции -->
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Наш подход - Инженерный подход к ремонту</h2>
+        <div class="approach-content">
+          <div class="images-container-approach">
+            <img src="images/schematic_example.png" alt="Схема устройства дымооборотов печи" title="Схема дымооборотов" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy">
+            <img src="images/doc_example.png" alt="Пример страницы документа с характеристиками печи" title="Пример документа" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy">
+          </div>
+          <div class="text-content-approach">
+            <p style="font-size: 1.2rem; line-height: 2;">
+              Мы не просто восстанавливаем кирпичные печи - <strong>мы пересоздаем их изнутри</strong>, превращая старую конструкцию в новую эффективную систему отопления.</p>
+              <p style="font-size: 1.2rem; line-height: 2;">
+              Этот подход основан на глубоком <strong>понимании физики тепла, инженерных расчётах и передовых технологиях</strong>.</p>
+              <p style="font-size: 1.2rem; line-height: 2;">
+              Нами разработаны <strong>современные технологии горения</strong>, которые в несколько раз уменьшают потребление топлива, а также увеличивают теплопередачу печи и ее теплоемкость.</p>
+              <p style="font-size: 1.2rem; line-height: 2;">
+              <br><strong>Тепло</strong> - это искусство, которое мы создаем вновь и вновь.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 4. ЭТАПЫ РАБОТЫ (Новая секция) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Как мы работаем</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 0px;">
+            Мы начинаем с диагностики печи на профессиональном оборудовании, с выявления корня проблемы.<br>
+            Это основополагающая часть, без которой ремонт будет не качественным.<br>
+            Всё делается с документацией, по договору.<br>
+            Мы не маскируем симптомы, но устраняем причину.<br>
+            После диагностики и ремонта вы получите технический паспорт<small>(акт)</small>- документ с полными характеристиками вашей печи.
+        </p>
+              <div style="display: flex; justify-content: center; width: 100%;">
+              <div class="timeline-container">
+                  <div class="timeline-step">
+                      <div class="timeline-step-icon-wrapper"> <!-- Обёртка для иконки -->
+                          <img src="images/application_icon.png" alt="Заявка" loading="lazy">
+                      </div>
+                      <p class="timeline-step-text">Заявка и<br>консультация</p> <!-- Текст этапа -->
+                  </div>
+                  <div class="timeline-step">
+                      <div class="timeline-step-icon-wrapper">
+                          <img src="images/schedule_icon.png" alt="Назначение даты" loading="lazy">
+                      </div>
+                      <p class="timeline-step-text">Назначение<br>даты приезда</p>
+                  </div>
+                  <div class="timeline-step">
+                      <div class="timeline-step-icon-wrapper">
+                          <img src="images/visit_icon.png" alt="Выезд" loading="lazy">
+                      </div>
+                      <p class="timeline-step-text">Выезд</p>
+                  </div>
+                  <div class="timeline-step">
+                      <div class="timeline-step-icon-wrapper">
+                          <img src="images/diagnostic_icon.png" alt="Диагностика" loading="lazy">
+                      </div>
+                      <p class="timeline-step-text">Диагностика</p>
+                  </div>
+                  <div class="timeline-step">
+                      <div class="timeline-step-icon-wrapper">
+                          <img src="images/repair_icon.png" alt="Ремонт" loading="lazy">
+                      </div>
+                      <p class="timeline-step-text">Ремонт</p>
+                  </div>
+                  <div class="timeline-step">
+                      <div class="timeline-step-icon-wrapper">
+                          <img src="images/warranty_icon.png" alt="Гарантия" loading="lazy">
+                      </div>
+                      <p class="timeline-step-text">Гарантия и<br>паспорт печи</p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- === 5. Наши услуги (оригинальная секция, немного изменена) === -->
+      <section id="services">
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Услуги по ремонту кирпичных печей</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; width: 100%;"> <!-- Изменил min-width карточки -->
+          <div class="glass-card">
+            <img src="images/consultation_icon.png" alt="Консультация" title="Консультация" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Консультация</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Первая - <strong>бесплатно</strong>, последующие -</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 3 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/diagnostic_icon.png" alt="Диагностика" title="Диагностика" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Диагностика</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">С заключением на профессиональном оборудовании</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 15 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/project_icon.png" alt="Разработка индивидуального проекта новой печи" title="Проект новой печи" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Проект новой печи</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Индивидуальная разработка</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 8 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/repair_no_demolition_icon.png" alt="Ремонт без сноса" title="Ремонт без сноса" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Ремонт без сноса</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Решение проблем: дымит, не греет.</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 7 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/inspection_icon.png" alt="Плановый технический осмотр" title="Плановый техосмотр" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Плановый осмотр</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Для профилактики и чистки печи</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 9 000 ₽</div>
+          </div>
+          <div class="glass-card">
+            <img src="images/structural_repair_icon.png" alt="Конструкционный ремонт" title="Конструкционный ремонт" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Конструкционный ремонт</h3>
+            <!-- описание -->
+            <p style="margin-bottom: 22px; text-align: center;">Реконструкция устройсва печи</p>
+            <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 27 000 ₽</div>
+          </div>
+        </div>
+        <p style="text-align: center; margin: 28px 0; color: var(--text-secondary); font-size: 1.1rem;">Минимальная стоимость вызова мастера — от 7 000 ₽.
+      </section>
+
+      <!-- === 6. Клиника Печей в цифрах (обновлённая секция) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Клиника Печей в цифрах</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; width: 100%;">
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">30+</div>
+                <p>Работаем с 1993 года</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">0!</div>
+                <p>Ни одной снесенной печи, построенной нами</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">400+</div>
+                <p>Печей построено или отремонтировано</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">22</div>
+                <p>Работаем в регионах России</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">4ч.</div>
+                <p>Среднее время устранения проблемы (часы)</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">100+</div>
+                <p>Знаем если не все, то почти все типы печей и каминов</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">25%</div>
+                <p>Среднее повышение КПД после ремонта</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- === 7. О НАС (Новая секция) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Кто мы?</h2>
+        <div class="glass-card">
+          <!-- <p style="font-size: 1.2rem; line-height: 1.8; text-align: center;"> -->
+            <!-- Команда инженеров и печников. -->
+          <!-- </p> -->
+          <!-- Пример изображений для секции (нужно заменить на реальные) -->
+          <div class="about-us-content">
+            <div class="text-content">
+              <p style="font-size: 1.2rem; line-height: 1.7; margin-top: 15px;">
+               <strong>Мы - команда инженеров и печников с более, чем 30-летним стажем.</strong><br>
+               Специализируемся на ремонте кирпичной печи без сноса.
+               Мы починим печку, отремонтируем топку или любую дровяную печь, проведём замену печи изнутри - нет необходимости ставить новую дорогостоящую печку, когда старая заработает лучше новой.
+               Мы знаем, как отремонтировать печь так, чтобы она работала в несколько раз эффективней прежнего.<br><br>
+               Работаем в СНТ, ДНП, деревнях, поселениях, загородных домах и городах по Северо-Западному и Центральному округу РФ.
+               Предлагаем ремонт печи цена - от 7 000 ₽, с гарантией и по договору.<br><br>
+               <strong>Мы - Клиника Печей</strong>, где ремонт печки - это инженерный подход, точные расчёты и долговечный результат. 
+              </p>
+            </div>
+            <img src="images/team_photo.png" alt="Команда Клиники Печей" title="Команда специалистов" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy"> <!-- Предполагаемое имя файла, перемещено -->
+          </div>
+        </div>
+      </section>
+
+      <!-- === 8. СЕРТИФИКАЦИЯ И ГАРАНТИИ === -->
+      <section class="cert-and-warranty-section">
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Сертификация услуг и наши гарантии</h2>
+          <div class="glass-card">
+              <div class="cert-and-warranty-content">
+                  <div class="images-container">
+                      <!-- Изображения теперь являются кнопками для открытия модального окна -->
+                      <img src="images/certificate.png" alt="Сертификат соответствия услуг Клиники Печей" title="Сертификат" loading="lazy" class="cert-image" data-modal="cert-modal">
+                      <img src="images/warranty_document_example.png" alt="Образец гарантийного талона Клиники Печей" title="Гарантийный талон" loading="lazy" class="cert-image" data-modal="warranty-modal">
+                  </div>
+                  <div class="text-content">
+                      <p style="font-size: 1.2rem; line-height: 1.8;">
+                          <strong>Сертификация услуг</strong><br>
+                          Все наши услуги сертифицированы и соответствуют высоким отраслевым стандартам.
+                          Мы используем только проверенные методики и качественные материалы.
+                          Это дает уверенность в безопасности и надежности каждой работы.
+                          <br><br>
+                          <strong>Гарантия на выполненные работы</strong><br>
+                          На все виды работ вы получаете официальную гарантию.
+                          Условия прописаны в договоре, и мы строго их соблюдаем.
+                          Вы точно знаете, что ваша печь защищена.
+                          <br><br>
+                          <strong>Надежность вашего выбора</strong><br>
+                          Сертификаты и гарантия — это не просто слова.
+                          Это доказательство нашего профессионализма и ваше спокойствие.
+                          Выбирайте опыт, проверенный годами.
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- === МОДАЛЬНЫЕ ОКНА ДЛЯ ИЗОБРАЖЕНИЙ === -->
+      <!-- Модальное окно для сертификата -->
+      <div class="modal-overlay-cert" id="cert-modal">
+        <div class="modal-cert">
+          <span class="modal-close-cert" data-modal="cert-modal">&times;</span> <!-- Крестик закрытия -->
+          <img src="images/certificate.png" alt="Сертификат соответствия услуг Клиники Печей" class="modal-cert-img">
+        </div>
+      </div>
+
+      <!-- Модальное окно для гарантийного талона -->
+      <div class="modal-overlay-warranty" id="warranty-modal">
+        <div class="modal-warranty">
+          <span class="modal-close-warranty" data-modal="warranty-modal">&times;</span> <!-- Крестик закрытия -->
+          <img src="images/warranty_document_example.png" alt="Образец гарантийного талона Клиники Печей" class="modal-warranty-img">
+        </div>
+      </div>
+
+      <!-- === 9. Технологии от Андрея Захарченко (оригинальная секция, немного изменена) === -->
+      <section>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Автор инновационных решений в ремонте печей</h2>
+        <div class="founder-card">
+          <div class="founder-content">
+            <div>
+              <h3 style="font-size: 2.0rem; margin-bottom: 26px;">Инженер-физик, печник с 30-летним стажем</h3>
+              <p style="margin-bottom: 26px; font-size: 1.1rem;"><strong>Андрей Олегович Захарченко</strong> - инженер-физик, архитектор, программист и эксперт в области печного дела. Окончил МФТИ. С 1993 года профессионально занимается проектированием и строительством печей по Северо-Западу.</p>
+              <ul style="margin: 26px 0; padding-left: 30px; color: var(--text-secondary); font-size: 1.05rem;">
+                <li>Разработал технологии <strong>«Вихревой Смеситель в Топливнике»</strong> и другие</li>
+                <li>Создал онлайн-сервис <strong>«Печепостроитель»</strong> и <strong>«Веб-Конструктор»</strong></li>
+                <li>Проводил <strong>курсы для печников</strong> в печном центре «КАМИ» (2011–2018)</li>
+                <li>Автор мобильных приложений <strong>«КладоЧёт»</strong> (2021) и <strong>«LIBRIK»</strong> (2024)</li>
+                <li>Публиковался в профильных изданиях: <strong>«Fireplaces & Stoves»</strong> и <strong>«Альманах - Вопросы печестроения»</strong></li>
+              </ul>
+              <p style="font-size: 1.1rem;">Сегодня Андрей Олегович - автор инновационных решений в ремонте печей.
+                Он - основа Клиники Печей, лично курирует сложные проекты и постоянно развивает передовые технологии в печном деле.</p>
+            </div>
+            <div>
+              <!-- ✅ SEO: Фото печника -->
+              <img src="images/andrey_photo.png" alt="Андрей Захарченко - инженер и печник с 30-летним стажем, основатель Клиники Печей" title="Андрей Захарченко — инженер-печник" class="founder-photo" loading="lazy"> <!-- Изменил имя файла -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 10. НАШИ РАБОТЫ (анимированная лента) === -->
+      <section class="works-slider-section">
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 20px; color: var(--accent);">Галерея работ</h2>
+          <div class="works-slider-container">
+              <div class="works-slider-track">
+                  <!-- Карточки работ будут дублированы для бесконечности -->
+                  <!-- Первый набор -->
+                  <div class="works-slide">
+                      <img src="images/works/work_1.png" alt="Ремонт русской печи" loading="lazy">
+                      <div class="works-slide-text">Ремонт русской печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_2.png" alt="Ремонт топки печи" loading="lazy">
+                      <div class="works-slide-text">Ремонт топки печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_3.png" alt="Строительство новой печи" loading="lazy">
+                      <div class="works-slide-text">Строительство новой печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_4.png" alt="Замена печи" loading="lazy">
+                      <div class="works-slide-text">Замена печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_5.png" alt="Авторский проект печи" loading="lazy">
+                      <div class="works-slide-text">Авторский проект печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_6.png" alt="Ремонт плиты" loading="lazy">
+                      <div class="works-slide-text">Ремонт плиты</div>
+                  </div>
+                  <!-- Второй набор -->
+                  <div class="works-slide">
+                      <img src="images/works/work_7.png" alt="Редизайн печи" loading="lazy">
+                      <div class="works-slide-text">Редизайн печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_8.png" alt="Изменение конструкции печи" loading="lazy">
+                      <div class="works-slide-text">Изменение конструкции печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_9.png" alt="Строительство новой печи" loading="lazy">
+                      <div class="works-slide-text">Кладка печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_10.png" alt="Замена печи" loading="lazy">
+                      <div class="works-slide-text">Проект русской печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_11.png" alt="Авторский проект печи" loading="lazy">
+                      <div class="works-slide-text">Авторский проект печи</div>
+                  </div>
+                  <div class="works-slide">
+                      <img src="images/works/work_12.png" alt="Реставрация печи" loading="lazy">
+                      <div class="works-slide-text">Реставрация печи</div>
+                  </div>
+                   <div class="works-slide">
+                      <img src="images/works/work_13.png" alt="Ремонт плиты и камины" loading="lazy">
+                      <div class="works-slide-text">Ремонт плиты и камины</div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- === 11. БЛОГ (Новая секция - динамическая) === -->
+      <section id="blog-section-main">
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Истории ремонтов и полезные статьи</h2>
+          <!-- Контейнер для карточек статей -->
+          <div id="blog-grid-main" style="width: 100%;">
+              <!-- Карточки будут вставлены сюда JavaScript'ом -->
+          </div>
+          <p style="text-align: center; margin-top: 40px;"><a href="articles.html" class="nav-link" style="color: var(--accent); text-decoration: underline; font-size: 1.2rem;">Все статьи</a></p>
+      </section>
+
+      <!-- === 12. Частые вопросы (FAQ) (оригинальная секция + дополнения) === -->
+      <section class="faq-section">
+        <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--accent);">Часто задаваемые вопросы</h2>
+        <div class="faq-list" style="width: 100%;">
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Сколько стоит ремонт печи и выезд мастера?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Стоимость ремонта зависит от сложности и объема работ. Минимальная стоимость вызова мастера — от 7 000 ₽. Точная цена оговаривается после первичной бесплатной консультации.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Сколько времени занимает диагностика и ремонт?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Диагностика обычно занимает 1-2 часа. Время ремонта — от нескольких часов до нескольких дней, в зависимости от состояния печи и объема работ.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Когда мастер сможет приехать ко мне?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Мы работаем по предварительной записи. При поступлении заявки мы согласуем удобную дату и время визита специалиста. Для выезда немало важно, чтобы в вашей местности также были заявки на ремонт печи.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Работаете ли вы по договору и с гарантией?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Да, все работы оформляются официальным договором. Мы предоставляем гарантию на все виды работ, подробности в договоре.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Какие материалы вы используете и можно ли использовать свои?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Мы используем только качественные и проверенные материалы. Вы также можете предоставить свои материалы, но мы рекомендуем использовать проверенные, чтобы обеспечить соответствующее качество и гарантию.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Нужно ли освобождать помещение и как готовиться к ремонту?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Для удобства проведения работ рекомендуется освободить пространство вокруг печи на 1,5-2 метра от нее. Накрыть пленкой мебель и другие предметы убранства, которые могут запылиться. Подробные рекомендации по подготовке вы получите заранее.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Какие меры безопасности соблюдаются и как проверить качество работ?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Все работы выполняются с соблюдением правил пожарной и промышленной безопасности. Качество подтверждается документами, договором и гарантийным талоном, а главное - делом на практике.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Работаете ли вы в выходные и в пригородах?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Да, мы можем работать в выходные дни, кроме субботы. График работы есть на сайте. Мы обслуживаем объекты в пригородах и загородных домах.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Как часто необходимо проводить плановый осмотр печи?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Рекомендуется проводить плановую проверку и/или чистку дымохода 1-3 раза в год перед отопительным сезоном.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Какие признаки указывают на необходимость ремонта?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Основные признаки: дым идет в помещении, слабый нагрев, трещины в кладке, посторонние шумы в печи, слабая тяга, сложно разжигаются дрова.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Как правильно эксплуатировать печь после ремонта?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>После ремонта важно соблюдать рекомендации по постепенному прогреву и правильной топке. Мы предоставляем авторскую инструкцию по эксплуатации после ремонта.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Можно ли ускорить процесс ремонта и увеличить КПД?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Процесс ремонта может быть согласован по срокам. Улучшение КПД возможно за счет модернизации дымооборотов и улучшения теплоизоляции.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Как оплатить услуги и возможна ли безналичная оплата?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Мы принимаем как наличный, так и безналичный расчёт. Подробности об оплате обсуждаются индивидуально.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Можете ли вы рассчитать стоимость онлайн или дать предварительную оценку?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Предварительную оценку ремонту можно дать по фото и описанию - через звонок или заполнение формы на нашем сайте. Точный расчёт самого ремонта возможен только после осмотра печи специалистом на месте.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Можно ли починить печь, если все сказали "сносить"?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Да, мы ремонтируем даже те печи, которые другие считают безнадёжными.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- === 13. Кнопка "Вызвать печника" (оригинальная секция) === -->
+      <section style="text-align: center; padding: 0px 0 100px;">
+        <a href="#" class="btn" id="footer-claim">Вызвать печного мастера</a>
+      </section>
+    </div>
+  </div>
+
+  <!-- === ПОДВАЛ САЙТА (обновлённый) === -->
+  <footer style="background-color: var(--text-primary-light); margin-top: auto; padding: 40px 0 40px; border-top: 1px solid var(--card-border);">
+      <div class="container">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 40px; width: 100%;">
+              <!-- Столбец 1: Название и описание -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Клиника Печей</h3>
+                  <p style="color: var(--card-bg-light); font-size: 1rem; line-height: 1.6; margin: 0;">Ремонт печей по РФ.<br>Инженерный подход.<br>Без сноса.</p>
+              </div>
+
+              <!-- Столбец 2: Контакты -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Контакты</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                      <li style="margin-bottom: 10px;">
+                          <!-- Кнопка для копирования телефона -->
+                          <button id="copy-phone-btn" style="background: none; border: none; color: var(--card-bg-light); cursor: pointer; text-decoration: underline; font-size: 1rem; padding: 0;">
+                              +7 (960) 218-84-00
+                          </button>
+                          <span id="phone-copied-message" style="color: var(--accent); font-size: 0.9rem; display: none; margin-left: 5px;">Скопировано!</span>
+                      </li>
+                      <li style="margin-bottom: 10px;">
+                          <!-- Кнопка для копирования почты -->
+                          <button id="copy-email-btn" style="background: none; border: none; color: var(--card-bg-light); cursor: pointer; text-decoration: underline; font-size: 1rem; padding: 0;">
+                              klinika-pechey@mail.ru
+                          </button>
+                          <span id="email-copied-message" style="color: var(--accent); font-size: 0.9rem; display: none; margin-left: 5px;">Скопировано!</span>
+                      </li>
+                      <li style="color: var(--card-bg-light); font-size: 1rem;">
+                          Работаем по СЗФО и ЦФО
+                      </li>
+                  </ul>
+              </div>
+
+              <!-- Столбец 3: График работы -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">График работы</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0; color: var(--card-bg-light); font-size: 1rem; line-height: 1.6;">
+                      <li><strong>Вс-Чт:</strong> 9:00 до 20:00</li>
+                      <li><strong>Пт:</strong> 9:00 до 16:00</li>
+                      <li><strong>Сб:</strong> Выходной</li>
+                  </ul>
+              </div>
+
+              <!-- Столбец 4: Соц.сети -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Соц.сети</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">VK</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Telegram</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Авито</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#" target="_blank" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Юла</a></li>
+                  </ul>
+              </div>
+
+              <!-- Столбец 5: Навигация -->
+              <div style="text-align: left;">
+                  <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Навигация</h3>
+                  <ul style="list-style: none; padding: 0; margin: 0;">
+                      <li style="margin-bottom: 8px;"><a href="index.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Главная</a></li>
+                      <li style="margin-bottom: 8px;"><a href="#services" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Услуги</a></li>
+                      <li style="margin-bottom: 8px;"><a href="articles.html" class="nav-link" style="color: var(--card-bg-light); text-decoration: none; font-size: 1rem;">Блог</a></li>
+                  </ul>
+              </div>
+          </div>
+
+          <!-- Нижняя строка подвала -->
+          <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--card-bg-light); font-size: 0.95rem;">
+              <p>&copy; 2025 Андрей Захарченко. Клиника Печей. Все права защищены.</p>
+          </div>
+      </div>
+  </footer>
+
+
+  <!-- === Модальное окно === -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h3>Перенаправление на форму</h3>
+      <p>Вы будете перенаправлены на форму обратной связи, где сможете оставить заявку по интересующему вас вопросу или проблеме.</p>
+      <button class="modal-close" id="modal-continue">Продолжить</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script> <!-- Путь к вашему общему файлу скрипта -->
+</body>
+</html>

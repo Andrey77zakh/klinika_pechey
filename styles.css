@@ -1,0 +1,1264 @@
+/* ===== ОПРЕДЕЛЕНИЕ ЦВЕТОВЫХ ПЕРЕМЕННЫХ ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
+:root {
+    --text-primary-light: #1e293b;       /* Основной цвет текста */
+    --text-secondary-light: #475569;     /* Второстепенный цвет текста */
+    --bg-light: #defdff;                 /* Цвет фона */
+    --card-bg-light: #ffffff;            /* Цвет фона карточек */
+    --card-border-light: #d3dff0;        /* Цвет границ карточек */
+    --accent: #0da2e7;                   /* Акцентный цвет (голубой) */
+    --accent2: #0d2ee7;                  /* Второй акцентный цвет (синий) */
+    --shadow-light: 0 4px 12px rgba(0,0,0,0.05); /* Легкая тень */
+    --timeline-color: #0da2e7;           /* Цвет линии последовательности */
+}
+
+/* ===== КЛАСС ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
+.theme-light {
+    --bg: var(--bg-light);               /* Переменная фона */
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); /* Градиент фона */
+    --text: var(--text-primary-light);   /* Цвет основного текста */
+    --text-secondary: var(--text-secondary-light); /* Цвет второстепенного текста */
+    --card-bg: var(--card-bg-light);     /* Цвет фона карточек */
+    --card-border: var(--card-border-light); /* Цвет границ карточек */
+    --shadow: var(--shadow-light);       /* Тень элементов */
+    --glass: blur(12px);                /* Эффект размытия для стеклянных элементов */
+}
+
+/* ===== СБРОС СТАНДАРТНЫХ СТИЛЕЙ ===== */
+* {
+    margin: 0;                          /* Убираем отступы по умолчанию */
+    padding: 0;                         /* Убираем внутренние отступы по умолчанию */
+    box-sizing: border-box;             /* Включаем box-sizing для точного расчёта размеров */
+}
+
+/* ===== ОСНОВНОЙ СТИЛЬ СТРАНИЦЫ ===== */
+body {
+    background: var(--bg-gradient);      /* Устанавливаем градиентный фон */
+    color: var(--text);                 /* Цвет текста */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* Шрифт */
+    line-height: 1.6;                   /* Межстрочный интервал */
+    transition: background 0.4s;        /* Плавный переход фона */
+    overflow-x: hidden;                 /* Скрываем горизонтальный скролл */
+    font-size: 1.2rem;
+}
+
+/* ===== ОГРАНИЧЕНИЕ ШИРИНЫ КОНТЕНТА ===== */
+.container {
+    max-width: 100%;                    /* Убираем ограничение ширины */
+    margin: 0 auto;                     /* Центрирование */
+    padding: 0 24px;                    /* Внутренние отступы */
+}
+
+/* ===== ОСНОВНОЙ БЛОК СТРАНИЦЫ ===== */
+.page {
+    display: block;                     /* Отображение как блок */
+    min-height: 100vh;                  /* Минимальная высота - 100% вьюпорта */
+}
+
+/* ===== СТИЛИ ШАПКИ САЙТА ===== */
+header {
+    position: sticky;                   /* Фиксированное позиционирование при скролле */
+    top: 0;                            /* Прикрепляем к верху */
+    z-index: 1000;                     /* Высокий z-index для отображения поверх других элементов */
+    backdrop-filter: var(--glass);      /* Эффект размытия фона */
+    background: rgba(255,255,255,0.85); /* Полупрозрачный белый фон */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Тень под шапкой */
+    padding: 0 24px;                    /* Внутренние отступы */
+    height: 72px;                       /* Высота шапки */
+    display: flex;                      /* Flex-контейнер для выравнивания элементов */
+    justify-content: space-between;     /* Распределение элементов по краям */
+    align-items: center;                /* Выравнивание по вертикали */
+}
+
+/* ===== СТИЛИ ЛОГОТИПА ===== */
+.logo-link {
+    display: flex;                      /* Flex-контейнер для логотипа */
+    align-items: center;                /* Выравнивание по вертикали */
+    gap: 12px;                          /* Отступ между иконкой и текстом */
+    text-decoration: none;              /* Убираем подчеркивание ссылки */
+}
+
+.logo-icon {
+    width: 32px;                        /* Ширина иконки */
+    height: 32px;                       /* Высота иконки */
+    display: block;                     /* Отображение как блок */
+}
+
+.logo-text {
+    font-size: 1.7rem;                  /* Размер шрифта */
+    font-weight: 800;                   /* Жирность шрифта */
+    background: linear-gradient(90deg, var(--accent), var(--accent2)); /* Градиент текста */
+    -webkit-background-clip: text;      /* Обрезка градиента под текст */
+    background-clip: text;              /* Обрезка градиента под текст */
+    color: transparent;                 /* Прозрачный цвет текста */
+}
+
+/* ===== КОНТЕЙНЕР ПРАВОЙ ЧАСТИ ШАПКИ ===== */
+.nav-right {
+    display: flex;                      /* Flex-контейнер */
+    align-items: center;                /* Выравнивание по вертикали */
+    gap: 24px;                          /* Отступ между элементами */
+}
+
+/* ===== КОНТЕЙНЕР НАВИГАЦИОННЫХ ССЫЛОК ===== */
+.nav-links {
+    display: flex;                      /* Flex-контейнер */
+    gap: 28px;                          /* Отступ между ссылками */
+}
+
+/* ===== СТИЛИ НАВИГАЦИОННЫХ ССЫЛОК ===== */
+.nav-link {
+    color: var(--text-secondary);       /* Цвет текста */
+    text-decoration: none;              /* Убираем подчеркивание */
+    font-weight: 500;                   /* Полужирность */
+    position: relative;                 /* Относительное позиционирование */
+    transition: color 0.3s;             /* Плавный переход цвета */
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent);               /* Изменение цвета при наведении/активности */
+}
+
+/* ===== АНИМАЦИОННОЕ ПОДЧЕРКИВАНИЕ ССЫЛОК ===== */
+.nav-link::after {
+    content: '';                        /* Псевдоэлемент для подчеркивания */
+    position: absolute;                 /* Абсолютное позиционирование */
+    bottom: -6px;                       /* Отступ от нижнего края */
+    left: 0;                           /* Прижато к левому краю */
+    width: 0;                          /* Начальная ширина */
+    height: 2px;                       /* Высота подчеркивания */
+    background: var(--accent);          /* Цвет подчеркивания */
+    transition: width 0.3s;             /* Плавный переход ширины */
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;                       /* Полная ширина при наведении/активности */
+}
+
+/* ===== КНОПКА "Оставить заявку" — живая ===== */
+.header-claim-btn {
+    background: linear-gradient(135deg, #0da2e7, var(--accent2)); /* Градиентный фон */
+    color: white;                       /* Белый цвет текста */
+    padding: 10px 22px;                 /* Внутренние отступы */
+    border-radius: 14px;                /* Скругленные углы */
+    font-weight: 600;                   /* Полужирность текста */
+    text-decoration: none;              /* Убираем подчеркивание */
+    font-size: 1rem;                    /* Размер шрифта */
+    transition: all 0.3s;               /* Плавный переход всех свойств */
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); /* Тень */
+    animation: pulseButton 2s infinite; /* Анимация пульсации */
+}
+
+.header-claim-btn:hover {
+    transform: translateY(-2px);        /* Поднятие при наведении */
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5); /* Более выраженная тень */
+}
+
+/* ===== КНОПКА "Вызвать печника" — живая ===== */
+.btn {
+    display: inline-block;              /* Отображение как инлайн-блок */
+    background: linear-gradient(135deg, #0da2e7, var(--accent2)); /* Градиентный фон */
+    color: white;                       /* Белый цвет текста */
+    padding: 18px 50px;                 /* Внутренние отступы */
+    border-radius: 18px;                /* Скругленные углы */
+    font-weight: 800;                   /* Жирность текста */
+    text-decoration: none;              /* Убираем подчеркивание */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Плавный переход */
+    box-shadow: 0 12px 36px rgba(59, 130, 246, 0.4); /* Тень */
+    border: none;                       /* Убираем границу */
+    font-size: 1.25rem;                 /* Размер шрифта */
+    letter-spacing: -0.5px;             /* Отрицательный кернинг */
+    animation: pulseButton 2s infinite; /* Анимация пульсации */
+}
+
+.btn:hover {
+    transform: translateY(-6px) scale(1.04); /* Поднятие и увеличение при наведении */
+    box-shadow: 0 18px 48px rgba(59, 130, 246, 0.6); /* Более выраженная тень */
+}
+
+/* ===== АНИМАЦИЯ КНОПОК ===== */
+@keyframes pulseButton {
+    0% {
+        transform: scale(1);              /* Начальный масштаб */
+    }
+    50% {
+        transform: scale(1.1);           /* Увеличение в середине анимации */
+    }
+    100% {
+        transform: scale(1);              /* Возврат к исходному масштабу */
+    }
+}
+
+/* ===== ИКОНКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===== */
+.theme-icon {
+    width: 30px;                        /* Ширина иконки */
+    height: 30px;                       /* Высота иконки */
+    cursor: pointer;                    /* Курсор-указатель */
+    display: flex;                      /* Flex-контейнер */
+    align-items: center;                /* Выравнивание по вертикали */
+    justify-content: center;            /* Выравнивание по горизонтали */
+    color: var(--text-secondary);       /* Цвет текста */
+    font-size: 1.25rem;                 /* Размер шрифта иконки */
+}
+
+/* ===== СТИЛИ ГЕРОЯ (ШАПКА СТРАНИЦЫ) ===== */
+/* Убедитесь, что .hero имеет position: relative; (уже есть в вашем коде) */
+.hero {
+    text-align: center;                 /* Центрирование текста */
+    padding: 180px 0 140px;             /* Внутренние отступы */
+    position: relative;                 /* Относительное позиционирование - УЖЕ ЕСТЬ */
+    overflow: hidden;                   /* Скрытие переполненного содержимого */
+    width: 100vw;                       /* Ширина на весь вьюпорт */
+    left: 50%;                          /* Смещение влево */
+    right: 50%;                         /* Смещение вправо */
+    margin-left: -50vw;                 /* Отрицательный левый отступ */
+    margin-right: -50vw;                /* Отрицательный правый отступ */
+    /* margin-top: -72px; УБРАНО: убираем отступ от шапки */
+}
+
+/* ===== ИСПРАВЛЕННЫЙ СТИЛЬ ФОНОВОГО ИЗОБРАЖЕНИЯ ГЕРОЯ ===== */
+.hero-bg {
+    position: absolute;                 /* ВЕРНУЛИСЬ к абсолютному позиционированию */
+    top: 0;                            /* Прижато к верху родителя (.hero) */
+    left: 0;                           /* Прижато к левому краю родителя (.hero) */
+    right: 0;                          /* НОВОЕ: Прижато к правому краю родителя (.hero) */
+    /* width: 100%; УБРАНО: больше не нужно */
+    height: 100%;                      /* Высота 100% от родителя (.hero) */
+    background-image: url('images/hero_bg.png'); /* Путь к изображению */
+    background-size: cover;             /* Изображение заполняет область */
+    background-position: center;        /* Центрирование изображения */
+    background-repeat: no-repeat;       /* Изображение не повторяется */
+    opacity: 0.85;                      /* Прозрачность */
+    z-index: -1;                       /* Под содержимым .hero */
+}
+    
+.hero-content {
+    position: relative;                 /* Относительное позиционирование */
+    z-index: 2;                        /* Высокий z-index для отображения поверх фона */
+    max-width: 100%;                    /* Убираем ограничение ширины */
+    margin: 0 auto;                     /* Центрирование */
+    padding: 0 20px;                    /* Внутренние отступы */
+    background: rgba(0, 0, 0, 0.25);    /* Полупрозрачный черный фон */
+    backdrop-filter: blur(8px);         /* Эффект размытия */
+    border-radius: 24px;                /* Скругленные углы */
+    padding: 40px 30px;                 /* Внутренние отступы */
+}
+
+.hero h1 {
+    font-size: 4.5rem;                  /* Размер шрифта заголовка */
+    font-weight: 800;                   /* Жирность шрифта */
+    margin-bottom: 24px;                /* Нижний отступ */
+    color: white;                       /* Белый цвет текста */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4); /* Тень текста */
+    line-height: 1.1;                   /* Межстрочный интервал */
+}
+
+.hero p {
+    font-size: 1.6rem;                  /* Размер шрифта параграфа */
+    color: white;                       /* Белый цвет текста */
+    max-width: 100%;                    /* Убираем ограничение ширины */
+    margin: 0 auto 40px;                /* Центрирование и нижний отступ */
+    text-shadow: 0 1px 6px rgba(0,0,0,0.4); /* Тень текста */
+}
+
+/* ===== СТИЛИ СТЕКЛЯННОЙ КАРТОЧКИ ===== */
+.glass-card {
+    background: var(--card-bg);         /* Фон карточки */
+    border: 1px solid var(--card-border); /* Граница карточки */
+    border-radius: 24px;                /* Скругленные углы */
+    padding: 48px;                      /* Внутренние отступы */
+    backdrop-filter: var(--glass);      /* Эффект размытия */
+    box-shadow: var(--shadow);          /* Тень карточки */
+    width: 100%;                        /* Расширяем на всю ширину */
+    margin: 0;                          /* Убираем внешние отступы */
+}
+
+/* ===== СТИЛИ КАРТОЧКИ О ПЕЧНИКЕ ===== */
+.founder-card {
+    background: var(--card-bg);         /* Фон карточки */
+    border: 1px solid var(--card-border); /* Граница карточки */
+    border-radius: 24px;                /* Скругленные углы */
+    padding: 48px;                      /* Внутренние отступы */
+    backdrop-filter: var(--glass);      /* Эффект размытия */
+    box-shadow: var(--shadow);          /* Тень карточки */
+    width: 100%;                        /* Расширяем на всю ширину */
+    margin: 0;                          /* Убираем внешние отступы */
+}
+
+.founder-content {
+    display: grid;                      /* Grid-контейнер */
+    grid-template-columns: 1.5fr 1fr;     /* Две равные колонки */
+    gap: 40px;                          /* Отступ между колонками */
+    align-items: center;                /* Выравнивание по вертикали */
+    width: 100%;                        /* Расширяем на всю ширину */
+}
+
+.founder-photo {
+    width: 100%;                        /* Ширина 100% */
+    border-radius: 20px;                /* Скругленные углы */
+    box-shadow: var(--shadow);          /* Тень фото */
+}
+
+/* ===== СТИЛИ ЧАСТО ЗАДАВАЕМЫХ ВОПРОСОВ ===== */
+.faq-section {
+    margin: 120px 0;                    /* Внешние отступы */
+}
+
+.faq-item {
+    margin-bottom: 16px;                /* Нижний отступ между вопросами */
+    border: 1px solid var(--card-border); /* Граница элемента */
+    border-radius: 16px;                /* Скругленные углы */
+    overflow: hidden;                   /* Скрытие переполненного содержимого */
+    width: 100%;                        /* Расширяем на всю ширину */
+}
+
+.faq-question {
+    padding: 18px 24px;                 /* Внутренние отступы */
+    background: var(--card-bg);         /* Фон вопроса */
+    font-weight: 600;                   /* Полужирность текста */
+    cursor: pointer;                    /* Курсор-указатель */
+    display: flex;                      /* Flex-контейнер */
+    justify-content: space-between;     /* Распределение по краям */
+    align-items: center;                /* Выравнивание по вертикали */
+}
+
+.faq-question span {
+    font-size: 1.15rem;               /* Изменение: увеличен размер шрифта вопроса */
+}
+
+.faq-answer {
+    padding: 0 24px;                    /* Начальные внутренние отступы */
+    max-height: 0;                      /* Начальная максимальная высота */
+    overflow: hidden;                   /* Скрытие переполненного содержимого */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* Плавный переход */
+}
+
+.faq-answer p {
+    font-size: 1.15rem;               /* Изменение: увеличен размер шрифта ответа */
+}
+
+.faq-answer.open {
+    padding: 24px;                      /* Внутренние отступы при открытии */
+    max-height: 500px;                  /* Максимальная высота при открытии */
+}
+
+/* ===== СТИЛИ ГАЛЕРЕИ ===== */
+.gallery-section {
+    margin: 120px 0;                    /* Внешние отступы */
+}
+
+.gallery-grid {
+    display: grid;                      /* Grid-контейнер */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Адаптивные колонки */
+    gap: 20px;                          /* Отступ между элементами */
+    width: 100%;                        /* Расширяем на всю ширину */
+}
+
+.gallery-item {
+    border-radius: 16px;                /* Скругленные углы */
+    overflow: hidden;                   /* Скрытие переполненного содержимого */
+    box-shadow: var(--shadow);          /* Тень элемента */
+    width: 100%;                        /* Расширяем на всю ширину */
+}
+
+.gallery-item img {
+    width: 100%;                        /* Ширина 100% */
+    height: auto;                       /* Автоматическая высота */
+    display: block;                     /* Отображение как блок */
+}
+
+/* ===== СТИЛИ ПОДВАЛА ===== */
+footer {
+    text-align: center;                 /* Центрирование текста */
+    padding: 70px 0 50px;               /* Внутренние отступы */
+    color: var(--text-secondary);       /* Цвет текста */
+    font-size: 0.95rem;                 /* Размер шрифта */
+    margin-top: 100px;                  /* Верхний отступ */
+    border-top: 1px solid var(--card-border); /* Граница сверху */
+    width: 100%;                        /* Расширяем на всю ширину */
+}
+
+/* ===== СТИЛИ МОДАЛЬНОГО ОКНА ===== */
+.modal-overlay {
+    position: fixed;                    /* Фиксированное позиционирование */
+    top: 0;                            /* Прижато к верху */
+    left: 0;                           /* Прижато к левому краю */
+    width: 100%;                       /* Ширина 100% */
+    height: 100%;                      /* Высота 100% */
+    background: rgba(0,0,0,0.65);       /* Полупрозрачный черный фон */
+    display: flex;                      /* Flex-контейнер */
+    align-items: center;                /* Выравнивание по вертикали */
+    justify-content: center;            /* Выравнивание по горизонтали */
+    z-index: 2000;                     /* Высокий z-index */
+    opacity: 0;                        /* Начальная прозрачность */
+    visibility: hidden;                 /* Начальное скрытие */
+    transition: all 0.4s ease;          /* Плавный переход */
+}
+
+.modal-overlay.active {
+    opacity: 1;                        /* Полная видимость при активации */
+    visibility: visible;               /* Видимость при активации */
+}
+
+.modal {
+    background: var(--card-bg);         /* Фон модального окна */
+    border: 1px solid var(--card-border); /* Граница модального окна */
+    border-radius: 22px;                /* Скругленные углы */
+    padding: 44px;                      /* Внутренние отступы */
+    max-width: 620px;                   /* Максимальная ширина */
+    width: 92%;                         /* Ширина */
+    box-shadow: 0 24px 70px rgba(0,0,0,0.45); /* Тень */
+    transform: scale(0.92);             /* Начальный масштаб */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Плавный переход */
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);                /* Полный масштаб при активации */
+}
+
+.modal h3 {
+    font-size: 1.6rem;                  /* Размер шрифта заголовка */
+    margin-bottom: 22px;                /* Нижний отступ */
+    color: var(--accent);               /* Цвет заголовка */
+}
+
+.modal p {
+    margin-bottom: 26px;                /* Нижний отступ параграфа */
+    font-size: 1.15rem;                 /* Размер шрифта */
+    line-height: 1.7;                   /* Межстрочный интервал */
+}
+
+.modal-close {
+    background: var(--accent);          /* Фон кнопки */
+    color: white;                       /* Белый цвет текста */
+    border: none;                       /* Убираем границу */
+    padding: 13px 30px;                 /* Внутренние отступы */
+    border-radius: 14px;                /* Скругленные углы */
+    font-weight: 700;                   /* Полужирность текста */
+    font-size: 1.05rem;                 /* Размер шрифта */
+    cursor: pointer;                    /* Курсор-указатель */
+    transition: background 0.25s;       /* Плавный переход фона */
+}
+
+.modal-close:hover {
+    background: #00c2a8;               /* Изменение фона при наведении */
+}
+
+/* ===== СТИЛИ СЕКЦИИ "НАШ ПОДХОД" ===== */
+.approach-section {
+    margin: 120px 0;
+}
+
+.approach-content {
+    display: grid;
+    /* === ШИРОКИЙ ЭКРАН (>= 1250px): горизонтальное расположение, картинки слева от текста === */
+    grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+    grid-template-areas: "images text"; /* Явно задаём области */
+    gap: 40px;
+    align-items: center;
+    background: var(--card-bg); /* Фон карточки */
+    border: 1px solid var(--card-border); /* Граница карточки */
+    border-radius: 24px; /* Скругленные углы */
+    padding: 48px; /* Внутренние отступы */
+    backdrop-filter: var(--glass); /* Эффект размытия */
+    box-shadow: var(--shadow); /* Тень карточки */
+    width: 100%; /* Расширяем на всю ширину */
+}
+
+.images-container-approach {
+    display: flex;
+    /* === ШИРОКИЙ ЭКРАН (>= 1200px): картинки в ряду === */
+    flex-direction: row; /* Изображения в ряд */
+    gap: 20px;
+    align-self: stretch; /* Растягиваем по высоте */
+    flex-wrap: wrap; /* Позволяем переноситься */
+    align-content: center;
+    min-width: 0;
+    grid-area: images; /* Привязываем к области 'images' */
+}
+
+.images-container-approach img {
+    width: 50%; /* Ширина 100% от родителя (но с max-width) */
+    max-width: min(50vw, 200px); /* Ключевое: не больше 50% экрана или 200px */
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    flex-shrink: 1; /* Позволим сжиматься */
+    height: auto; /* Сохраняем пропорции */
+    min-width: 0; /* Позволим сжиматься до 0 */
+    object-fit: contain; /* Масштабируем, чтобы уместить */
+}
+
+.text-content-approach {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-area: text; /* Привязываем к области 'text' */
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (СРЕДНИЙ ЭКРАН - от 750px до 1199px): горизонтальное расположение, картинки слева от текста, картинки в столбце === */
+@media (min-width: 750px) and (max-width: 1249px) {
+
+    .images-container-approach {
+        /* === СРЕДНИЙ ЭКРАН: картинки в столбце, внутри области слева === */
+        flex-direction: column; /* Изображения в столбец */
+        align-items: center; /* Центрируем изображения */
+        align-content: flex-start;
+        gap: 15px; /* Отступ между изображениями в столбце */
+        grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+        grid-template-areas: "images text"; /* Явно задаём области */
+        justify-content: center;
+        
+    }
+
+    .images-container-approach img {
+        width: auto; /* Не растягиваем по ширине родителя */
+    }
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (МАЛЕНЬКИЙ ЭКРАН - <= 749px): вертикальное расположение, картинки под текстом, картинки в ряду (переносятся) === */
+@media (max-width: 750px) {
+    .approach-content {
+        /* === МАЛЕНЬКИЙ ЭКРАН: вертикальное расположение, картинки *под* текстом === */
+        grid-template-columns: 1fr; /* Одна колонка */
+        grid-template-areas:
+            "text"    /* Сначала текст */
+            "images"; /* Потом изображения */
+        padding: 36px 24px; /* Уменьшаем внутренние отступы */
+    }
+
+    .images-container-approach {
+        /* === МАЛЕНЬКИЙ ЭКРАН: картинки в ряду (переносятся при необходимости), внутри своей области под текстом === */
+        flex-direction: row; /* Изображения в ряду */
+        align-items: center; /* Выравнивание по центру строки */
+        align-content: flex-start;
+        gap: 10px; /* Отступ между изображениями в ряду */
+        justify-content: center;
+    }
+
+    .images-container-approach img {
+        width: auto; /* Не растягиваем по ширине родителя */
+        max-width: 45%; /* Ограничиваем ширину */
+    }
+
+    .text-content-approach {
+        /* justify-content: center; - Уже установлено */
+        padding: 0 10px; /* Небольшие отступы по бокам текста */
+    }
+}
+
+/* Дополнительные стили для очень узких экранов */
+@media (max-width: 324px) {
+    .approach-content {
+        gap: 30px; /* Уменьшаем общий отступ */
+        padding: 24px 16px; /* Уменьшаем внутренние отступы */
+    }
+    .images-container-approach {
+        gap: 8px; /* Уменьшаем отступ между изображениями */
+    }
+    .images-container-approach img {
+        max-width: 100%; /* На очень узких экранах - одна картинка в ряд */
+    }
+}
+
+
+
+
+
+/* ===== СТИЛИ ЭТАПОВ РАБОТЫ (ГОРИЗОНТАЛЬНАЯ ЛИНИЯ, ИКОНКИ ПРИВЯЗАНЫ К ЛИНИИ ЖЁСТКО) ===== */
+.timeline-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Ключевое: выравнивание шагов по центру */
+    position: relative;
+    padding: 64px 20px;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* Горизонтальная линия */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    height: 4px;
+    background-color: var(--timeline-color);
+    transform: translateY(-50%);
+    z-index: 1;
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    box-sizing: border-box;
+}
+
+.timeline-step {
+    display: block;
+    position: relative; /* Контейнер для абсолютного позиционирования иконки */
+    text-align: center;
+    z-index: 2;
+    flex: 0 0 auto;
+}
+
+.timeline-step-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--timeline-color);
+    border-radius: 50%;
+    background-color: var(--card-bg);
+    z-index: 3;
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    /* Ключевое: абсолютное позиционирование */
+    position: absolute;
+    /* Привязываем к центру родительского .timeline-step */
+    top: 50%;
+    left: 50%;
+    /* Центрируем саму иконку на точке (50%, 50%) */
+    transform: translate(-50%, -50%);
+    /* Благодаря align-items: center у .timeline-container,
+    центр .timeline-step совпадает с линией.
+    Следовательно, и центр этой иконки тоже. */
+}
+
+.timeline-step-icon-wrapper img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.timeline-step-text {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+    padding: 0 25px;
+    box-sizing: border-box;
+    z-index: 3;
+    text-align: center;
+    /* Отступ, чтобы текст не налезал на иконку */
+    margin-top: 140px; /* Половина высоты иконки + отступ */
+}
+
+/* ===== СТИЛИ ЭТАПОВ РАБОТЫ (МОБИЛЬНАЯ ВЕРСИЯ: ПЛАШКИ С ИКОНКОЙ И ТЕКСТОМ, УЖЕ И ПО ЦЕНТРУ) ===== */
+@media (max-width: 899px) {
+    .timeline-container {
+        display: block !important; /* Обычный блок */
+        justify-content: center !important; /* Отключаем justify-content */
+        align-items: center !important; /* Отключаем align-items */
+        padding: 25px !important; /* Отступы */
+        width: fit-content !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+        position: relative !important; /* Для позиционирования линии */
+        margin: 0 auto !important; /* Центрируем контейнер */
+    }
+
+    /* Убираем широкоэкранные стили */
+    .timeline-container::before {
+        display: none !important; /* Отключаем широкоэкранные стили */
+    }
+
+    /* Добавляем голубую вертикальную линию */
+    .timeline-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%; /* Прижимаем к 50% от левого края .timeline-container */
+        width: 4px; /* Ширина линии */
+        background-color: var(--timeline-color); /* Голубой цвет */
+        transform: translateX(-50%); /* Сдвигаем влево на 50% своей ширины */
+        z-index: 0; /* За плашками */
+    }
+
+    .timeline-step {
+        display: flex !important; /* Flex-контейнер */
+        align-items: center !important; /* Центрируем по вертикали (центры элементов на одном уровне) */
+        background: var(--card-bg) !important; /* Белый фон */
+        border: 1px solid var(--card-border) !important; /* Граница */
+        border-radius: 24px !important; /* Скругленные углы */
+        padding: 15px !important; /* Внутренние отступы */
+        box-shadow: var(--shadow) !important; /* Тень */
+        backdrop-filter: var(--glass) !important; /* Эффект размытия */
+        margin-bottom: 25px !important; /* Отступ снизу (20px между плашками) */
+        position: relative !important; /* Для позиционирования */
+        text-align: left !important; /* Выравнивание текста */
+        max-width: 600px !important; /* Устанавливаем максимальную ширину */
+        margin-left: auto !important; /* Центрируем по горизонтали */
+        margin-right: auto !important; /* Центрируем по горизонтали */
+        z-index: 2; /* Поверх линии */
+        flex-direction: row !important; /* Горизонтальная ориентация */
+    }
+
+    .timeline-step:last-child {
+        margin-bottom: 0 !important; /* Убираем отступ у последнего элемента */
+    }
+
+    .timeline-step-icon-wrapper {
+        width: 64px !important;
+        height: 64px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        border: 2px solid var(--timeline-color) !important;
+        border-radius: 50% !important;
+        background-color: var(--card-bg) !important;
+        z-index: 3 !important;
+        box-sizing: border-box !important;
+        flex-shrink: 0 !important; /* Не сжимаем */
+        position: static !important; /* Отменяем абсолютное позиционирование */
+        transform: none !important; /* Отменяем трансформацию */
+    }
+
+    .timeline-step-icon-wrapper img {
+        width: 70% !important;
+        height: 70% !important;
+        object-fit: contain !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+    }
+
+    .timeline-step-text {
+        margin: 0px !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        color: var(--text) !important;
+        line-height: 1.4 !important;
+        padding: 0 25px !important;
+        box-sizing: border-box !important;
+        z-index: 3 !important;
+        text-align: left !important; /* Выравнивание текста по левому краю */
+        margin-left: 0px !important; /* Отступ от иконки (10px) */
+        flex: 1 !important; /* Занимает оставшееся место */
+    }
+}
+
+/* ===== СТИЛИ МОДАЛЬНЫХ ОКНА ИЗОБРАЖЕНИЙ ===== */
+
+/* Стили для изображений в секции сертификации */
+.cert-image {
+    cursor: pointer; /* Курсор-указатель при наведении */
+    transition: transform 0.2s ease; /* Плавный переход при наведении */
+    border-radius: 16px; /* Сохраняем скругление */
+    box-shadow: var(--shadow); /* Сохраняем тень */
+    width: 100%; /* Ширина 100% от родительского контейнера */
+    max-width: 200px; /* Ограничение ширины */
+}
+
+.cert-image:hover {
+    transform: scale(1.03); /* Легкое увеличение при наведении */
+}
+
+/* Общие стили для оверлея модального окна */
+.modal-overlay-cert,
+.modal-overlay-warranty {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9); /* Более темный фон */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000; /* Высокий z-index */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay-cert.active,
+.modal-overlay-warranty.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Стили для контента модального окна */
+.modal-cert,
+.modal-warranty {
+    position: relative; /* Для позиционирования крестика */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%; /* Ширина контента */
+    height: 90%; /* Высота контента */
+}
+
+/* Стили для крестика закрытия */
+.modal-close-cert,
+.modal-close-warranty {
+    position: absolute;
+    top: 15px; /* Отступ сверху */
+    right: 20px; /* Отступ справа */
+    font-size: 2.5rem; /* Размер крестика */
+    color: white; /* Цвет крестика */
+    cursor: pointer; /* Курсор-указатель */
+    z-index: 10; /* Выше изображения */
+    background: rgba(0, 0, 0, 0.5); /* Фон для крестика */
+    border-radius: 50%; /* Круглый фон */
+    width: 40px; /* Ширина фона */
+    height: 40px; /* Высота фона */
+    display: flex; /* Flex для центрирования */
+    align-items: center; /* Центрирование по вертикали */
+    justify-content: center; /* Центрирование по горизонтали */
+    transition: background 0.3s; /* Плавный переход фона */
+}
+
+.modal-close-cert:hover,
+.modal-close-warranty:hover {
+    background: rgba(0, 0, 0, 0.8); /* Темнее фон при наведении */
+}
+
+/* Стили для увеличенного изображения */
+.modal-cert-img,
+.modal-warranty-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Изображение вписывается в контейнер */
+    border-radius: 8px; /* Небольшое скругление для изображения в модальном окне */
+    z-index: 5; /* Ниже крестика */
+}
+
+
+/* ===== СТИЛИ СЕКЦИИ "КТО МЫ" ===== */
+.about-us-content {
+    display: flex; /* Flex-контейнер */
+    align-items: center; 
+    gap: 20px; /* Отступ между элементами */
+}
+
+.about-us-content .text-content {
+    overflow: visible; /* Позволяем тексту обтекать (необязательно) */
+    display: flex; /* Flex-контейнер */
+    flex-direction: column; /* Вертикальная ориентация */
+}
+
+.about-us-content img {
+    height: auto; /* Высота равна высоте . */
+    width: auto; /* Сохраняем пропорции */
+    max-width: 250px; /* Максимальная ширина */
+    min-width: 100px; /* Минимальная ширина */
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    object-fit: cover; /* Обрезаем, чтобы заполнить */
+
+}
+/* ===== АДАПТИВНЫЕ СТИЛИ (<= 375px): вертикальное расположение, картинка под текстом ===== */
+@media (max-width: 900px) {
+    .about-us-content {
+        display: block; /* Обычный блок */
+        min-height: auto; /* Сбрасываем минимальную высоту */
+    }
+
+    .about-us-content img {
+        width: 100%; /* Полная ширина */
+        max-width: 350; /* Отменяем максимальную ширину */
+        min-width: auto; /* Отменяем минимальную ширину */
+        display: block; /* Блочный элемент */
+        margin: 20px 0 0 0; /* Отступ сверху */
+        
+    }
+
+    .about-us-content .text-content {
+        display: block; /* Блочный элемент */
+    }
+}
+
+
+
+/* ===== СТИЛИ ОБЪЕДИНЕННОЙ СЕКЦИИ "СЕРТИФИКАЦИЯ И ГАРАНТИИ" ===== */
+.cert-and-warranty-section {
+    margin: 120px 0;
+}
+
+.cert-and-warranty-content {
+    display: grid;
+    /* === ШИРОКИЙ ЭКРАН (>= 1200px): горизонтальное расположение, картинки слева от текста === */
+    grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+    grid-template-areas: "images text"; /* Явно задаём области */
+    gap: 40px;
+    align-items: center;
+}
+
+.images-container {
+    display: flex;
+    /* === ШИРОКИЙ ЭКРАН (>= 1200px): картинки в ряду === */
+    flex-direction: row; /* Изображения в ряд */
+    gap: 20px;
+    align-self: center; /* Растягиваем по высоте */
+    flex-wrap: wrap; /* Позволяем переноситься */
+    align-content: flex-start;
+    min-width: 0;
+    grid-area: images; /* Привязываем к области 'images' */
+}
+
+.images-container img {
+    width: 50%; /* Ширина 100% от родителя (но с max-width) */
+    max-width: min(50vw, 200px); /* Ключевое: не больше 50% экрана или 200px */
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    flex-shrink: 1; /* Позволим сжиматься */
+    height: auto; /* Сохраняем пропорции */
+    min-width: 0; /* Позволим сжиматься до 0 */
+    object-fit: contain; /* Масштабируем, чтобы уместить */
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-area: text; /* Привязываем к области 'text' */
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (СРЕДНИЙ ЭКРАН - от 750px до 1199px): горизонтальное расположение, картинки слева от текста, картинки в столбце === */
+/* ВАЖНО: Этот запрос должен идти ДО @media (max-width: 900px), чтобы не перебивался */
+@media (min-width: 750px) and (max-width: 1199px) {
+
+    .images-container {
+        /* === СРЕДНИЙ ЭКРАН: картинки в столбце, внутри области слева === */
+        flex-direction: column; /* Изображения в столбец */
+        align-items: center; /* Центрируем изображения */
+        align-content: flex-start;
+        gap: 15px; /* Отступ между изображениями в столбце */
+        grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+        grid-template-areas: "images text"; /* Явно задаём области */
+    }
+
+    .images-container img {
+        width: auto; /* Не растягиваем по ширине родителя */
+    }
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (МАЛЕНЬКИЙ ЭКРАН - <= 749px): вертикальное расположение, картинки под текстом, картинки в ряду (переносятся) === */
+@media (max-width: 750px) {
+    .cert-and-warranty-content {
+        /* === МАЛЕНЬКИЙ ЭКРАН: вертикальное расположение, картинки *под* текстом === */
+        grid-template-columns: 1fr; /* Одна колонка */
+        grid-template-areas:
+            "text"    /* Сначала текст */
+            "images"; /* Потом изображения */
+    }
+
+    .images-container {
+        /* === МАЛЕНЬКИЙ ЭКРАН: картинки в ряду (переносятся при необходимости), внутри своей области под текстом === */
+        flex-direction: row; /* Изображения в ряду */
+        align-items: center; /* Выравнивание по центру строки */
+        align-content: flex-start;
+        gap: 10px; /* Отступ между изображениями в ряду */
+        justify-content: center;
+        flex-wrap: nowrap; /* Запрет переноса */
+    }
+
+    .images-container img {
+        width: auto; /* Не растягиваем по ширине родителя */
+        max-width: 30%; /* Ограничение ширины для двух изображений */
+    }
+
+    .text-content {
+        padding: 0 10px; /* Небольшие отступы по бокам текста */
+    }
+}
+
+/* Дополнительные стили для очень узких экранов */
+@media (max-width: 324px) {
+    .cert-and-warranty-content {
+        gap: 30px; /* Уменьшаем общий отступ */
+    }
+    .images-container {
+        gap: 8px; /* Уменьшаем отступ между изображениями */
+    }
+}
+
+/* ===== СТИЛИ СЕКЦИИ "НАШИ РАБОТЫ" (анимированная лента) ===== */
+.works-slider-section {
+    overflow: hidden; /* Скрываем переполнение за пределами контейнера */
+    padding: 20px 0; /* Небольшие отступы сверху/снизу */
+}
+
+.works-slider-container {
+    width: 100%;
+    overflow: hidden; /* ВАЖНО: скрывает изображения за краями контейнера */
+    position: relative;
+    padding: 20px 0; /* Отступы для "дыхания" ленты */
+}
+
+.works-slider-track {
+    display: flex; /* Располагаем слайды в ряд */
+    width: fit-content; /* Ширина по содержимому (все слайды) */
+    animation: slideAnimation 40s linear infinite; /* Анимация: 30с, линейно, бесконечно. Можете изменить 30s на другое значение для скорости */
+}
+
+.works-slide {
+    flex: 0 0 auto; /* Не сжимаем и не растягиваем, ширина по содержимому */
+    margin-right: 20px; /* Отступ между слайдами */
+    border-radius: 16px; /* Скругление углов */
+    box-shadow: var(--shadow); /* Тень */
+    overflow: hidden; /* Обрезаем, если нужно (например, для скругления) */
+    width: 300px; /* Фиксированная ширина слайда */
+    /* УБРАЛИ фиксированную высоту */
+    display: flex;
+    flex-direction: column; /* Располагаем изображение и текст вертикально */
+    align-items: center; /* Центрируем содержимое по горизонтали */
+    /* Убираем жёсткую высоту, позволяя содержимому определять высоту */
+}
+
+.works-slide img {
+    width: 100%; /* Изображение занимает всю ширину слайда */
+    /* УБРАЛИ фиксированную высоту */
+    /* УБРАЛИ object-fit: cover; - теперь изображение масштабируется пропорционально */
+    height: auto; /* Высота определяется пропорционально ширине */
+    display: block; /* Убираем возможные пробелы */
+    border-top-left-radius: 16px; /* Скругление верхних углов изображения */
+    border-top-right-radius: 16px; /* Скругление верхних углов изображения */
+    /* УБРАНО: object-fit: cover; */
+}
+
+/* ===== СТИЛИ ТЕКСТА ПОД ИЗОБРАЖЕНИЕМ В ЛЕНТЕ ===== */
+.works-slide-text {
+    text-align: center; /* Центрируем текст */
+    margin-top: 10px; /* Отступ сверху от изображения */
+    margin-bottom: 10px; /* Отступ снизу */
+    font-size: 1rem; /* Размер шрифта */
+    color: var(--text-secondary); /* Цвет текста */
+    padding: 0 5px; /* Небольшие внутренние отступы по бокам */
+    /* white-space: nowrap; - УБРАНО, чтобы текст мог переноситься */
+    overflow: hidden; /* Скрываем переполнение */
+    text-overflow: ellipsis; /* Добавляем многоточие, если текст не помещается в одну строку */
+    flex-shrink: 0; /* Не сжимаем блок текста */
+    max-height: 3.6rem; /* Примерно 2 строки (1.8 * 2) */
+    line-height: 1.8; /* Межстрочный интервал */
+    width: 100%; /* Текст на всю ширину слайда */
+    box-sizing: border-box; /* Включаем padding в расчёт ширины */
+}
+
+/* Анимация прокрутки */
+@keyframes slideAnimation {
+    from {
+        transform: translateX(0); /* Начальная позиция */
+    }
+    to {
+        transform: translateX(-50%); /* Конечная позиция: сдвиг на 50% (длина одного набора) */
+    }
+}
+
+/* Псевдокласс для остановки анимации при наведении (опционально) */
+.works-slider-container:hover .works-slider-track {
+    animation-play-state: paused; /* Останавливаем анимацию при наведении */
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ Наши Работы===== */
+@media (max-width: 900px) {
+    .works-slide {
+        width: 250px; /* Уменьшаем ширину слайда */
+        /* Высота теперь зависит от изображения и текста */
+    }
+    /* works-slide img и works-slide-text адаптируются автоматически */
+    .works-slide-text {
+        font-size: 0.9rem; /* Уменьшаем размер шрифта */
+    }
+}
+
+@media (max-width: 600px) {
+    .works-slide {
+        width: 200px; /* Ещё меньше ширина */
+        margin-right: 15px; /* Уменьшаем отступ */
+    }
+    .works-slide-text {
+        font-size: 0.85rem; /* Ещё меньше шрифт */
+        max-height: 3.2rem; /* Примерно 2 строки для меньшего шрифта */
+    }
+    .works-slider-section {
+        margin: 80px 0; /* Уменьшаем внешние отступы */
+    }
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ ===== */
+@media (max-width: 900px) {
+    .founder-content {
+        grid-template-columns: 1fr;       /* Одна колонка для карточки печника */
+    }
+    .about-us-content {
+        grid-template-columns: 1fr; /* На мобильных - изображение и текст друг под другом */
+        grid-template-areas:
+            "text"
+            "images";
+    }
+    .timeline-container {
+        flex-direction: column; /* На мобильных вернёмся к вертикальному расположению */
+        gap: 30px;
+    }
+    .timeline-container::before {
+        width: 4px; /* Ширина линии */
+        height: 100%; /* Высота линии */
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .timeline-step {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        width: 100%;
+        max-width: 600px;
+        margin: 0;
+    }
+    .timeline-step-icon {
+        margin-right: 15px;
+        margin-bottom: 0; /* Убираем нижний отступ, так как иконка теперь слева */
+    }
+    .timeline-step p {
+        background: none; /* Убираем фон текста на мобильных для лучшего отображения */
+        padding: 0;
+    }
+    .hero h1 { font-size: 3.4rem; }     /* Уменьшение заголовка */
+    .hero p { font-size: 1.25rem; }     /* Уменьшение текста */
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 140px 0 100px;           /* Уменьшение отступов героя */
+    }
+    .hero h1 { font-size: 2.8rem; }     /* Дальнейшее уменьшение заголовка */
+    .hero p { font-size: 1.15rem; }     /* Дальнейшее уменьшение текста */
+    .btn {
+        padding: 16px 40px;               /* Уменьшение отступов кнопки */
+        font-size: 1.15rem;               /* Уменьшение размера шрифта кнопки */
+    }
+    .nav-links { display: none; }       /* Скрытие навигационных ссылок */
+    .header-claim-btn { display: none; } /* Скрытие кнопки заявки */
+    .container { padding: 0 16px; }     /* Уменьшение отступов контейнера */
+    .glass-card,
+    .founder-card {
+        padding: 36px 24px;               /* Уменьшение отступов карточек */
+    }
+    .logo-text { font-size: 1.5rem; }   /* Уменьшение размера логотипа */
+    .logo-icon { width: 28px; height: 28px; } /* Уменьшение размера иконки */
+}
+
+/* Стили для страниц BLOG1   BLOG2     BLOG3    и т.д. */
+
+/* ===== СТИЛИ СЕКЦИИ СТАТЬИ (с фоновой картинкой) ===== */
+.article-section {
+    padding: 0 0 80px 0; /* Убираем отступ сверху */
+    position: relative; /* Для правильного позиционирования фона */
+}
+
+/* Контейнер для фоновой картинки */
+.article-hero {
+    position: relative;
+    height: 70vh; /* Высота области с фоном */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Прижимаем контент к низу */
+    padding: 0 24px 48px; /* Внутренние отступы */
+}
+
+/* Фоновое изображение */
+.article-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('images/blog1/head.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0; /* Под контентом */
+}
+
+/* Контент, который появляется поверх фона */
+.article-hero-content {
+    position: relative;
+    z-index: 1; /* Поверх фона */
+    color: #ffffff; /* Цвет текста для контраста с фоном */
+    text-align: center;
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.3); /* Полупрозрачный фон для текста */
+    backdrop-filter: blur(5px);
+    border-radius: 16px;
+}
+
+.article-hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.article-hero-content p {
+    font-size: 1.2rem;
+    font-style: italic; /* Подзаголовок курсивом */
+}
+
+/* Основной контент статьи */
+.article-content {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px 20px 0;
+    position: relative;
+    z-index: 2; /* Поверх фона и hero-контента */
+    background: var(--card-bg); /* Белый фон для основного текста */
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    box-shadow: var(--shadow);
+    transform: translateY(-48px); /* Поднимаем основной контент вверх, чтобы он перекрывал нижнюю часть фона */
+}
+
+.article-content h1 {
+    /* Убираем заголовок из основного контента, он в .article-hero-content */
+    display: none;
+}
+
+.article-content p {
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin-bottom: 25px;
+}
+
+.article-content img {
+    max-width: 500px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin: 10px 0;
+    display: block;
+}
+
+.float-right {
+    float: right;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.float-left {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+
+.clear-float {
+    clear: both;
+}
+
+/* ===== СТИЛИ ШАПКИ САЙТА (с анимацией скрытия/появления) ===== */
+/* (Это модификация существующего правила header) */
+header {
+    /* ... (остальные свойства из существующего header) ... */
+    transition: transform 0.3s ease; /* Плавный переход для скрытия/появления */
+}
+
+/* Класс для скрытия шапки */
+header.hidden {
+    transform: translateY(-100%); /* Скрываем за верхнюю границу */
+}
