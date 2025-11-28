@@ -1193,7 +1193,7 @@ footer {
 
 .blog-card-img {
     width: 100%; /* Ширина изображения */
-    height: 200px; /* Высота изображения */
+    height: 250px; /* Высота изображения */
     object-fit: cover; /* Обрезка изображения */
     border-bottom: 1px solid var(--card-border); /* Граница снизу */
 }
@@ -1467,3 +1467,4 @@ header {
 header.hidden {
     transform: translateY(-100%); /* Скрываем за верхнюю границу */
 }
+
