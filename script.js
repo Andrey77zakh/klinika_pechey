@@ -234,72 +234,130 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // Скрипт для загрузки данных и генерации карточек на странице статей
-        async function loadAndRenderBlogCardsArticles(containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) {
-                console.error(`Контейнер с ID '${containerId}' не найден для рендеринга карточек на странице статей.`);
-                return;
-            }
+async function loadAndRenderBlogCardsArticles(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Контейнер с ID '${containerId}' не найден для рендеринга карточек на странице статей.`);
+        return;
+    }
 
-            try {
-                // Загружаем JSON файл
-                const response = await fetch('articles_list.json');
-                if (!response.ok) {
-                    throw new Error(`Ошибка загрузки articles_list.json: ${response.status} ${response.statusText}`);
-                }
-                const blogPosts = await response.json();
+    try {
+        // Загружаем JSON файл
+        const response = await fetch('articles_list.json');
+        if (!response.ok) {
+            throw new Error(`Ошибка загрузки articles_list.json: ${response.status} ${response.statusText}`);
+        }
+        const blogPosts = await response.json();
 
-                // Очищаем контейнер
-                container.innerHTML = '';
+        // Очищаем контейнер
+        container.innerHTML = '';
 
-                // Проходим по ВСЕМ статьям
-                blogPosts.forEach(post => {
-                    const cardHTML = `
-                        <a href="${post.slug}.html" class="blog-card">
-                            <img src="${post.thumbnail}" alt="${post.alt}" class="blog-card-img" loading="lazy">
-                            <div class="blog-card-content">
-                                <div>
-                                    <h3>${post.title}</h3>
-                                    <p>${post.description}</p>
-                                </div>
-                                <span class="read-more-link">Читать далее</span>
-                            </div>
-                        </a>
-                    `;
-                    container.innerHTML += cardHTML; // Добавляем карточку в контейнер
-                });
+        // Проходим по ВСЕМ статьям
+        blogPosts.forEach(post => {
+            const cardHTML = `
+                <a href="${post.slug}.html" class="blog-card">
+                    <img src="${post.thumbnail}" alt="${post.alt}" class="blog-card-img" loading="lazy">
+                    <div class="blog-card-content">
+                        <div>
+                            <h3>${post.title}</h3>
+                            <p>${post.description}</p>
+                        </div>
+                        <span class="read-more-link">Читать далее</span>
+                    </div>
+                </a>
+            `;
+            container.innerHTML += cardHTML; // Добавляем карточку в контейнер
+        });
 
-            } catch (error) {
-                console.error('Ошибка при загрузке или отображении статей на странице блога:', error);
-                container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Ошибка загрузки статей.</p>';
-            }
+    } catch (error) {
+        console.error('Ошибка при загрузке или отображении статей на странице блога:', error);
+        container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Ошибка загрузки статей.</p>';
+    }
+}
+
+// Вызываем функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    loadAndRenderBlogCardsArticles('blog-grid-articles');
+});
+// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА (из index.html) ===
+const modalTrigger = document.getElementById('header-claim');
+const modalCloseBtn = document.getElementById('modal-continue');
+
+function openModal() { modal.classList.add('active'); }
+function closeModal() { modal.classList.remove('active'); }
+
+modalTrigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal();
+});
+
+modalCloseBtn.addEventListener('click', () => {
+    // window.location.href = 'https://your-form-url.com';
+    closeModal();
+});
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) { closeModal(); }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) { closeModal(); }
+});
+
+
+
+
+//ФАЙЛ ------BLOG1   BLOG2    BLOG3     и др.------- !!!!!!!!
+
+// Скрипт для загрузки данных и генерации карточек других статей
+async function loadAndRenderOtherBlogCards(containerId, currentSlug, maxCards = 10) { // maxCards - ограничение количества
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Контейнер с ID '${containerId}' не найден для рендеринга других статей.`);
+        return;
+    }
+
+    try {
+        // Загружаем JSON файл
+        const response = await fetch('articles_list.json');
+        if (!response.ok) {
+            throw new Error(`Ошибка загрузки articles_list.json: ${response.status} ${response.statusText}`);
+        }
+        const blogPosts = await response.json();
+
+        // Очищаем контейнер
+        container.innerHTML = '';
+
+        // Фильтруем, чтобы исключить текущую статью
+        const otherPosts = blogPosts.filter(post => post.slug !== currentSlug);
+
+        // Ограничиваем количество отображаемых карточек
+        const postsToShow = otherPosts.slice(0, maxCards);
+
+        postsToShow.forEach(post => {
+            const cardHTML = `
+                <div class="glass-card" style="flex: 0 0 auto; width: 300px; margin: 0; height: fit-content;"> <!-- Устанавливаем фиксированную ширину карточки и запрещаем сжиматься -->
+                    <img src="${post.thumbnail}" alt="${post.alt}" title="${post.title}" style="width: 100%; height: auto; border-radius: 16px; margin-bottom: 15px;" loading="lazy">
+                    <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1.3rem;">${post.title}</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 1rem;">${post.description}</p>
+                    <a href="${post.slug}.html" class="nav-link" style="display: inline-block; color: var(--accent); font-weight: 600;">Читать далее</a>
+                </div>
+            `;
+            container.innerHTML += cardHTML; // Добавляем карточку в контейнер
+        });
+
+        if (postsToShow.length === 0) {
+            container.innerHTML = '<p style="text-align: center; width: 100%; color: var(--text-secondary);">Других статей пока нет.</p>';
         }
 
-        // Вызываем функцию при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            loadAndRenderBlogCardsArticles('blog-grid-articles');
-        });
-        // === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА (из index.html) ===
-        const modalTrigger = document.getElementById('header-claim');
-        const modalCloseBtn = document.getElementById('modal-continue');
+    } catch (error) {
+        console.error('Ошибка при загрузке или отображении других статей:', error);
+        container.innerHTML = '<p style="text-align: center; width: 100%; color: var(--text-secondary);">Ошибка загрузки других статей.</p>';
+    }
+}
 
-        function openModal() { modal.classList.add('active'); }
-        function closeModal() { modal.classList.remove('active'); }
-
-        modalTrigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal();
-        });
-
-        modalCloseBtn.addEventListener('click', () => {
-            // window.location.href = 'https://your-form-url.com';
-            closeModal();
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) { closeModal(); }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) { closeModal(); }
-        });
+// Вызываем функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // ВАЖНО: Укажите slug ТЕКУЩЕЙ статьи, чтобы она не появилась в списке "другие"
+    loadAndRenderOtherBlogCards('other-articles-grid', 'blog1', 10); // 'blog1' - slug текущей статьи
+});
