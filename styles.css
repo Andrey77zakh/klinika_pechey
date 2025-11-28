@@ -624,7 +624,7 @@ footer {
     display: grid;
     grid-template-columns: 4fr 1fr; /* Текст и изображение (порядок изменён) */
     gap: 40px;
-    align-items: start;
+    align-items: center;
 }
 
 .about-us-content img {
@@ -646,29 +646,93 @@ footer {
 
 .cert-and-warranty-content {
     display: grid;
-    grid-template-columns: 1fr 3fr; /* Изображения слева, текст справа */
+    /* === ШИРОКИЙ ЭКРАН (>= 1200px): горизонтальное расположение, картинки слева от текста === */
+    grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+    grid-template-areas: "images text"; /* Явно задаём области */
     gap: 40px;
     align-items: center;
-    width: 100%;                        /* Расширяем на всю ширину */
+    justify-content: center;
 }
 
 .images-container {
     display: flex;
+    /* === ШИРОКИЙ ЭКРАН (>= 1200px): картинки в ряду === */
     flex-direction: row; /* Изображения в ряд */
-    gap: 20px; /* Отступ между изображениями */
-    
+    gap: 20px;
+    align-self: stretch; /* Растягиваем по высоте */
+    flex-wrap: wrap; /* Позволяем переноситься */
+    align-content: flex-start;
+    min-width: 0;
+    grid-area: images; /* Привязываем к области 'images' */
+    justify-content: center;
 }
 
 .images-container img {
-    width: 100%;
-    border-radius: 20px;
+    width: 100%; 
+    max-width: min(50vw  200px); /* Ключевое: не больше 30%  */
+    border-radius: 16px;
     box-shadow: var(--shadow);
+    flex-shrink: 1; /* Позволим сжиматься */
+    height: auto; /* Сохраняем пропорции */
+    min-width: 0; /* Позволим сжиматься до 0 */
+    object-fit: contain; /* Масштабируем, чтобы уместить */
+    justify-content: center;
 }
 
 .text-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    grid-area: text; /* Привязываем к области 'text' */
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (СРЕДНИЙ ЭКРАН - от 750px до 1199px): горизонтальное расположение, картинки слева от текста, картинки в столбце === */
+/* ВАЖНО: Этот запрос должен идти ДО @media (max-width: 900px), чтобы не перебивался */
+@media (min-width: 901px) and (max-width: 1199px) {
+
+    .images-container {
+        /* === СРЕДНИЙ ЭКРАН: картинки в столбце, внутри области слева === */
+        flex-direction: column; /* Изображения в столбец */
+        align-items: center; /* Центрируем изображения */
+        align-content: flex-start;
+        gap: 15px; /* Отступ между изображениями в столбце */
+        grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+        grid-template-areas: "images text"; /* Явно задаём области */
+        justify-content: center;
+    }
+
+    .images-container img {
+        width: auto; /* Не растягиваем по ширине родителя */
+    }
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (МАЛЕНЬКИЙ ЭКРАН - <= 749px): вертикальное расположение, картинки под текстом, картинки в ряду (переносятся) === */
+@media (max-width: 900px) {
+    .cert-and-warranty-content {
+        /* === МАЛЕНЬКИЙ ЭКРАН: вертикальное расположение, картинки *под* текстом === */
+        grid-template-columns: 1fr; /* Одна колонка */
+        grid-template-areas:
+            "text"    /* Сначала текст */
+            "images"; /* Потом изображения */
+            
+    }
+
+    .images-container {
+        /* === МАЛЕНЬКИЙ ЭКРАН: картинки в ряду (переносятся при необходимости), внутри своей области под текстом === */
+        flex-direction: row; /* Изображения в ряду */
+        align-items: center; /* Выравнивание по центру строки */
+        justify-content: center;
+        gap: 10px; /* Отступ между изображениями в ряду */
+    }
+
+    .images-container img {
+        width: auto; /* Не растягиваем по ширине родителя */
+    }
+
+    .text-content {
+        /* justify-content: center; - Уже установлено */
+        padding: 0 10px; /* Небольшие отступы по бокам текста */
+    }
 }
 
 /* ===== СТИЛИ СЕКЦИИ "НАШИ РАБОТЫ" (анимированная лента) ===== */
