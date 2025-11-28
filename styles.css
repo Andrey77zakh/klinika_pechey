@@ -1,4 +1,3 @@
-
 /* ===== ОПРЕДЕЛЕНИЕ ЦВЕТОВЫХ ПЕРЕМЕННЫХ ДЛЯ СВЕТЛОЙ ТЕМЫ ===== */
 :root {
     --text-primary-light: #1e293b;       /* Основной цвет текста */
@@ -181,13 +180,13 @@ header {
 /* ===== АНИМАЦИЯ КНОПОК ===== */
 @keyframes pulseButton {
     0% {
-    transform: scale(1);              /* Начальный масштаб */
+        transform: scale(1);              /* Начальный масштаб */
     }
     50% {
-    transform: scale(1.1);           /* Увеличение в середине анимации */
+        transform: scale(1.1);           /* Увеличение в середине анимации */
     }
     100% {
-    transform: scale(1);              /* Возврат к исходному масштабу */
+        transform: scale(1);              /* Возврат к исходному масштабу */
     }
 }
 
@@ -446,6 +445,126 @@ footer {
     background: #00c2a8;               /* Изменение фона при наведении */
 }
 
+/* ===== СТИЛИ СЕКЦИИ "НАШ ПОДХОД" ===== */
+.approach-section {
+    margin: 120px 0;
+}
+
+.approach-content {
+    display: grid;
+    /* === ШИРОКИЙ ЭКРАН (>= 1250px): горизонтальное расположение, картинки слева от текста === */
+    grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+    grid-template-areas: "images text"; /* Явно задаём области */
+    gap: 40px;
+    align-items: center;
+    background: var(--card-bg); /* Фон карточки */
+    border: 1px solid var(--card-border); /* Граница карточки */
+    border-radius: 24px; /* Скругленные углы */
+    padding: 48px; /* Внутренние отступы */
+    backdrop-filter: var(--glass); /* Эффект размытия */
+    box-shadow: var(--shadow); /* Тень карточки */
+    width: 100%; /* Расширяем на всю ширину */
+}
+
+.images-container-approach {
+    display: flex;
+    /* === ШИРОКИЙ ЭКРАН (>= 1200px): картинки в ряду === */
+    flex-direction: row; /* Изображения в ряд */
+    gap: 20px;
+    align-self: stretch; /* Растягиваем по высоте */
+    flex-wrap: wrap; /* Позволяем переноситься */
+    align-content: center;
+    min-width: 0;
+    grid-area: images; /* Привязываем к области 'images' */
+}
+
+.images-container-approach img {
+    width: 50%; /* Ширина 100% от родителя (но с max-width) */
+    max-width: min(50vw, 200px); /* Ключевое: не больше 50% экрана или 200px */
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    flex-shrink: 1; /* Позволим сжиматься */
+    height: auto; /* Сохраняем пропорции */
+    min-width: 0; /* Позволим сжиматься до 0 */
+    object-fit: contain; /* Масштабируем, чтобы уместить */
+}
+
+.text-content-approach {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-area: text; /* Привязываем к области 'text' */
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (СРЕДНИЙ ЭКРАН - от 750px до 1199px): горизонтальное расположение, картинки слева от текста, картинки в столбце === */
+@media (min-width: 750px) and (max-width: 1249px) {
+
+    .images-container-approach {
+        /* === СРЕДНИЙ ЭКРАН: картинки в столбце, внутри области слева === */
+        flex-direction: column; /* Изображения в столбец */
+        align-items: center; /* Центрируем изображения */
+        align-content: flex-start;
+        gap: 15px; /* Отступ между изображениями в столбце */
+        grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
+        grid-template-areas: "images text"; /* Явно задаём области */
+        justify-content: center;
+        
+    }
+
+    .images-container-approach img {
+        width: auto; /* Не растягиваем по ширине родителя */
+    }
+}
+
+/* ===== АДАПТИВНЫЕ СТИЛИ (МАЛЕНЬКИЙ ЭКРАН - <= 749px): вертикальное расположение, картинки под текстом, картинки в ряду (переносятся) === */
+@media (max-width: 750px) {
+    .approach-content {
+        /* === МАЛЕНЬКИЙ ЭКРАН: вертикальное расположение, картинки *под* текстом === */
+        grid-template-columns: 1fr; /* Одна колонка */
+        grid-template-areas:
+            "text"    /* Сначала текст */
+            "images"; /* Потом изображения */
+        padding: 36px 24px; /* Уменьшаем внутренние отступы */
+    }
+
+    .images-container-approach {
+        /* === МАЛЕНЬКИЙ ЭКРАН: картинки в ряду (переносятся при необходимости), внутри своей области под текстом === */
+        flex-direction: row; /* Изображения в ряду */
+        align-items: center; /* Выравнивание по центру строки */
+        align-content: flex-start;
+        gap: 10px; /* Отступ между изображениями в ряду */
+        justify-content: center;
+    }
+
+    .images-container-approach img {
+        width: auto; /* Не растягиваем по ширине родителя */
+        max-width: 45%; /* Ограничиваем ширину */
+    }
+
+    .text-content-approach {
+        /* justify-content: center; - Уже установлено */
+        padding: 0 10px; /* Небольшие отступы по бокам текста */
+    }
+}
+
+/* Дополнительные стили для очень узких экранов */
+@media (max-width: 324px) {
+    .approach-content {
+        gap: 30px; /* Уменьшаем общий отступ */
+        padding: 24px 16px; /* Уменьшаем внутренние отступы */
+    }
+    .images-container-approach {
+        gap: 8px; /* Уменьшаем отступ между изображениями */
+    }
+    .images-container-approach img {
+        max-width: 100%; /* На очень узких экранах - одна картинка в ряд */
+    }
+}
+
+
+
+
+
 /* ===== СТИЛИ ЭТАПОВ РАБОТЫ (ГОРИЗОНТАЛЬНАЯ ЛИНИЯ, ИКОНКИ ПРИВЯЗАНЫ К ЛИНИИ ЖЁСТКО) ===== */
 .timeline-container {
     display: flex;
@@ -531,6 +650,100 @@ footer {
     margin-top: 140px; /* Половина высоты иконки + отступ */
 }
 
+/* ===== СТИЛИ ЭТАПОВ РАБОТЫ (МОБИЛЬНАЯ ВЕРСИЯ: ПЛАШКИ С ИКОНКОЙ И ТЕКСТОМ, УЖЕ И ПО ЦЕНТРУ) ===== */
+@media (max-width: 899px) {
+    .timeline-container {
+        display: block !important; /* Обычный блок */
+        justify-content: center !important; /* Отключаем justify-content */
+        align-items: center !important; /* Отключаем align-items */
+        padding: 25px !important; /* Отступы */
+        width: fit-content !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+        position: relative !important; /* Для позиционирования линии */
+        margin: 0 auto !important; /* Центрируем контейнер */
+    }
+
+    /* Убираем широкоэкранные стили */
+    .timeline-container::before {
+        display: none !important; /* Отключаем широкоэкранные стили */
+    }
+
+    /* Добавляем голубую вертикальную линию */
+    .timeline-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%; /* Прижимаем к 50% от левого края .timeline-container */
+        width: 4px; /* Ширина линии */
+        background-color: var(--timeline-color); /* Голубой цвет */
+        transform: translateX(-50%); /* Сдвигаем влево на 50% своей ширины */
+        z-index: 0; /* За плашками */
+    }
+
+    .timeline-step {
+        display: flex !important; /* Flex-контейнер */
+        align-items: center !important; /* Центрируем по вертикали (центры элементов на одном уровне) */
+        background: var(--card-bg) !important; /* Белый фон */
+        border: 1px solid var(--card-border) !important; /* Граница */
+        border-radius: 24px !important; /* Скругленные углы */
+        padding: 15px !important; /* Внутренние отступы */
+        box-shadow: var(--shadow) !important; /* Тень */
+        backdrop-filter: var(--glass) !important; /* Эффект размытия */
+        margin-bottom: 25px !important; /* Отступ снизу (20px между плашками) */
+        position: relative !important; /* Для позиционирования */
+        text-align: left !important; /* Выравнивание текста */
+        max-width: 600px !important; /* Устанавливаем максимальную ширину */
+        margin-left: auto !important; /* Центрируем по горизонтали */
+        margin-right: auto !important; /* Центрируем по горизонтали */
+        z-index: 2; /* Поверх линии */
+        flex-direction: row !important; /* Горизонтальная ориентация */
+    }
+
+    .timeline-step:last-child {
+        margin-bottom: 0 !important; /* Убираем отступ у последнего элемента */
+    }
+
+    .timeline-step-icon-wrapper {
+        width: 64px !important;
+        height: 64px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        border: 2px solid var(--timeline-color) !important;
+        border-radius: 50% !important;
+        background-color: var(--card-bg) !important;
+        z-index: 3 !important;
+        box-sizing: border-box !important;
+        flex-shrink: 0 !important; /* Не сжимаем */
+        position: static !important; /* Отменяем абсолютное позиционирование */
+        transform: none !important; /* Отменяем трансформацию */
+    }
+
+    .timeline-step-icon-wrapper img {
+        width: 70% !important;
+        height: 70% !important;
+        object-fit: contain !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+    }
+
+    .timeline-step-text {
+        margin: 0px !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        color: var(--text) !important;
+        line-height: 1.4 !important;
+        padding: 0 25px !important;
+        box-sizing: border-box !important;
+        z-index: 3 !important;
+        text-align: left !important; /* Выравнивание текста по левому краю */
+        margin-left: 0px !important; /* Отступ от иконки (10px) */
+        flex: 1 !important; /* Занимает оставшееся место */
+    }
+}
 
 /* ===== СТИЛИ МОДАЛЬНЫХ ОКНА ИЗОБРАЖЕНИЙ ===== */
 
@@ -621,23 +834,49 @@ footer {
 
 /* ===== СТИЛИ СЕКЦИИ "КТО МЫ" ===== */
 .about-us-content {
-    display: grid;
-    grid-template-columns: 4fr 1fr; /* Текст и изображение (порядок изменён) */
-    gap: 40px;
-    align-items: center;
-}
-
-.about-us-content img {
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
+    display: flex; /* Flex-контейнер */
+    align-items: center; 
+    gap: 20px; /* Отступ между элементами */
 }
 
 .about-us-content .text-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    overflow: visible; /* Позволяем тексту обтекать (необязательно) */
+    display: flex; /* Flex-контейнер */
+    flex-direction: column; /* Вертикальная ориентация */
 }
+
+.about-us-content img {
+    height: auto; /* Высота равна высоте . */
+    width: auto; /* Сохраняем пропорции */
+    max-width: 250px; /* Максимальная ширина */
+    min-width: 100px; /* Минимальная ширина */
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    object-fit: cover; /* Обрезаем, чтобы заполнить */
+
+}
+/* ===== АДАПТИВНЫЕ СТИЛИ (<= 375px): вертикальное расположение, картинка под текстом ===== */
+@media (max-width: 900px) {
+    .about-us-content {
+        display: block; /* Обычный блок */
+        min-height: auto; /* Сбрасываем минимальную высоту */
+    }
+
+    .about-us-content img {
+        width: 100%; /* Полная ширина */
+        max-width: 350; /* Отменяем максимальную ширину */
+        min-width: auto; /* Отменяем минимальную ширину */
+        display: block; /* Блочный элемент */
+        margin: 20px 0 0 0; /* Отступ сверху */
+        
+    }
+
+    .about-us-content .text-content {
+        display: block; /* Блочный элемент */
+    }
+}
+
+
 
 /* ===== СТИЛИ ОБЪЕДИНЕННОЙ СЕКЦИИ "СЕРТИФИКАЦИЯ И ГАРАНТИИ" ===== */
 .cert-and-warranty-section {
@@ -651,7 +890,6 @@ footer {
     grid-template-areas: "images text"; /* Явно задаём области */
     gap: 40px;
     align-items: center;
-    justify-content: center;
 }
 
 .images-container {
@@ -659,24 +897,22 @@ footer {
     /* === ШИРОКИЙ ЭКРАН (>= 1200px): картинки в ряду === */
     flex-direction: row; /* Изображения в ряд */
     gap: 20px;
-    align-self: stretch; /* Растягиваем по высоте */
+    align-self: center; /* Растягиваем по высоте */
     flex-wrap: wrap; /* Позволяем переноситься */
     align-content: flex-start;
     min-width: 0;
     grid-area: images; /* Привязываем к области 'images' */
-    justify-content: center;
 }
 
 .images-container img {
-    width: 100%; 
-    max-width: min(50vw  200px); /* Ключевое: не больше 30%  */
+    width: 50%; /* Ширина 100% от родителя (но с max-width) */
+    max-width: min(50vw, 200px); /* Ключевое: не больше 50% экрана или 200px */
     border-radius: 16px;
     box-shadow: var(--shadow);
     flex-shrink: 1; /* Позволим сжиматься */
     height: auto; /* Сохраняем пропорции */
     min-width: 0; /* Позволим сжиматься до 0 */
     object-fit: contain; /* Масштабируем, чтобы уместить */
-    justify-content: center;
 }
 
 .text-content {
@@ -688,7 +924,7 @@ footer {
 
 /* ===== АДАПТИВНЫЕ СТИЛИ (СРЕДНИЙ ЭКРАН - от 750px до 1199px): горизонтальное расположение, картинки слева от текста, картинки в столбце === */
 /* ВАЖНО: Этот запрос должен идти ДО @media (max-width: 900px), чтобы не перебивался */
-@media (min-width: 901px) and (max-width: 1199px) {
+@media (min-width: 750px) and (max-width: 1199px) {
 
     .images-container {
         /* === СРЕДНИЙ ЭКРАН: картинки в столбце, внутри области слева === */
@@ -698,7 +934,6 @@ footer {
         gap: 15px; /* Отступ между изображениями в столбце */
         grid-template-columns: auto 1fr; /* Изображения слева, текст справа */
         grid-template-areas: "images text"; /* Явно задаём области */
-        justify-content: center;
     }
 
     .images-container img {
@@ -707,31 +942,42 @@ footer {
 }
 
 /* ===== АДАПТИВНЫЕ СТИЛИ (МАЛЕНЬКИЙ ЭКРАН - <= 749px): вертикальное расположение, картинки под текстом, картинки в ряду (переносятся) === */
-@media (max-width: 900px) {
+@media (max-width: 750px) {
     .cert-and-warranty-content {
         /* === МАЛЕНЬКИЙ ЭКРАН: вертикальное расположение, картинки *под* текстом === */
         grid-template-columns: 1fr; /* Одна колонка */
         grid-template-areas:
             "text"    /* Сначала текст */
             "images"; /* Потом изображения */
-            
     }
 
     .images-container {
         /* === МАЛЕНЬКИЙ ЭКРАН: картинки в ряду (переносятся при необходимости), внутри своей области под текстом === */
         flex-direction: row; /* Изображения в ряду */
         align-items: center; /* Выравнивание по центру строки */
-        justify-content: center;
+        align-content: flex-start;
         gap: 10px; /* Отступ между изображениями в ряду */
+        justify-content: center;
+        flex-wrap: nowrap; /* Запрет переноса */
     }
 
     .images-container img {
         width: auto; /* Не растягиваем по ширине родителя */
+        max-width: 30%; /* Ограничение ширины для двух изображений */
     }
 
     .text-content {
-        /* justify-content: center; - Уже установлено */
         padding: 0 10px; /* Небольшие отступы по бокам текста */
+    }
+}
+
+/* Дополнительные стили для очень узких экранов */
+@media (max-width: 324px) {
+    .cert-and-warranty-content {
+        gap: 30px; /* Уменьшаем общий отступ */
+    }
+    .images-container {
+        gap: 8px; /* Уменьшаем отступ между изображениями */
     }
 }
 
@@ -837,49 +1083,44 @@ footer {
         margin: 80px 0; /* Уменьшаем внешние отступы */
     }
 }
+
 /* ===== АДАПТИВНЫЕ СТИЛИ ===== */
 @media (max-width: 900px) {
     .founder-content {
-    grid-template-columns: 1fr;       /* Одна колонка для карточки печника */
+        grid-template-columns: 1fr;       /* Одна колонка для карточки печника */
     }
-    .about-us-content,
-    .cert-and-warranty-content {
-    grid-template-columns: 1fr; /* На мобильных - изображение и текст друг под другом */
-    grid-template-areas:
-        "text"
-        "images";
-    }
-    .about-us-content img,
-    .cert-and-warranty-content .images-container {
-    max-width: 100%;
-    justify-self: stretch; /* Сбрасываем выравнивание на мобильных */
+    .about-us-content {
+        grid-template-columns: 1fr; /* На мобильных - изображение и текст друг под другом */
+        grid-template-areas:
+            "text"
+            "images";
     }
     .timeline-container {
-    flex-direction: column; /* На мобильных вернёмся к вертикальному расположению */
-    gap: 30px;
+        flex-direction: column; /* На мобильных вернёмся к вертикальному расположению */
+        gap: 30px;
     }
     .timeline-container::before {
-    width: 4px; /* Ширина линии */
-    height: 100%; /* Высота линии */
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+        width: 4px; /* Ширина линии */
+        height: 100%; /* Высота линии */
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
     }
     .timeline-step {
-    flex-direction: row;
-    align-items: center;
-    text-align: left;
-    width: 100%;
-    max-width: 600px;
-    margin: 0;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        width: 100%;
+        max-width: 600px;
+        margin: 0;
     }
     .timeline-step-icon {
-    margin-right: 15px;
-    margin-bottom: 0; /* Убираем нижний отступ, так как иконка теперь слева */
+        margin-right: 15px;
+        margin-bottom: 0; /* Убираем нижний отступ, так как иконка теперь слева */
     }
     .timeline-step p {
-    background: none; /* Убираем фон текста на мобильных для лучшего отображения */
-    padding: 0;
+        background: none; /* Убираем фон текста на мобильных для лучшего отображения */
+        padding: 0;
     }
     .hero h1 { font-size: 3.4rem; }     /* Уменьшение заголовка */
     .hero p { font-size: 1.25rem; }     /* Уменьшение текста */
@@ -887,32 +1128,26 @@ footer {
 
 @media (max-width: 600px) {
     .hero {
-    padding: 140px 0 100px;           /* Уменьшение отступов героя */
+        padding: 140px 0 100px;           /* Уменьшение отступов героя */
     }
     .hero h1 { font-size: 2.8rem; }     /* Дальнейшее уменьшение заголовка */
     .hero p { font-size: 1.15rem; }     /* Дальнейшее уменьшение текста */
     .btn {
-    padding: 16px 40px;               /* Уменьшение отступов кнопки */
-    font-size: 1.15rem;               /* Уменьшение размера шрифта кнопки */
+        padding: 16px 40px;               /* Уменьшение отступов кнопки */
+        font-size: 1.15rem;               /* Уменьшение размера шрифта кнопки */
     }
     .nav-links { display: none; }       /* Скрытие навигационных ссылок */
     .header-claim-btn { display: none; } /* Скрытие кнопки заявки */
     .container { padding: 0 16px; }     /* Уменьшение отступов контейнера */
     .glass-card,
     .founder-card {
-    padding: 36px 24px;               /* Уменьшение отступов карточек */
+        padding: 36px 24px;               /* Уменьшение отступов карточек */
     }
     .logo-text { font-size: 1.5rem; }   /* Уменьшение размера логотипа */
     .logo-icon { width: 28px; height: 28px; } /* Уменьшение размера иконки */
 }
 
-
-
-
-
-
-/* Стили для страниц BLOG1   BLOG2     BLOG3    и т.д.
-
+/* Стили для страниц BLOG1   BLOG2     BLOG3    и т.д. */
 
 /* ===== СТИЛИ СЕКЦИИ СТАТЬИ (с фоновой картинкой) ===== */
 .article-section {
@@ -1019,12 +1254,11 @@ footer {
 /* ===== СТИЛИ ШАПКИ САЙТА (с анимацией скрытия/появления) ===== */
 /* (Это модификация существующего правила header) */
 header {
-  /* ... (остальные свойства из существующего header) ... */
-  transition: transform 0.3s ease; /* Плавный переход для скрытия/появления */
+    /* ... (остальные свойства из существующего header) ... */
+    transition: transform 0.3s ease; /* Плавный переход для скрытия/появления */
 }
 
 /* Класс для скрытия шапки */
 header.hidden {
-  transform: translateY(-100%); /* Скрываем за верхнюю границу */
+    transform: translateY(-100%); /* Скрываем за верхнюю границу */
 }
-
