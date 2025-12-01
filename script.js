@@ -422,13 +422,26 @@ function initializeBlogLink() {
 
 
 
-/// === ФУНКЦИОНАЛЬНОСТЬ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с левой стороны, с интерактивным свайпом) ===
+// === ФУНКЦИОНАЛЬНОСТЬ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с левой стороны, с интерактивным свайпом) ===
 function initializeHamburgerMenu() {
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
   const mobileMenu = document.getElementById('mobile-menu');
+  
+  // Проверка элементов меню
+  console.log('=== Checking menu elements ===');
+  console.log('mobileMenu element:', mobileMenu);
+  console.log('navLinks selector result:', document.querySelectorAll('.mobile-nav-link'));
+  console.log('claimButtons selector result:', document.querySelectorAll('#header-claim, #hero-claim, #footer-claim, #mobile-claim'));
+
   const navLinks = document.querySelectorAll('.mobile-nav-link');
   const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim, #mobile-claim');
+
+  console.log('navLinks array length:', navLinks.length);
+  console.log('claimButtons array length:', claimButtons.length);
+
+  console.log('navLinks elements:', Array.from(navLinks));
+  console.log('claimButtons elements:', Array.from(claimButtons));
 
   // Переменные для отслеживания свайпа
   let touchStartX = 0;
@@ -459,13 +472,20 @@ function initializeHamburgerMenu() {
 
   // Функция закрытия меню
   function closeMenu() {
+    console.log('=== closeMenu called ===');
     mobileMenu.classList.remove('active');
-    setTimeout(() => {
-      mobileMenuOverlay.classList.remove('active');
-    }, 300);
+    console.log('Removed active class from mobileMenu');
+    
+    // Убираем оверлей СРАЗУ
+    mobileMenuOverlay.classList.remove('active');
+    console.log('Removed active class from mobileMenuOverlay');
+    
     document.body.style.overflow = '';
+    console.log('Restored body overflow');
+    
     // Показываем кнопку гамбургера
     hamburgerBtn.classList.remove('hidden');
+    console.log('Removed hidden class from hamburgerBtn');
   }
 
   // Обработчик клика по гамбургеру
@@ -481,249 +501,275 @@ function initializeHamburgerMenu() {
     }
   });
 
-  // Обработчик клика по ссылкам и кнопке внутри меню
-  navLinks.forEach(link => {
+  // === ОБРАБОТЧИКИ КЛИКОВ ПО ССЫЛКАМ И КНОПКАМ ВНУТРИ МЕНЮ ===
+  navLinks.forEach((link, index) => {
+    console.log(`Setting up handler for link ${index}:`, link);
+    console.log(`Link text: "${link.textContent.trim()}"`);
+    console.log(`Link href: "${link.getAttribute('href')}"`);
+    
     link.addEventListener('click', (e) => {
+      console.log('=== CLICK ON NAV LINK DETECTED ===');
+      console.log('isDragging state:', isDragging);
+      console.log('Clicked link:', link);
+      console.log('Clicked link href:', link.getAttribute('href'));
+      
       const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
+      console.log('Href value:', href);
+      console.log('Href type:', typeof href);
+      
+      // Явная проверка для якорных ссылок
+      let isAnchorLink = false;
+      
+      if (href) {
+        console.log('Href exists, checking conditions:');
+        console.log('  startsWith("#"):', href.startsWith('#'));
+        console.log('  includes("#"):', href.includes('#'));
+        console.log('  startsWith("http://"):', href.startsWith('http://'));
+        console.log('  startsWith("https://"):', href.startsWith('https://'));
+        console.log('  startsWith("mailto:"):', href.startsWith('mailto:'));
+        console.log('  startsWith("tel:"):', href.startsWith('tel:'));
+        
+        // Проверяем, начинается ли ссылка с #
+        if (href.startsWith('#')) {
+          console.log('  -> Starts with #, isAnchorLink = true');
+          isAnchorLink = true;
+        } 
+        // Или содержит # и не начинается с протокола
+        else if (href.includes('#') && 
+                 !href.startsWith('http://') && 
+                 !href.startsWith('https://') && 
+                 !href.startsWith('mailto:') && 
+                 !href.startsWith('tel:')) {
+          console.log('  -> Contains # and does not start with protocol, isAnchorLink = true');
+          isAnchorLink = true;
+        } else {
+          console.log('  -> None of the conditions matched, isAnchorLink = false');
+        }
+      } else {
+        console.log('  -> Href is null/undefined, isAnchorLink = false');
+      }
+      
+      console.log('Final isAnchorLink result:', isAnchorLink);
+      
+      if (isAnchorLink) {
+        console.log('Internal anchor link detected, closing menu after delay');
         setTimeout(() => {
           closeMenu();
         }, 100);
       } else {
+        console.log('External link detected, closing menu immediately');
         closeMenu();
       }
     });
   });
 
-  claimButtons.forEach(btn => {
+  // Обработчик для кнопок
+  claimButtons.forEach((btn, index) => {
+    console.log(`Setting up handler for claim button ${index}:`, btn);
     btn.addEventListener('click', (e) => {
+      console.log('=== CLICK ON CLAIM BUTTON DETECTED ===');
+      console.log('Clicked claim button:', btn);
+      console.log('Clicked claim button text:', btn.textContent.trim());
+      
       setTimeout(() => {
         closeMenu();
       }, 100);
     });
   });
 
-// === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ (Telegram-стиль: свайп влево по меню, чтобы задвинуть его влево) ===
-// Touch events для мобильных устройств
-mobileMenu.addEventListener('touchstart', e => {
-    console.log('=== TOUCH START ===');
-    console.log('Menu active:', mobileMenu.classList.contains('active'));
+  // === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ (Telegram-стиль: свайп влево по меню, чтобы задвинуть его влево) ===
+  // Touch events для мобильных устройств
+  mobileMenu.addEventListener('touchstart', e => {
+    console.log('=== TOUCH START === isDragging before:', isDragging);
+    console.log('Target of touchstart:', e.target);
     
-    if (!mobileMenu.classList.contains('active')) return;
+    // Проверяем, является ли цель событие ссылкой или кнопкой
+    const isLinkOrButton = e.target.closest('.mobile-nav-link') || e.target.closest('a');
+    console.log('Is target a link/button:', !!isLinkOrButton);
+    
+    if (!mobileMenu.classList.contains('active') || isLinkOrButton) {
+      console.log('Not starting drag because menu is not active or target is a link/button');
+      return;
+    }
     
     touchStartX = e.changedTouches[0].screenX;
-    console.log('touchStartX:', touchStartX);
     
     // Получаем текущее значение transform
     const currentTransform = getComputedStyle(mobileMenu).transform;
-    console.log('Current transform:', currentTransform);
-    
     if (currentTransform !== 'none' && currentTransform !== 'matrix(1, 0, 0, 1, 0, 0)') {
-        const matrix = new DOMMatrixReadOnly(currentTransform);
-        initialMenuTransform = matrix.m41;
+      const matrix = new DOMMatrixReadOnly(currentTransform);
+      initialMenuTransform = matrix.m41;
     } else {
-        initialMenuTransform = 0;
+      initialMenuTransform = 0;
     }
-    
-    console.log('initialMenuTransform:', initialMenuTransform);
     
     // Рассчитываем ширину меню при начале перетаскивания, если еще не рассчитана
     if (menuWidth === 0) {
-        menuWidth = mobileMenu.getBoundingClientRect().width;
+      menuWidth = mobileMenu.getBoundingClientRect().width;
     }
-    console.log('menuWidth:', menuWidth);
     
     isDragging = true;
     // Отключаем CSS-переходы во время перетаскивания
     mobileMenu.style.transition = 'none';
-    console.log('Transition set to none');
     
+    // Вызываем preventDefault только если мы действительно начинаем перетаскивание
     if (e.cancelable) e.preventDefault();
-}, { passive: false });
+    console.log('=== TOUCH START END === isDragging set to:', isDragging);
+  }, { passive: false });
 
-mobileMenu.addEventListener('touchmove', e => {
+  mobileMenu.addEventListener('touchmove', e => {
+    console.log('=== TOUCH MOVE === isDragging:', isDragging);
     if (!isDragging) return;
     
     touchCurrentX = e.changedTouches[0].screenX;
     const deltaX = touchCurrentX - touchStartX;
     
-    console.log('=== TOUCH MOVE ===');
-    console.log('touchCurrentX:', touchCurrentX);
-    console.log('deltaX:', deltaX);
-    console.log('initialMenuTransform:', initialMenuTransform);
-    
     // Правильная логика: при движении пальца влево (deltaX < 0), меню должно уходить влево (transform должен уменьшаться)
-    // Это означает, что мы ДОБАВЛЯЕМ deltaX, а не вычитаем
     let newTransformX = initialMenuTransform + deltaX;
-    console.log('Calculated newTransformX before limits:', newTransformX);
     
     // Ограничиваем движение: от -menuWidth (полностью закрыто) до 0 (полностью открыто)
-    // Меняем местами мин и макс, чтобы диапазон был [-menuWidth, 0]
     newTransformX = Math.max(Math.min(newTransformX, 0), -menuWidth);
-    console.log('newTransformX after limits:', newTransformX);
     
     mobileMenu.style.transform = `translateX(${newTransformX}px)`;
-    console.log('Applied transform:', mobileMenu.style.transform);
-    
-    // Проверим, действительно ли стиль был применен
-    const appliedTransform = getComputedStyle(mobileMenu).transform;
-    console.log('Actual computed transform after setting:', appliedTransform);
     
     if (e.cancelable) e.preventDefault();
-}, { passive: false });
+  }, { passive: false });
 
-mobileMenu.addEventListener('touchend', e => {
+  mobileMenu.addEventListener('touchend', e => {
+    console.log('=== TOUCH END === isDragging before:', isDragging);
     if (!isDragging) return;
-    
-    console.log('=== TOUCH END ===');
     
     // Получаем текущее положение меню
     const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
     const threshold = menuWidth * 0.3; // 30% от ширины меню
 
-    console.log('Final transform:', currentTransformX);
-    console.log('Threshold:', threshold);
-    console.log('Should close:', currentTransformX < -threshold);
-
     // Включаем CSS-переход для анимации завершения
     mobileMenu.style.transition = 'transform 0.3s ease-out';
-    console.log('Transition restored');
 
     // Если меню сдвинуто более чем на 30% влево (currentTransformX < -threshold), закрываем его
     if (currentTransformX < -threshold) {
-        console.log('Closing menu');
-        mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
+      mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
 
-        const handleTransitionEnd = () => {
-            mobileMenu.classList.remove('active');
-            mobileMenu.style.transition = '';
-            mobileMenu.style.transform = '';
-            closeMenu();
-            console.log('Menu closed');
-            mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
-        };
-        mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
+      const handleTransitionEnd = () => {
+        mobileMenu.classList.remove('active');
+        mobileMenu.style.transition = '';
+        mobileMenu.style.transform = '';
+        console.log('About to call closeMenu from touchend transition');
+        closeMenu(); // Это уберет оверлей
+        mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
     } else {
-        console.log('Returning menu');
-        // Возвращаем меню обратно в открытое положение (0px)
-        mobileMenu.style.transform = 'translateX(0px)';
+      // Возвращаем меню обратно в открытое положение (0px)
+      mobileMenu.style.transform = 'translateX(0px)';
 
-        const handleReturnTransitionEnd = () => {
-            mobileMenu.style.transition = '';
-            mobileMenu.style.transform = '';
-            mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
-        };
-        mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
+      const handleReturnTransitionEnd = () => {
+        mobileMenu.style.transition = '';
+        mobileMenu.style.transform = '';
+        // Меню возвращается в открытое состояние, оверлей должен остаться активным
+        // Не вызываем closeMenu() при возврате!
+        mobileMenu.classList.add('active'); // Убедимся, что класс active остается
+        console.log('Menu returned to open state, overlay should remain active');
+        mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
     }
 
     isDragging = false;
-});
+    console.log('=== TOUCH END === isDragging set to:', isDragging);
+  }, { passive: false });
 
-// Mouse events для тестирования на десктопе
-mobileMenu.addEventListener('mousedown', e => {
-    console.log('=== MOUSE DOWN ===');
-    console.log('Menu active:', mobileMenu.classList.contains('active'));
+  // Mouse events для тестирования на десктопе
+  mobileMenu.addEventListener('mousedown', e => {
+    console.log('=== MOUSE DOWN ON MENU === isDragging before:', isDragging);
+    console.log('Target of mousedown:', e.target);
     
-    if (!mobileMenu.classList.contains('active')) return;
+    // Проверяем, является ли цель событие ссылкой или кнопкой
+    const isLinkOrButton = e.target.closest('.mobile-nav-link') || e.target.closest('a');
+    console.log('Is target a link/button:', !!isLinkOrButton);
+    
+    if (!mobileMenu.classList.contains('active') || isLinkOrButton) {
+      console.log('Not starting drag because menu is not active or target is a link/button');
+      return;
+    }
     
     touchStartX = e.screenX;
-    console.log('touchStartX:', touchStartX);
     
     const currentTransform = getComputedStyle(mobileMenu).transform;
-    console.log('Current transform:', currentTransform);
-    
     if (currentTransform !== 'none' && currentTransform !== 'matrix(1, 0, 0, 1, 0, 0)') {
-        const matrix = new DOMMatrixReadOnly(currentTransform);
-        initialMenuTransform = matrix.m41;
+      const matrix = new DOMMatrixReadOnly(currentTransform);
+      initialMenuTransform = matrix.m41;
     } else {
-        initialMenuTransform = 0;
+      initialMenuTransform = 0;
     }
-    
-    console.log('initialMenuTransform:', initialMenuTransform);
     
     if (menuWidth === 0) {
-        menuWidth = mobileMenu.getBoundingClientRect().width;
+      menuWidth = mobileMenu.getBoundingClientRect().width;
     }
-    console.log('menuWidth:', menuWidth);
     
     isDragging = true;
     mobileMenu.style.transition = 'none';
-    console.log('Transition set to none');
     e.preventDefault();
-});
+    console.log('=== MOUSE DOWN ON MENU END === isDragging set to:', isDragging);
+  });
 
-document.addEventListener('mousemove', e => {
+  // Перемещаем mousemove и mouseup на mobileMenu
+  mobileMenu.addEventListener('mousemove', e => {
     if (!isDragging) return;
     
     touchCurrentX = e.screenX;
     const deltaX = touchCurrentX - touchStartX;
     
-    console.log('=== MOUSE MOVE ===');
-    console.log('touchCurrentX:', touchCurrentX);
-    console.log('deltaX:', deltaX);
-    console.log('initialMenuTransform:', initialMenuTransform);
-    
     // При движении пальца влево (deltaX < 0), меню должно уходить влево
     let newTransformX = initialMenuTransform + deltaX;
-    console.log('Calculated newTransformX before limits:', newTransformX);
     
     // Ограничиваем движение: от -menuWidth до 0
     newTransformX = Math.max(Math.min(newTransformX, 0), -menuWidth);
-    console.log('newTransformX after limits:', newTransformX);
     
     mobileMenu.style.transform = `translateX(${newTransformX}px)`;
-    console.log('Applied transform:', mobileMenu.style.transform);
-    
-    const appliedTransform = getComputedStyle(mobileMenu).transform;
-    console.log('Actual computed transform after setting:', appliedTransform);
-    
     e.preventDefault();
-});
+  });
 
-document.addEventListener('mouseup', e => {
+  mobileMenu.addEventListener('mouseup', e => {
+    console.log('=== MOUSE UP ON MENU === isDragging before:', isDragging);
     if (!isDragging) return;
-    
-    console.log('=== MOUSE UP ===');
     
     const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
     const threshold = menuWidth * 0.3;
     
-    console.log('Final transform:', currentTransformX);
-    console.log('Threshold:', threshold);
-    console.log('Should close:', currentTransformX < -threshold);
-
     mobileMenu.style.transition = 'transform 0.3s ease-out';
-    console.log('Transition restored');
 
     if (currentTransformX < -threshold) {
-        console.log('Closing menu');
-        mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
+      mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
 
-        const handleTransitionEnd = () => {
-            mobileMenu.classList.remove('active');
-            mobileMenu.style.transition = '';
-            mobileMenu.style.transform = '';
-            closeMenu();
-            console.log('Menu closed');
-            mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
-        };
-        mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
+      const handleTransitionEnd = () => {
+        mobileMenu.classList.remove('active');
+        mobileMenu.style.transition = '';
+        mobileMenu.style.transform = '';
+        console.log('About to call closeMenu from mouseup transition');
+        closeMenu(); // Это уберет оверлей
+        mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
     } else {
-        console.log('Returning menu');
-        mobileMenu.style.transform = 'translateX(0px)';
+      mobileMenu.style.transform = 'translateX(0px)';
 
-        const handleReturnTransitionEnd = () => {
-            mobileMenu.style.transition = '';
-            mobileMenu.style.transform = '';
-            mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
-        };
-        mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
+      const handleReturnTransitionEnd = () => {
+        mobileMenu.style.transition = '';
+        mobileMenu.style.transform = '';
+        // Меню возвращается в открытое состояние, оверлей должен остаться активным
+        // Не вызываем closeMenu() при возврате!
+        mobileMenu.classList.add('active'); // Убедимся, что класс active остается
+        console.log('Menu returned to open state, overlay should remain active');
+        mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
+      };
+      mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
     }
 
     isDragging = false;
-});
+    console.log('=== MOUSE UP ON MENU END === isDragging set to:', isDragging);
+  });
 }
-
 
 
 
