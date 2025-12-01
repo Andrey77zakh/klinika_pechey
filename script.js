@@ -503,159 +503,225 @@ function initializeHamburgerMenu() {
     });
   });
 
-    // === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ (Telegram-стиль: свайп влево по меню, чтобы задвинуть его влево) ===
-    // Touch events для мобильных устройств
-    mobileMenu.addEventListener('touchstart', e => {
-        if (!mobileMenu.classList.contains('active')) return;
-        
-        touchStartX = e.changedTouches[0].screenX;
-        
-        // Получаем текущее смещение меню - используем более надежный способ
-        const currentTransform = getComputedStyle(mobileMenu).transform;
-        if (currentTransform !== 'none' && currentTransform !== 'matrix(1, 0, 0, 1, 0, 0)') {
-            const matrix = new DOMMatrixReadOnly(currentTransform);
-            initialMenuTransform = matrix.m41 || 0;
-        } else {
-            initialMenuTransform = 0; // Если нет трансформации, то начальное положение 0
-        }
-        
-        isDragging = true;
-        // Убираем переходы во время перетаскивания
-        mobileMenu.style.transition = 'none';
-        
-        if (e.cancelable) e.preventDefault();
-    }, { passive: false });
+// === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ (Telegram-стиль: свайп влево по меню, чтобы задвинуть его влево) ===
+// Touch events для мобильных устройств
+mobileMenu.addEventListener('touchstart', e => {
+    console.log('=== TOUCH START ===');
+    console.log('Menu active:', mobileMenu.classList.contains('active'));
+    
+    if (!mobileMenu.classList.contains('active')) return;
+    
+    touchStartX = e.changedTouches[0].screenX;
+    console.log('touchStartX:', touchStartX);
+    
+    // Получаем текущее значение transform
+    const currentTransform = getComputedStyle(mobileMenu).transform;
+    console.log('Current transform:', currentTransform);
+    
+    if (currentTransform !== 'none' && currentTransform !== 'matrix(1, 0, 0, 1, 0, 0)') {
+        const matrix = new DOMMatrixReadOnly(currentTransform);
+        initialMenuTransform = matrix.m41;
+    } else {
+        initialMenuTransform = 0;
+    }
+    
+    console.log('initialMenuTransform:', initialMenuTransform);
+    
+    // Рассчитываем ширину меню при начале перетаскивания, если еще не рассчитана
+    if (menuWidth === 0) {
+        menuWidth = mobileMenu.getBoundingClientRect().width;
+    }
+    console.log('menuWidth:', menuWidth);
+    
+    isDragging = true;
+    // Отключаем CSS-переходы во время перетаскивания
+    mobileMenu.style.transition = 'none';
+    console.log('Transition set to none');
+    
+    if (e.cancelable) e.preventDefault();
+}, { passive: false });
 
-    mobileMenu.addEventListener('touchmove', e => {
-        if (!isDragging) return;
-        
-        touchCurrentX = e.changedTouches[0].screenX;
-        const deltaX = touchCurrentX - touchStartX;
-        
-        // Когда пользователь тянет влево (deltaX < 0), меню должно уходить влево (transform уменьшается)
-        // Это означает, что мы вычитаем deltaX, чтобы меню двигалось влево при движении пальца влево
-        let newTransformX = initialMenuTransform - deltaX;
-        
-        // Ограничиваем, чтобы меню не уходило за границы (от -menuWidth до 0)
-        newTransformX = Math.min(Math.max(newTransformX, -menuWidth), 0);
-        
-        mobileMenu.style.transform = `translateX(${newTransformX}px)`;
-        
-        if (e.cancelable) e.preventDefault();
-    }, { passive: false });
+mobileMenu.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    
+    touchCurrentX = e.changedTouches[0].screenX;
+    const deltaX = touchCurrentX - touchStartX;
+    
+    console.log('=== TOUCH MOVE ===');
+    console.log('touchCurrentX:', touchCurrentX);
+    console.log('deltaX:', deltaX);
+    console.log('initialMenuTransform:', initialMenuTransform);
+    
+    // Правильная логика: при движении пальца влево (deltaX < 0), меню должно уходить влево (transform должен уменьшаться)
+    // Это означает, что мы ДОБАВЛЯЕМ deltaX, а не вычитаем
+    let newTransformX = initialMenuTransform + deltaX;
+    console.log('Calculated newTransformX before limits:', newTransformX);
+    
+    // Ограничиваем движение: от -menuWidth (полностью закрыто) до 0 (полностью открыто)
+    // Меняем местами мин и макс, чтобы диапазон был [-menuWidth, 0]
+    newTransformX = Math.max(Math.min(newTransformX, 0), -menuWidth);
+    console.log('newTransformX after limits:', newTransformX);
+    
+    mobileMenu.style.transform = `translateX(${newTransformX}px)`;
+    console.log('Applied transform:', mobileMenu.style.transform);
+    
+    // Проверим, действительно ли стиль был применен
+    const appliedTransform = getComputedStyle(mobileMenu).transform;
+    console.log('Actual computed transform after setting:', appliedTransform);
+    
+    if (e.cancelable) e.preventDefault();
+}, { passive: false });
 
-    mobileMenu.addEventListener('touchend', e => {
-        if (!isDragging) return;
-        
-        // Получаем текущее положение меню на момент отпускания
-        const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
-        const threshold = menuWidth * 0.3;
+mobileMenu.addEventListener('touchend', e => {
+    if (!isDragging) return;
+    
+    console.log('=== TOUCH END ===');
+    
+    // Получаем текущее положение меню
+    const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    const threshold = menuWidth * 0.3; // 30% от ширины меню
 
-        // Возвращаем CSS-переход
-        mobileMenu.style.transition = 'transform 0.3s ease-out';
+    console.log('Final transform:', currentTransformX);
+    console.log('Threshold:', threshold);
+    console.log('Should close:', currentTransformX < -threshold);
 
-        // Если меню сдвинуто достаточно далеко влево (currentTransformX < -threshold)
-        if (Math.abs(currentTransformX) > threshold) {
-            // Закрываем меню полностью (уходим за левую границу)
-            mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
+    // Включаем CSS-переход для анимации завершения
+    mobileMenu.style.transition = 'transform 0.3s ease-out';
+    console.log('Transition restored');
 
-            const handleTransitionEnd = () => {
-                mobileMenu.classList.remove('active');
-                mobileMenu.style.transition = '';
-                mobileMenu.style.transform = '';
-                closeMenu();
-                mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
-            };
-            mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
-        } else {
-            // Возвращаем меню обратно в открытое положение (0px)
-            mobileMenu.style.transform = 'translateX(0px)';
+    // Если меню сдвинуто более чем на 30% влево (currentTransformX < -threshold), закрываем его
+    if (currentTransformX < -threshold) {
+        console.log('Closing menu');
+        mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
 
-            const handleReturnTransitionEnd = () => {
-                mobileMenu.style.transition = '';
-                mobileMenu.style.transform = '';
-                mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
-            };
-            mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
-        }
+        const handleTransitionEnd = () => {
+            mobileMenu.classList.remove('active');
+            mobileMenu.style.transition = '';
+            mobileMenu.style.transform = '';
+            closeMenu();
+            console.log('Menu closed');
+            mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
+        };
+        mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    } else {
+        console.log('Returning menu');
+        // Возвращаем меню обратно в открытое положение (0px)
+        mobileMenu.style.transform = 'translateX(0px)';
 
-        isDragging = false;
-    });
+        const handleReturnTransitionEnd = () => {
+            mobileMenu.style.transition = '';
+            mobileMenu.style.transform = '';
+            mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
+        };
+        mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
+    }
 
-    // Mouse events для тестирования на десктопе
-    mobileMenu.addEventListener('mousedown', e => {
-        if (!mobileMenu.classList.contains('active')) return;
-        
-        touchStartX = e.screenX;
-        
-        // Получаем текущее смещение меню
-        const currentTransform = getComputedStyle(mobileMenu).transform;
-        if (currentTransform !== 'none' && currentTransform !== 'matrix(1, 0, 0, 1, 0, 0)') {
-            const matrix = new DOMMatrixReadOnly(currentTransform);
-            initialMenuTransform = matrix.m41 || 0;
-        } else {
-            initialMenuTransform = 0;
-        }
-        
-        isDragging = true;
-        // Убираем переходы во время перетаскивания
-        mobileMenu.style.transition = 'none';
-        e.preventDefault();
-    });
+    isDragging = false;
+});
 
-    document.addEventListener('mousemove', e => {
-        if (!isDragging) return;
-        
-        touchCurrentX = e.screenX;
-        const deltaX = touchCurrentX - touchStartX;
-        
-        // Когда пользователь тянет влево (deltaX < 0), меню должно уходить влево
-        let newTransformX = initialMenuTransform - deltaX;
-        
-        // Ограничиваем, чтобы меню не уходило за границы
-        newTransformX = Math.min(Math.max(newTransformX, -menuWidth), 0);
-        
-        mobileMenu.style.transform = `translateX(${newTransformX}px)`;
-        e.preventDefault();
-    });
+// Mouse events для тестирования на десктопе
+mobileMenu.addEventListener('mousedown', e => {
+    console.log('=== MOUSE DOWN ===');
+    console.log('Menu active:', mobileMenu.classList.contains('active'));
+    
+    if (!mobileMenu.classList.contains('active')) return;
+    
+    touchStartX = e.screenX;
+    console.log('touchStartX:', touchStartX);
+    
+    const currentTransform = getComputedStyle(mobileMenu).transform;
+    console.log('Current transform:', currentTransform);
+    
+    if (currentTransform !== 'none' && currentTransform !== 'matrix(1, 0, 0, 1, 0, 0)') {
+        const matrix = new DOMMatrixReadOnly(currentTransform);
+        initialMenuTransform = matrix.m41;
+    } else {
+        initialMenuTransform = 0;
+    }
+    
+    console.log('initialMenuTransform:', initialMenuTransform);
+    
+    if (menuWidth === 0) {
+        menuWidth = mobileMenu.getBoundingClientRect().width;
+    }
+    console.log('menuWidth:', menuWidth);
+    
+    isDragging = true;
+    mobileMenu.style.transition = 'none';
+    console.log('Transition set to none');
+    e.preventDefault();
+});
 
-    document.addEventListener('mouseup', e => {
-        if (!isDragging) return;
-        
-        // Получаем текущее положение меню на момент отпускания
-        const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
-        const threshold = menuWidth * 0.3;
+document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    
+    touchCurrentX = e.screenX;
+    const deltaX = touchCurrentX - touchStartX;
+    
+    console.log('=== MOUSE MOVE ===');
+    console.log('touchCurrentX:', touchCurrentX);
+    console.log('deltaX:', deltaX);
+    console.log('initialMenuTransform:', initialMenuTransform);
+    
+    // При движении пальца влево (deltaX < 0), меню должно уходить влево
+    let newTransformX = initialMenuTransform + deltaX;
+    console.log('Calculated newTransformX before limits:', newTransformX);
+    
+    // Ограничиваем движение: от -menuWidth до 0
+    newTransformX = Math.max(Math.min(newTransformX, 0), -menuWidth);
+    console.log('newTransformX after limits:', newTransformX);
+    
+    mobileMenu.style.transform = `translateX(${newTransformX}px)`;
+    console.log('Applied transform:', mobileMenu.style.transform);
+    
+    const appliedTransform = getComputedStyle(mobileMenu).transform;
+    console.log('Actual computed transform after setting:', appliedTransform);
+    
+    e.preventDefault();
+});
 
-        // Возвращаем CSS-переход
-        mobileMenu.style.transition = 'transform 0.3s ease-out';
+document.addEventListener('mouseup', e => {
+    if (!isDragging) return;
+    
+    console.log('=== MOUSE UP ===');
+    
+    const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    const threshold = menuWidth * 0.3;
+    
+    console.log('Final transform:', currentTransformX);
+    console.log('Threshold:', threshold);
+    console.log('Should close:', currentTransformX < -threshold);
 
-        // Если меню сдвинуто достаточно далеко влево
-        if (Math.abs(currentTransformX) > threshold) {
-            // Закрываем меню полностью (уходим за левую границу)
-            mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
+    mobileMenu.style.transition = 'transform 0.3s ease-out';
+    console.log('Transition restored');
 
-            const handleTransitionEnd = () => {
-                mobileMenu.classList.remove('active');
-                mobileMenu.style.transition = '';
-                mobileMenu.style.transform = '';
-                closeMenu();
-                mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
-            };
-            mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
-        } else {
-            // Возвращаем меню обратно в открытое положение (0px)
-            mobileMenu.style.transform = 'translateX(0px)';
+    if (currentTransformX < -threshold) {
+        console.log('Closing menu');
+        mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
 
-            const handleReturnTransitionEnd = () => {
-                mobileMenu.style.transition = '';
-                mobileMenu.style.transform = '';
-                mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
-            };
-            mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
-        }
+        const handleTransitionEnd = () => {
+            mobileMenu.classList.remove('active');
+            mobileMenu.style.transition = '';
+            mobileMenu.style.transform = '';
+            closeMenu();
+            console.log('Menu closed');
+            mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
+        };
+        mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    } else {
+        console.log('Returning menu');
+        mobileMenu.style.transform = 'translateX(0px)';
 
-        isDragging = false;
-    });
+        const handleReturnTransitionEnd = () => {
+            mobileMenu.style.transition = '';
+            mobileMenu.style.transform = '';
+            mobileMenu.removeEventListener('transitionend', handleReturnTransitionEnd);
+        };
+        mobileMenu.addEventListener('transitionend', handleReturnTransitionEnd, { once: true });
+    }
+
+    isDragging = false;
+});
 }
 
 
