@@ -1,34 +1,24 @@
 //ФАЙЛ -------INDEX------!!!!!
 
 // === МОДАЛЬНОЕ ОКНО (только для index.html и других страниц, где есть #modal) ===
-function initializeModal() {
-    const modal = document.getElementById('modal');
-    const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim');
-    const modalContinue = document.getElementById('modal-continue');
+//function initializeModal() {
+    //const modal = document.getElementById('modal');
+    //const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim');
+    //const modalContinue = document.getElementById('modal-continue');
 
-    if (!modal || !claimButtons.length || !modalContinue) {
-        console.warn("Элементы модального окна не найдены, инициализация пропущена.");
-        return;
-    }
+   // if (!modal || !claimButtons.length || !modalContinue) {
+   //     console.warn("Элементы модального окна не найдены, инициализация пропущена.");   return; }
 
-    claimButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.classList.add('active');
-        });
-    });
+   // claimButtons.forEach(btn => {
+   //     btn.addEventListener('click', (e) => {    e.preventDefault();  modal.classList.add('active'); }); });
 
-    modalContinue.addEventListener('click', () => {
-        modal.classList.remove('active');
-        window.open('https://docs.google.com/forms/d/e/1FAIpQLSd43JD1m9aXU2vwiuilfgVJm-o7o_XOiPeAFBwVYSxU_r_9Mg/viewform  ', '_blank');
-    });
+   // modalContinue.addEventListener('click', () => {
+   //     modal.classList.remove('active');
+   //     window.open('https://docs.google.com/forms/d/e/1FAIpQLSd43JD1m9aXU2vwiuilfgVJm-o7o_XOiPeAFBwVYSxU_r_9Mg/viewform  ', '_blank'); });
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-}
+   // modal.addEventListener('click', (e) => {
+   //     if (e.target === modal) {modal.classList.remove('active');} });
+
 
 // === FAQ АККОРДЕОН (только для index.html, где есть .faq-question) ===
 function initializeFaq() {
@@ -564,18 +554,18 @@ function initializeHamburgerMenu() {
   });
 
   // Обработчик для кнопок
-  claimButtons.forEach((btn, index) => {
-    console.log(`Setting up handler for claim button ${index}:`, btn);
-    btn.addEventListener('click', (e) => {
-      console.log('=== CLICK ON CLAIM BUTTON DETECTED ===');
-      console.log('Clicked claim button:', btn);
-      console.log('Clicked claim button text:', btn.textContent.trim());
+ // claimButtons.forEach((btn, index) => {
+   // console.log(`Setting up handler for claim button ${index}:`, btn);
+   // btn.addEventListener('click', (e) => {
+   //   console.log('=== CLICK ON CLAIM BUTTON DETECTED ===');
+   //   console.log('Clicked claim button:', btn);
+  //    console.log('Clicked claim button text:', btn.textContent.trim());
       
-      setTimeout(() => {
-        closeMenu();
-      }, 100);
-    });
-  });
+  //    setTimeout(() => {
+  //      closeMenu();
+  //    }, 100);
+ //   });
+ // });
 
   // === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ (Telegram-стиль: свайп влево по меню, чтобы задвинуть его влево) ===
   // Touch events для мобильных устройств
@@ -774,6 +764,40 @@ function initializeHamburgerMenu() {
 
 
 
+
+// === ФУНКЦИОНАЛЬНОСТЬ НОВОГО МОДАЛЬНОГО ОКНА ДЛЯ ФОРМЫ ===
+function initializeNewFormModal() {
+    const formModal = document.getElementById('formModal');
+    if (!formModal) {
+        console.warn("Новое модальное окно #formModal не найдено, инициализация пропущена.");
+        return;
+    }
+
+    // Кнопки, которые должны открывать новую форму
+    const openFormButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim, #mobile-claim');
+    const closeFormButton = document.getElementById('closeFormModal');
+
+    // Открытие формы
+    openFormButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Предотвращаем переход по href="#"
+            formModal.style.display = 'flex'; // Показываем новое модальное окно
+        });
+    });
+
+    // Закрытие формы (крестик)
+    closeFormButton.addEventListener('click', function() {
+        formModal.style.display = 'none'; // Скрываем новое модальное окно
+    });
+
+    // Закрытие формы (клик вне контента)
+    window.addEventListener('click', function(event) {
+        if (event.target === formModal) {
+            formModal.style.display = 'none';
+        }
+    });
+}
+
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация функций, которые могут понадобиться на разных страницах
@@ -784,7 +808,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('blog-grid-main')) {
         // Находимся на index.html
         loadAndRenderBlogCardsMain('blog-grid-main', 10);
-        initializeModal(); // Инициализируем модальное окно для index.html
+        // initializeModal(); // <-- ЗАКОММЕНТИРОВАЛИ ИЛИ УДАЛИЛИ СТАРУЮ ИНИЦИАЛИЗАЦИЮ
+        initializeNewFormModal(); // <-- ДОБАВИЛИ НОВУЮ ИНИЦИАЛИЗАЦИЮ
         initializeFaq(); // Инициализируем FAQ для index.html
         initializeImageModals(); // Инициализируем модальные окна изображений для index.html
     }
@@ -793,23 +818,75 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('-')) { // Используем ID из Вашего article.html
         // Находимся на article.html
         loadAndRenderBlogCardsArticles('-');
-        initializePageModal(); // Инициализируем модальное окно для article.html
+        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
+        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
+        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
+        // initializePageModal();
     }
 
     // Проверяем, находимся ли мы на странице статьи (например, blog1.html, blog2.html и т.д.)
     if (document.getElementById('other-articles-grid')) {
         // Находимся на странице статьи (например, blog1.html)
         // Определяем slug текущей статьи из URL
-        // Берём последнюю часть URL (путь) и убираем .html
         const path = window.location.pathname;
         const slug = path.split('/').pop().replace('.html', '');
         // Вызываем функцию для загрузки *других* статей
-        // Например, если находимся на blog1.html, slug будет 'blog1'
         loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
-        initializePageModal(); // Инициализируем модальное окно для страниц статей
+        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
+        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
+        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
+        // initializePageModal();
     }
 
     // Инициализация копирования и скрытия шапки, если элементы существуют
     initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
     initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
+
+    // --- КОД ОТПРАВКИ ФОРМЫ (уже был, но убедимся, что URL правильный) ---
+    const form = document.getElementById('stoveForm');
+    if (form) { // Проверяем, существует ли форма на текущей странице
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+            const formData = new FormData(form);
+            const messageDiv = document.getElementById('formMessage');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            messageDiv.innerHTML = 'Отправляем заявку...';
+            submitButton.disabled = true;
+
+            // --- ИСПОЛЬЗУЕМ ВАШ ПРАВИЛЬНЫЙ URL С /exec В КОНЦЕ ---
+            // ВАЖНО: УБЕРИТЕ ПРОБЕЛЫ В КОНЦЕ URL!
+                fetch('https://script.google.com/macros/s/AKfycbykCRay9pGmGiY2sU_bt9c1uwVwSUYUsQwrz1Jj_X-il-vYwjMOBGKt3s9rgP2yiOs9Uw/exec', { // <--- УБРАНЫ ПРОБЕЛЫ!
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.result === 'success') {
+                    messageDiv.innerHTML = '<p style="color: green;">Спасибо! Ваша заявка принята.</p>';
+                    form.reset(); // Очищаем форму
+                    // Опционально: закрыть модальное окно через 2 секунды
+                    // setTimeout(() => { document.getElementById('formModal').style.display = 'none'; }, 2000);
+                } else {
+                    messageDiv.innerHTML = `<p style="color: red;">Ошибка: ${data.message}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при отправке формы:', error);
+                messageDiv.innerHTML = '<p style="color: red;">Произошла ошибка при отправке. Пожалуйста, попробуйте позже.</p>';
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+            });
+        });
+    } else {
+        console.warn("Форма с id='stoveForm' не найдена на этой странице.");
+    }
 });
+
