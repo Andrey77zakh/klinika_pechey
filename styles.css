@@ -90,7 +90,45 @@ header {
     -webkit-background-clip: text;      /* Обрезка градиента под текст */
     background-clip: text;              /* Обрезка градиента под текст */
     color: transparent;                 /* Прозрачный цвет текста */
+    white-space: nowrap; /* Текст не переносится */
+    overflow: hidden; /* Скрываем переполнение */
+    text-overflow: ellipsis;
 }
+
+/* ===== АДАПТИВНЫЕ СТИЛИ ДЛЯ РАЗМЕРА ЛОГОТИПА НА УЗКИХ ЭКРАНАХ ===== */
+/* Применяются ко всему сайту, включая мобильную версию логотипа */
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: max(1.3rem, calc(1.7rem - 0.3 * (480px - 100vw) / 380)); /* Примерный расчёт уменьшения */
+        /* Более простой вариант: */
+        /* font-size: 1.5rem; /!* Уменьшенный размер для экранов до 480px *!/ */
+    }
+}
+
+@media (max-width: 400px) {
+    .logo-text {
+        font-size: max(1.2rem, calc(1.5rem - 0.3 * (400px - 100vw) / 100)); /* Дополнительное уменьшение */
+        /* Более простой вариант: */
+        /* font-size: 1.4rem; /!* Уменьшенный размер для экранов до 400px *!/ */
+    }
+}
+
+@media (max-width: 360px) {
+    .logo-text {
+        font-size: max(1.1rem, calc(1.4rem - 0.3 * (360px - 100vw) / 60)); /* Дополнительное уменьшение */
+        /* Более простой вариант: */
+        /* font-size: 1.3rem; /!* Уменьшенный размер для экранов до 360px *!/ */
+    }
+}
+
+/* Можно добавить ещё один уровень для совсем узких экранов */
+@media (max-width: 320px) {
+    .logo-text {
+        font-size: 0.5rem; /* Минимальный размер */
+    }
+}
+
+
 
 /* ===== КОНТЕЙНЕР ПРАВОЙ ЧАСТИ ШАПКИ ===== */
 .nav-right {
@@ -204,158 +242,231 @@ header {
 }
 
 
-/* ===== СТИЛИ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с правой стороны, с интерактивным свайпом) ===== */
+/* ===== СТИЛИ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с левой стороны, с интерактивным свайпом) ===== */
 
-/* Стили для кнопки гамбургера */
-.hamburger-btn {
-  display: none; /* Скрыта по умолчанию */
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 30px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  z-index: 1002;
-  margin-right: 20px;
+/* Основная шапка */
+#main-header { /* Селектор: выбирает элемент с ID 'main-header' */
+    position: sticky; /* Позиционирование: элемент прилипает к верху при прокрутке */
+    top: 0; /* Позиционирование: прилипает к верху вьюпорта */
+    z-index: 1000; /* Порядок слоёв: определяет, какой элемент "выше" других */
+    backdrop-filter: var(--glass); /* Эффекты: размытие фона шапки */
+    background: rgba(255,255,255,0.85); /* Фон: полупрозрачный белый цвет */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Эффекты: тень под шапкой */
+    padding: 0 24px; /* Внутренние отступы: отступы по бокам */
+    height: 72px; /* Размеры: высота шапки */
+    display: flex; /* Flexbox: делает шапку flex-контейнером */
+    justify-content: space-between; /* Flexbox: распределяет элементы по горизонтали */
+    align-items: center; /* Flexbox: выравнивает элементы по вертикали */
 }
 
-.hamburger-line {
-  width: 100%;
-  height: 3px;
-  background: var(--accent);
-  border-radius: 10px;
-  transition: all 0.3s;
-  position: relative;
-  transform-origin: center;
+/* Контейнер для логотипа по центру на мобильных */
+.header-content { /* Селектор: выбирает элемент с классом 'header-content' */
+    display: flex; /* Flexbox: делает контейнер flex-контейнером */
+    align-items: center; /* Flexbox: выравнивает элементы по вертикали */
+    justify-content: space-between; /* Flexbox: распределяет элементы по горизонтали */
+    width: 100%; /* Размеры: ширина 100% от родителя */
+    position: relative; /* Позиционирование: создаёт контекст позиционирования для потомков */
+}
+
+/* Стили для кнопки гамбургера (только на мобильных, слева) */
+.hamburger-btn { /* Селектор: выбирает элемент с классом 'hamburger-btn' */
+  display: none; /* Отображение: изначально скрыта */
+  flex-direction: column; /* Flexbox: элементы внутри (линии) расположены в столбик */
+  justify-content: space-around; /* Flexbox: равномерно распределяет линии по высоте */
+  width: 30px; /* Размеры: ширина кнопки */
+  height: 30px; /* Размеры: высота кнопки */
+  background: transparent; /* Фон: прозрачный */
+  border: none; /* Границы: нет границы */
+  cursor: pointer; /* Курсор: указатель при наведении */
+  padding: 0; /* Внутренние отступы: нет отступов */
+  z-index: 2001; /* Порядок слоёв: выше меню и оверлея */
+  margin-right: 10px; /* Внешние отступы: отступ справа */
+  position: relative; /* Позиционирование: для корректного z-index */
+  /* Плавный переход для скрытия/появления */
+  opacity: 1; /* Визуальные эффекты: непрозрачность */
+  visibility: visible; /* Отображение: видима */
+  transition: opacity 0.01s ease, visibility 0.3s ease; /* Визуальные эффекты: плавный переход */
+}
+
+/* Скрытие кнопки при активном оверлее (открытом меню) */
+.hamburger-btn.hidden { /* Селектор: выбирает элемент с классом 'hamburger-btn', у которого также есть класс 'hidden' */
+    opacity: 0; /* Визуальные эффекты: делает прозрачной */
+    visibility: hidden; /* Отображение: делает невидимой */
+}
+
+.hamburger-line { /* Селектор: выбирает элементы с классом 'hamburger-line' */
+  width: 100%; /* Размеры: ширина 100% от родителя (кнопки) */
+  height: 3px; /* Размеры: высота линии */
+  background: var(--accent); /* Фон: цвет линии из CSS-переменной */
+  border-radius: 10px; /* Визуальные эффекты: скругление углов линии */
+  transition: all 0.5s; /* Визуальные эффекты: плавный переход всех изменений */
+  position: relative; /* Позиционирование: для корректного transform-origin */
+  transform-origin: center; /* Визуальные эффекты: точка вращения для анимации */
 }
 
 /* Оверлей для затемнения фона сайта */
-.mobile-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
-  display: none;
-  align-items: flex-start;
-  justify-content: flex-start;
+.mobile-menu-overlay { /* Селектор: выбирает элемент с классом 'mobile-menu-overlay' */
+  position: fixed; /* Позиционирование: фиксируется относительно вьюпорта */
+  top: 0; /* Позиционирование: прижата к верху вьюпорта */
+  left: 0; /* Позиционирование: прижата к левому краю вьюпорта */
+  width: 100%; /* Размеры: ширина 100% от вьюпорта */
+  height: 100vh; /* Размеры: высота 100% от вьюпорта */
+  background: rgba(0, 0, 0, 0.6); /* Фон: полупрозрачный чёрный цвет */
+  z-index: 9999; /* Порядок слоёв: очень высокий, чтобы быть выше всего */
+  display: none; /* Отображение: изначально скрыта */
+  align-items: flex-start; /* Flexbox: выравнивание по верху */
+  justify-content: right; /* Flexbox: выравнивание по левому краю */
 }
 
-.mobile-menu-overlay.active {
-  display: flex;
+.mobile-menu-overlay.active { /* Селектор: выбирает элемент с классом 'mobile-menu-overlay', у которого также есть класс 'active' */
+  display: flex; /* Отображение: отображается как flex-контейнер */
 }
 
 /* Основное меню */
 .mobile-menu {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0; /* Прижимаем к левому краю */
+  transform: translateX(-100%); /* Изначально скрыто за левым краем */
   width: 80%;
   max-width: 350px;
-  height: 100vh;
-  background-color: var(--card-bg); /* Белый или светлый фон */
-  display: flex;
-  flex-direction: column;
+  height: 100vh; /* Высота на весь вьюпорт - УЖЕ есть */
+  background-color: var(--card-bg); /* Точно белый фон */
+  display: flex; /* <-- Добавить или изменить на flex */
+  flex-direction: column; /* <-- Добавить или изменить на column */
   padding: 20px;
-  z-index: 1001;
-  left: -100%; /* Изначально скрыто за правым краем */
+  z-index: 2000; /* Выше оверлея */
+  transition: transform 0.3s ease-in-out; /* Анимация трансформации */
   box-sizing: border-box;
 }
 
-.mobile-menu.active {
-  left: 0;
-  width: 80%;
-  max-width: 350px;
-  transition: left 0.3s ease-in-out; /* Анимация при открытии/возврате */
+.mobile-menu.active { /* Селектор: выбирает элемент с классом 'mobile-menu', у которого также есть класс 'active' */
+  transform: translateX(0%); /* Визуальные эффекты: сдвигает меню на 0% (показано) */
+  width: 80%; /* Размеры: ширина 80% от вьюпорта */
+  max-width: 350px; /* Размеры: максимальная ширина */
 }
 
 /* Контейнер навигационных ссылок */
-.mobile-nav-links {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  flex-grow: 1; /* Занимает место сверху */
+.mobile-nav-links { /* Селектор: выбирает элемент с классом 'mobile-nav-links' */
+  display: flex; /* Flexbox: делает контейнер flex-контейнером */
+  flex-direction: column; /* Flexbox: элементы (ссылки) внутри расположены в столбик */
+  gap: 15px; /* Визуальные эффекты: отступ между ссылками */
+  flex-grow: 1; /* Flexbox: позволяет контейнеру растягиваться и занимать доступное место сверху */
   overflow-y: auto;
-  padding-right: 10px;
-  padding-top: 20px;
+  padding-right: 10px; /* Внутренние отступы: отступ справа */
+  padding-top: 20px; /* Внутренние отступы: отступ сверху */
 }
 
 /* Контейнер контактов */
-.mobile-contacts {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: auto; /* Прижимает к низу */
-  padding-top: 20px;
-  border-top: 1px solid var(--card-border);
-  padding-bottom: 10px;
+.mobile-contacts { /* Селектор: выбирает элемент с классом 'mobile-contacts' */
+  display: flex; /* Flexbox: делает контейнер flex-контейнером */
+  flex-direction: column; /* Flexbox: элементы (контакты) внутри расположены в столбик */
+  gap: 10px; /* Визуальные эффекты: отступ между контактами */
+  margin-top: auto; /* Внешние отступы: автоматический отступ сверху, прижимает к низу */
+  padding-top: 20px; /* Внутренние отступы: отступ сверху */
+  border-top: 1px solid var(--card-border); /* Границы: линия сверху */
+  padding-bottom: 10px; /* Внутренние отступы: отступ снизу */
 }
 
-/* Стили для ссылок и кнопок внутри меню */
-.mobile-nav-link {
-  color: var(--text);
-  text-decoration: none;
-  font-size: 1.1rem;
-  padding: 10px 0;
-  transition: color 0.3s;
-  border-bottom: 1px solid transparent;
-  display: block; /* Каждый элемент в отдельном блоке */
-  word-wrap: break-word; /* Перенос текста */
-  overflow-wrap: break-word;
+/* Стили для ссылок внутри меню */
+.mobile-nav-link { /* Селектор: выбирает элементы с классом 'mobile-nav-link' */
+  color: var(--text); /* Текст: цвет текста из CSS-переменной */
+  text-decoration: none; /* Текст: убирает подчёркивание */
+  font-size: 1.1rem; /* Текст: размер шрифта */
+  padding: 10px 0; /* Внутренние отступы: отступы сверху и снизу */
+  transition: color 0.3s; /* Визуальные эффекты: плавный переход цвета */
+  border-bottom: 1px solid transparent; /* Границы: линия снизу (прозрачная) */
+  display: block; /* Отображение: отображается как блочный элемент */
+  word-wrap: break-word; /* Текст: переносит слова, если они не помещаются */
+  overflow-wrap: break-word; /* Текст: альтернатива word-wrap */
 }
 
-.mobile-nav-link:hover {
-  color: var(--accent);
-  border-bottom: 1px solid var(--accent);
+.mobile-nav-link:hover { /* Селектор: выбирает элемент с классом 'mobile-nav-link' при наведении */
+  color: var(--accent); /* Текст: меняет цвет текста при наведении */
+  border-bottom: 1px solid var(--accent); /* Границы: меняет цвет линии снизу при наведении */
 }
 
-/* Стили для кнопки */
-.mobile-nav-link.btn {
-  background: linear-gradient(135deg, #0da2e7, var(--accent2));
-  color: white;
-  text-align: center;
-  border-radius: 8px;
-  margin-top: 15px;
-  font-weight: 600;
-  border-bottom: none;
-  padding: 12px 0; /* Внутренние отступы для кнопки */
+/* Стили для контактов (мелкий шрифт) */
+.mobile-contacts .mobile-nav-link { /* Селектор: выбирает элементы с классом 'mobile-nav-link', находящиеся внутри элемента с классом 'mobile-contacts' */
+    font-size: 0.95rem; /* Текст: размер шрифта для контактов */
+}
+
+/* Стили для кнопки в меню (с анимацией) */
+#mobile-claim { /* Селектор: выбирает элемент с ID 'mobile-claim' */
+  background: linear-gradient(135deg, #0da2e7, var(--accent2)); /* Фон: градиентный фон */
+  color: white; /* Текст: цвет текста */
+  text-align: center; /* Текст: выравнивание текста по центру */
+  border-radius: 8px; /* Визуальные эффекты: скругление углов */
+  margin-top: 15px; /* Внешние отступы: отступ сверху */
+  font-weight: 600; /* Текст: жирность шрифта */
+  border-bottom: none; /* Границы: убирает границу снизу */
+  padding: 12px 0; /* Внутренние отступы: отступы сверху и снизу */
+  /* Анимация кнопки */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Визуальные эффекты: плавный переход трансформации и тени */
+}
+
+#mobile-claim:hover { /* Селектор: выбирает элемент с ID 'mobile-claim' при наведении */
+  transform: scale(1.02); /* Визуальные эффекты: лёгкое увеличение при наведении */
+  box-shadow: 0 4px 12px rgba(13, 162, 231, 0.3); /* Эффекты: увеличенная тень при наведении */
 }
 
 /* ===== АДАПТИВНОСТЬ ГАМБУРГЕР МЕНЮ ===== */
-@media (max-width: 900px) {
-  .hamburger-btn {
-    display: flex;
+@media (max-width: 900px) { /* Медиа-запрос: применяется стили, когда ширина вьюпорта <= 900px */
+  /* Скрываем десктопную навигацию */
+  .desktop-nav { /* Селектор: выбирает элемент с классом 'desktop-nav' */
+      display: none; /* Отображение: скрывает элемент */
   }
 
-  .nav-links,
-  .header-claim-btn {
-    display: none;
+  /* Показываем гамбургер */
+  .hamburger-btn { /* Селектор: выбирает элемент с классом 'hamburger-btn' */
+    display: flex; /* Отображение: отображается как flex-элемент */
   }
 
-  .logo-text {
-    font-size: 1.5rem;
+  /* Скрываем стандартный логотип справа */
+  .logo-link:not(.mobile-logo-centered) { /* Селектор: выбирает элементы с классом 'logo-link', У которых НЕТ класса 'mobile-logo-centered' */
+      display: none; /* Отображение: скрывает элемент */
   }
 
-  .logo-icon {
-    width: 28px;
-    height: 28px;
+  /* Скрываем стандартный nav-right */
+  .nav-right { /* Селектор: выбирает элемент с классом 'nav-right' */
+      display: none; /* Отображение: скрывает элемент */
   }
-}
 
-@media (max-width: 500px) {
-  .mobile-menu {
-    width: 90%;
-    max-width: none;
-    left: -100%;
+  /* Показываем и центрируем логотип */
+  .mobile-logo-centered { /* Селектор: выбирает элемент с классом 'mobile-logo-centered' */
+      display: flex; /* Отображение: отображается как flex-элемент */
+      align-items: center; /* Flexbox: выравнивает содержимое по вертикали */
+      justify-content: center; /* Flexbox: выравнивает содержимое по горизонтали */
+      position: absolute; /* Позиционирование: абсолютное позиционирование */
+      left: 50%; /* Позиционирование: левый край элемента на 50% ширины родителя */
+      transform: translateX(-50%); /* Визуальные эффекты: сдвигает элемент на 50% его ширины влево (центрирует) */
+      margin: 0; /* Внешние отступы: убирает отступы */
+      /* Убираем flex из justify-content и align-items, если они были */
+      justify-content: center; /* Flexbox: выравнивание по горизонтали */
+      align-items: center; /* Flexbox: выравнивание по вертикали */
   }
-  .mobile-menu.active {
-    left: 0;
-    width: 90%;
-    max-width: none;
+
+  /* Логотип должен быть по центру, не мешать гамбургеру */
+  /* .header-placeholder не нужен, так как используем position: absolute для логотипа */
+
+  .mobile-menu { /* Селектор: выбирает элемент с классом 'mobile-menu' */
+    width: 90%; /* Размеры: ширина 90% от вьюпорта */
+    max-width: none; /* Размеры: убирает максимальную ширину */
+    transform: translateX(-100%); /* Визуальные эффекты: скрыто на 100% ширины меню */
   }
-}
+  .mobile-menu.active { /* Селектор: выбирает элемент с классом 'mobile-menu', у которого также есть класс 'active' */
+    transform: translateX(0%); /* Визуальные эффекты: открыто */
+    width: 90%; /* Размеры: ширина 90% от вьюпорта */
+    max-width: none; /* Размеры: убирает максимальную ширину */
+  }
+} /* Закрывает медиа-запрос @media (max-width: 900px) */
+
+
+/* ===== АДАПТИВНОСТЬ (медиазапросы) ===== */
+/* (Ваши старые медиазапросы для других элементов остаются) */
+@media (max-width: 600px) { /* Медиа-запрос: применяется стили, когда ширина вьюпорта <= 600px */
+  /* (Ваши старые стили) */
+} /* Закрывает медиа-запрос @media (max-width: 600px) */
 
 
 

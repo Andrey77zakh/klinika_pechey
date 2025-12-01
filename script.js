@@ -422,7 +422,7 @@ function initializeBlogLink() {
 
 
 
-// === ФУНКЦИОНАЛЬНОСТЬ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с правой стороны, с интерактивным свайпом) ===
+// === ФУНКЦИОНАЛЬНОСТЬ ГАМБУРГЕР МЕНЮ (Telegram-стиль, с левой стороны, с интерактивным свайпом) ===
 function initializeHamburgerMenu() {
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -435,7 +435,7 @@ function initializeHamburgerMenu() {
   let touchCurrentX = 0;
   let touchEndX = 0;
   let menuWidth = 0;
-  let initialMenuLeft = 0;
+  let initialMenuTransform = 0;
   let isDragging = false;
 
   if (!hamburgerBtn) {
@@ -445,14 +445,16 @@ function initializeHamburgerMenu() {
 
   // Функция открытия меню
   function openMenu() {
-    mobileMenu.style.left = '';
+    // Рассчитываем ширину меню перед открытием
     mobileMenu.classList.remove('active');
+    mobileMenu.style.transform = 'translateX(-100%)'; // Убеждаемся, что скрыто
     menuWidth = mobileMenu.getBoundingClientRect().width;
-    mobileMenu.classList.add('active');
-    mobileMenu.style.left = '0';
-
+    mobileMenu.style.transform = ''; // Сбрасываем стиль перед активацией
+    mobileMenu.classList.add('active'); // Применяем CSS-анимацию открытия
     mobileMenuOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    // Скрываем кнопку гамбургера
+    hamburgerBtn.classList.add('hidden');
   }
 
   // Функция закрытия меню
@@ -462,6 +464,8 @@ function initializeHamburgerMenu() {
       mobileMenuOverlay.classList.remove('active');
     }, 300);
     document.body.style.overflow = '';
+    // Показываем кнопку гамбургера
+    hamburgerBtn.classList.remove('hidden');
   }
 
   // Обработчик клика по гамбургеру
@@ -504,7 +508,9 @@ function initializeHamburgerMenu() {
   mobileMenu.addEventListener('touchstart', e => {
     if (!mobileMenu.classList.contains('active')) return;
     touchStartX = e.changedTouches[0].screenX;
-    initialMenuLeft = parseFloat(getComputedStyle(mobileMenu).left) || 0;
+    const computedStyle = getComputedStyle(mobileMenu);
+    const matrix = new DOMMatrixReadOnly(computedStyle.transform);
+    initialMenuTransform = matrix.m41; // X-смещение
     isDragging = true;
     if (e.cancelable) e.preventDefault();
   }, { passive: false });
@@ -512,9 +518,9 @@ function initializeHamburgerMenu() {
   mobileMenu.addEventListener('touchmove', e => {
     if (!isDragging) return;
     touchCurrentX = e.changedTouches[0].screenX;
-    let newLeft = initialMenuLeft + (touchCurrentX - touchStartX);
-    newLeft = Math.min(Math.max(newLeft, 0), menuWidth);
-    mobileMenu.style.left = `${newLeft}px`;
+    let newTransformX = initialMenuTransform + (touchCurrentX - touchStartX); // Добавляем deltaX
+    newTransformX = Math.min(Math.max(newTransformX, -menuWidth), 0); // Ограничиваем
+    mobileMenu.style.transform = `translateX(${newTransformX}px)`;
     mobileMenu.classList.remove('active');
     if (e.cancelable) e.preventDefault();
   }, { passive: false });
@@ -522,27 +528,29 @@ function initializeHamburgerMenu() {
   mobileMenu.addEventListener('touchend', e => {
     if (!isDragging) return;
     touchEndX = e.changedTouches[0].screenX;
-    const currentLeft = parseFloat(mobileMenu.style.left) || 0;
+    const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    const deltaX = touchEndX - touchStartX;
     const threshold = menuWidth * 0.3;
 
-    mobileMenu.style.left = '';
+    mobileMenu.style.transform = '';
     mobileMenu.classList.add('active');
 
-    if (currentLeft > threshold || (touchEndX - touchStartX) > 50) {
-      mobileMenu.style.transition = 'left 0.3s ease-out';
-      mobileMenu.style.left = `${menuWidth}px`;
+    if (currentTransformX < -threshold || deltaX < -50) { // Закрытие: ушло влево или свайп влево
+      mobileMenu.classList.remove('active');
+      mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
+      mobileMenu.style.transition = 'transform 0.3s ease-out';
 
       const handleTransitionEnd = () => {
         mobileMenu.classList.remove('active');
         mobileMenu.style.transition = '';
-        mobileMenu.style.left = '';
-        closeMenu();
+        mobileMenu.style.transform = '';
+        closeMenu(); // closeMenu теперь показывает кнопку
         mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
       };
       mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
     } else {
-      mobileMenu.style.transition = 'left 0.3s ease-out';
-      mobileMenu.style.left = '0px';
+      mobileMenu.style.transition = 'transform 0.3s ease-out';
+      mobileMenu.style.transform = 'translateX(0px)';
 
       const handleReturnTransitionEnd = () => {
         mobileMenu.style.transition = '';
@@ -558,7 +566,9 @@ function initializeHamburgerMenu() {
   mobileMenu.addEventListener('mousedown', e => {
     if (!mobileMenu.classList.contains('active')) return;
     touchStartX = e.screenX;
-    initialMenuLeft = parseFloat(getComputedStyle(mobileMenu).left) || 0;
+    const computedStyle = getComputedStyle(mobileMenu);
+    const matrix = new DOMMatrixReadOnly(computedStyle.transform);
+    initialMenuTransform = matrix.m41;
     isDragging = true;
     e.preventDefault();
   });
@@ -566,9 +576,9 @@ function initializeHamburgerMenu() {
   document.addEventListener('mousemove', e => {
     if (!isDragging) return;
     touchCurrentX = e.screenX;
-    let newLeft = initialMenuLeft + (touchCurrentX - touchStartX);
-    newLeft = Math.min(Math.max(newLeft, 0), menuWidth);
-    mobileMenu.style.left = `${newLeft}px`;
+    let newTransformX = initialMenuTransform + (touchCurrentX - touchStartX);
+    newTransformX = Math.min(Math.max(newTransformX, -menuWidth), 0);
+    mobileMenu.style.transform = `translateX(${newTransformX}px)`;
     mobileMenu.classList.remove('active');
     e.preventDefault();
   });
@@ -576,27 +586,29 @@ function initializeHamburgerMenu() {
   document.addEventListener('mouseup', e => {
     if (!isDragging) return;
     touchEndX = e.screenX;
-    const currentLeft = parseFloat(mobileMenu.style.left) || 0;
+    const currentTransformX = parseFloat(mobileMenu.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    const deltaX = touchEndX - touchStartX;
     const threshold = menuWidth * 0.3;
 
-    mobileMenu.style.left = '';
+    mobileMenu.style.transform = '';
     mobileMenu.classList.add('active');
 
-    if (currentLeft > threshold || (touchEndX - touchStartX) > 50) {
-      mobileMenu.style.transition = 'left 0.3s ease-out';
-      mobileMenu.style.left = `${menuWidth}px`;
+    if (currentTransformX < -threshold || deltaX < -50) {
+      mobileMenu.classList.remove('active');
+      mobileMenu.style.transform = `translateX(${-menuWidth}px)`;
+      mobileMenu.style.transition = 'transform 0.3s ease-out';
 
       const handleTransitionEnd = () => {
         mobileMenu.classList.remove('active');
         mobileMenu.style.transition = '';
-        mobileMenu.style.left = '';
-        closeMenu();
+        mobileMenu.style.transform = '';
+        closeMenu(); // closeMenu теперь показывает кнопку
         mobileMenu.removeEventListener('transitionend', handleTransitionEnd);
       };
       mobileMenu.addEventListener('transitionend', handleTransitionEnd, { once: true });
     } else {
-      mobileMenu.style.transition = 'left 0.3s ease-out';
-      mobileMenu.style.left = '0px';
+      mobileMenu.style.transition = 'transform 0.3s ease-out';
+      mobileMenu.style.transform = 'translateX(0px)';
 
       const handleReturnTransitionEnd = () => {
         mobileMenu.style.transition = '';
@@ -608,6 +620,7 @@ function initializeHamburgerMenu() {
     isDragging = false;
   });
 }
+
 
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
 document.addEventListener('DOMContentLoaded', function() {
