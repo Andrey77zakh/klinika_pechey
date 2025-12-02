@@ -781,19 +781,31 @@ function initializeNewFormModal() {
     openFormButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault(); // Предотвращаем переход по href="#"
-            formModal.style.display = 'flex'; // Показываем новое модальное окно
+            console.log('Открытие модального окна: добавляем класс active'); // <--- Добавлено
+            formModal.classList.add('active'); // Добавляем класс 'active' для отображения
         });
     });
 
     // Закрытие формы (крестик)
     closeFormButton.addEventListener('click', function() {
-        formModal.style.display = 'none'; // Скрываем новое модальное окно
+        console.log('Закрытие модального окна: клик по крестику, убираем класс active'); // <--- Добавлено
+        formModal.classList.remove('active'); // Убираем класс 'active' для скрытия
     });
 
     // Закрытие формы (клик вне контента)
-    window.addEventListener('click', function(event) {
-        if (event.target === formModal) {
-            formModal.style.display = 'none';
+    formModal.addEventListener('click', function(event) {
+        // Проверяем, кликнули ли *по оверлею*, а не по его дочернему элементу (плашке или форме)
+        if (!event.target.closest('.modal-cert')) {
+            console.log('Закрытие модального окна: клик по оверлею, убираем класс active'); // <--- Добавлено
+            formModal.classList.remove('active'); // Убираем класс 'active' для скрытия
+        }
+    });
+
+    // Опционально: Закрытие по клавише Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && formModal.classList.contains('active')) {
+            console.log('Закрытие модального окна: нажата Escape, убираем класс active'); // <--- Добавлено
+            formModal.classList.remove('active'); // Убираем класс 'active' для скрытия
         }
     });
 }
@@ -857,9 +869,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // --- ИСПОЛЬЗУЕМ ВАШ ПРАВИЛЬНЫЙ URL С /exec В КОНЦЕ ---
             // ВАЖНО: УБЕРИТЕ ПРОБЕЛЫ В КОНЦЕ URL!
-                fetch('https://script.google.com/macros/s/AKfycbykCRay9pGmGiY2sU_bt9c1uwVwSUYUsQwrz1Jj_X-il-vYwjMOBGKt3s9rgP2yiOs9Uw/exec', { // <--- УБРАНЫ ПРОБЕЛЫ!
+            // Правильный URL (убраны пробелы):
+            fetch('https://script.google.com/macros/s/AKfycbykCRay9pGmGiY2sU_bt9c1uwVwSUYUsQwrz1Jj_X-il-vYwjMOBGKt3s9rgP2yiOs9Uw/exec', { // <--- УБРАНЫ ПРОБЕЛЫ!
                 method: 'POST',
-                body: formData,
+                body: formData, // formData автоматически устанавливает правильный Content-Type
             })
             .then(response => {
                 if (!response.ok) {
@@ -872,7 +885,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     messageDiv.innerHTML = '<p style="color: green;">Спасибо! Ваша заявка принята.</p>';
                     form.reset(); // Очищаем форму
                     // Опционально: закрыть модальное окно через 2 секунды
-                    // setTimeout(() => { document.getElementById('formModal').style.display = 'none'; }, 2000);
+                    // setTimeout(() => { document.getElementById('formModal').classList.remove('active'); }, 2000);
                 } else {
                     messageDiv.innerHTML = `<p style="color: red;">Ошибка: ${data.message}</p>`;
                 }
@@ -888,5 +901,52 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.warn("Форма с id='stoveForm' не найдена на этой странице.");
     }
+});
+
+
+
+// === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация функций, которые могут понадобиться на разных страницах
+    initializeBlogLink(); // Активация ссылки "Блог" работает везде
+    initializeHamburgerMenu(); // Инициализация гамбургер-меню (Telegram-стиль) работает везде
+
+    // Проверяем, находимся ли мы на странице index.html
+    if (document.getElementById('blog-grid-main')) {
+        // Находимся на index.html
+        loadAndRenderBlogCardsMain('blog-grid-main', 10);
+        // initializeModal(); // <-- ЗАКОММЕНТИРОВАЛИ ИЛИ УДАЛИЛИ СТАРУЮ ИНИЦИАЛИЗАЦИЮ
+        initializeNewFormModal(); // <-- ДОБАВИЛИ НОВУЮ ИНИЦИАЛИЗАЦИЮ
+        initializeFaq(); // Инициализируем FAQ для index.html
+        initializeImageModals(); // Инициализируем модальные окна изображений для index.html
+    }
+
+    // Проверяем, находимся ли мы на странице article.html
+    if (document.getElementById('-')) { // Используем ID из Вашего article.html
+        // Находимся на article.html
+        loadAndRenderBlogCardsArticles('-');
+        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
+        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
+        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
+        // initializePageModal();
+    }
+
+    // Проверяем, находимся ли мы на странице статьи (например, blog1.html, blog2.html и т.д.)
+    if (document.getElementById('other-articles-grid')) {
+        // Находимся на странице статьи (например, blog1.html)
+        // Определяем slug текущей статьи из URL
+        const path = window.location.pathname;
+        const slug = path.split('/').pop().replace('.html', '');
+        // Вызываем функцию для загрузки *других* статей
+        loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
+        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
+        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
+        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
+        // initializePageModal();
+    }
+
+    // Инициализация копирования и скрытия шапки, если элементы существуют
+    initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
+    initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
 });
 

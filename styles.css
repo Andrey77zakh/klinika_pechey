@@ -1025,7 +1025,7 @@ footer {
 }
 
 /* Общие стили для оверлея модального окна */
-.modal-overlay-cert,
+.modal-overlay-form, /* <-- Изменён селектор */
 .modal-overlay-warranty {
     position: fixed;
     top: 0;
@@ -1042,34 +1042,51 @@ footer {
     transition: all 0.3s ease;
 }
 
-.modal-overlay-cert.active,
+.modal-overlay-form.active, /* <-- Изменён селектор */
 .modal-overlay-warranty.active {
     opacity: 1;
     visibility: visible;
 }
 
+
 /* Стили для контента модального окна */
 .modal-cert,
 .modal-warranty {
     position: relative; /* Для позиционирования крестика */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /* display: flex; <-- УБРАНО: не нужно, если элементы идут сверху вниз */
+    /* align-items: center; <-- УБРАНО: мешает вертикальному расположению */
+    /* justify-content: center; <-- УБРАНО: мешает вертикальному расположению */
     width: 90%; /* Ширина контента */
-    height: 90%; /* Высота контента */
+    max-width: 600px; /* <-- Добавлено: ограничение ширины */
+    height: auto; /* <-- Изменено: высота по содержимому */
+    max-height: 90vh; /* <-- Добавлено: максимальная высота */
+    background-color: var(--card-bg); /* Используем переменную для фона */
+    /* <-- Добавьте следующие строки: -->
+    background-color: var(--card-bg); /* Используем переменную для фона */
+    border: 1px solid var(--card-border); /* Используем переменную для границы */
+    border-radius: 24px; /* Скругление углов */
+    padding: 30px; /* Внутренние отступы */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Тень */
+    /* <-- /Добавьте -->
+    /* Убедитесь, что flex-direction позволяет размещать содержимое вертикально */
+    /* flex-direction: column; <-- УБРАНО: не нужно без display: flex */
+    z-index: 18001;
+    box-sizing: border-box; /* <-- Добавлено: для корректного расчёта padding */
+    overflow-y: auto; /* <-- Добавлено: прокрутка, если содержимое длинное */
+    gap: 15px; /* <-- Добавлено: отступ между элементами */
 }
 
-/* Стили для крестика закрытия */
+/* Крестик должен быть в правом верхнем углу внутри .modal-cert */
 .modal-close-cert,
 .modal-close-warranty {
     position: absolute;
     top: 15px; /* Отступ сверху */
     right: 20px; /* Отступ справа */
     font-size: 2.5rem; /* Размер крестика */
-    color: white; /* Цвет крестика */
+    color: var(--text-primary-light); /* Цвет крестика (может быть не white, если фон белый) */
     cursor: pointer; /* Курсор-указатель */
-    z-index: 10; /* Выше изображения */
-    background: rgba(0, 0, 0, 0.5); /* Фон для крестика */
+    z-index: 18100; /* Выше содержимого */
+    background: rgba(0, 0, 0, 0.1); /* Светлый фон для крестика на белом */
     border-radius: 50%; /* Круглый фон */
     width: 40px; /* Ширина фона */
     height: 40px; /* Высота фона */
@@ -1081,7 +1098,7 @@ footer {
 
 .modal-close-cert:hover,
 .modal-close-warranty:hover {
-    background: rgba(0, 0, 0, 0.8); /* Темнее фон при наведении */
+    background: rgba(0, 0, 0, 0.2); /* Темнее фон при наведении */
 }
 
 /* Стили для увеличенного изображения */
@@ -1092,6 +1109,53 @@ footer {
     object-fit: contain; /* Изображение вписывается в контейнер */
     border-radius: 8px; /* Небольшое скругление для изображения в модальном окне */
     z-index: 5; /* Ниже крестика */
+    z-index: 18000;
+}
+
+
+/* Стили для элементов формы внутри модального окна */
+#stoveForm {
+    display: flex; /* <-- Делаем форму flex-контейнером */
+    flex-direction: column; /* <-- Располагаем элементы вертикально */
+    width: 100%; /* <-- Занимаем всю ширину .modal-cert */
+    gap: 10px; /* <-- Отступ между элементами формы */
+}
+
+#stoveForm label {
+    display: block; /* <-- label становится блочным элементом, занимает всю ширину */
+    font-weight: 500; /* <-- (Опционально) делаем текст метки немного жирнее */
+    margin-bottom: 4px; /* <-- (Опционально) небольшой отступ снизу у метки */
+}
+
+#stoveForm input,
+#stoveForm textarea,
+#stoveForm button {
+    width: 100%; /* <-- Поля и кнопки занимают всю ширину */
+    padding: 12px; /* <-- (Опционально) внутренние отступы для удобства */
+    border: 1px solid var(--card-border); /* <-- (Опционально) граница */
+    border-radius: 8px; /* <-- (Опционально) скругление углов */
+    box-sizing: border-box; /* <-- Включаем padding в расчёт ширины */
+    font-size: 1rem; /* <-- (Опционально) размер шрифта */
+}
+
+#stoveForm textarea {
+    min-height: 100px; /* <-- (Опционально) минимальная высота для textarea */
+    resize: vertical; /* <-- (Опционально) позволяет пользователю изменять высоту */
+}
+
+#stoveForm button {
+    background: linear-gradient(135deg, #0da2e7, var(--accent2)); /* <-- Используем ваш градиент */
+    color: white; /* <-- Цвет текста */
+    border: none; /* <-- Убираем стандартную границу */
+    font-weight: 600; /* <-- Жирность текста */
+    cursor: pointer; /* <-- Курсор-указатель при наведении */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* <-- Плавный переход */
+    margin-top: 10px; /* <-- Отступ сверху для кнопки */
+}
+
+#stoveForm button:hover {
+    transform: scale(1.02); /* <-- Лёгкое увеличение при наведении */
+    box-shadow: 0 4px 12px rgba(13, 162, 231, 0.3); /* <-- Увеличенная тень при наведении */
 }
 
 
@@ -1730,5 +1794,7 @@ header {
 header.hidden {
     transform: translateY(-100%); /* Скрываем за верхнюю границу */
 }
+
+
 
 
