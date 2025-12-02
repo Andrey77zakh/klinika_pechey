@@ -762,17 +762,17 @@
       <span class="modal-close-cert" id="closeFormModal">&times;</span>
       <h2 style="color: var(--accent);">Вызвать печника</h2>
       <form id="stoveForm">
+        <label for="name">Ваше имя:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="location">Укажите местоположение объекта:</label>
+        <input type="text" id="location" name="location" required placeholder="Город, улица, номер дома">
+        
         <label for="problem">Опишите текущую проблему:</label>
         <textarea id="problem" name="problem" required placeholder="Например, дым идет не в трубу, а в комнату..."></textarea>
 
         <label for="photoUrl">Приложите фото печи и/или проблемного места (вставьте ссылку на изображение):</label>
         <input type="url" id="photoUrl" name="photoUrl" placeholder="https://example.com/photo.jpg">
-
-        <label for="location">Укажите местоположение объекта:</label>
-        <input type="text" id="location" name="location" required placeholder="Город, улица, номер дома">
-
-        <label for="name">Ваше имя:</label>
-        <input type="text" id="name" name="name" required>
 
         <label for="contacts">Ваши контактные данные:</label>
         <input type="text" id="contacts" name="contacts" required placeholder="Телефон или email">
