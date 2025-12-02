@@ -870,7 +870,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // --- ИСПОЛЬЗУЕМ ВАШ ПРАВИЛЬНЫЙ URL С /exec В КОНЦЕ ---
             // ВАЖНО: УБЕРИТЕ ПРОБЕЛЫ В КОНЦЕ URL!
             // Правильный URL (убраны пробелы):
-            fetch('https://script.google.com/macros/s/AKfycbykCRay9pGmGiY2sU_bt9c1uwVwSUYUsQwrz1Jj_X-il-vYwjMOBGKt3s9rgP2yiOs9Uw/exec', { // <--- УБРАНЫ ПРОБЕЛЫ!
+            fetch('https://script.google.com/macros/s/AKfycbxdx2jkuBL2o2k2eigAmsUwrsEEt9maGuYYySpHWj-a6A748Ohv5lYQeubQmHS8zb51ug/exec', { // <--- УБРАНЫ ПРОБЕЛЫ!
                 method: 'POST',
                 body: formData, // formData автоматически устанавливает правильный Content-Type
             })
@@ -949,4 +949,5 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
     initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
 });
+
 
