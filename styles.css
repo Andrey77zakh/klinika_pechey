@@ -182,6 +182,8 @@ header {
     transition: all 0.3s;               /* Плавный переход всех свойств */
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); /* Тень */
     animation: pulseButton 2s infinite; /* Анимация пульсации */
+    white-space: nowrap;                /* Текст не переносится */
+    overflow: hidden;                   /* Скрываем переполнение (если текст становится слишком широким) */
 }
 
 .header-claim-btn:hover {
@@ -396,8 +398,6 @@ header {
   font-weight: 600; /* Текст: жирность шрифта */
   border-bottom: none; /* Границы: убирает границу снизу */
   padding: 12px 0; /* Внутренние отступы: отступы сверху и снизу */
-  /* Анимация кнопки */
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Визуальные эффекты: плавный переход трансформации и тени */
 }
 
 #mobile-claim:hover { /* Селектор: выбирает элемент с ID 'mobile-claim' при наведении */
@@ -529,8 +529,8 @@ header {
 .glass-card {
     background: var(--card-bg);         /* Фон карточки */
     border: 1px solid var(--card-border); /* Граница карточки */
-    border-radius: 24px;                /* Скругленные углы */
-    padding: 48px;                      /* Внутренние отступы */
+    border-radius: 25px;                /* Скругленные углы */
+    padding: 25px;                      /* Внутренние отступы */
     backdrop-filter: var(--glass);      /* Эффект размытия */
     box-shadow: var(--shadow);          /* Тень карточки */
     width: 100%;                        /* Расширяем на всю ширину */
@@ -562,6 +562,25 @@ header {
     border-radius: 20px;                /* Скругленные углы */
     box-shadow: var(--shadow);          /* Тень фото */
 }
+
+
+
+
+
+
+/* ===== Стили карточки проблемы ===== */
+.problem-content {
+    display: flex; /* <-- Используем flexbox */
+    align-items: flex-start; /* <-- Выравнивание по верхнему краю */
+    gap: 5px; /* <-- Отступ между текстом и иконкой */
+    width: 100%; /* <-- Занимает всю ширину родителя (.glass-card) */
+}
+
+
+
+
+
+
 
 /* ===== СТИЛИ ЧАСТО ЗАДАВАЕМЫХ ВОПРОСОВ ===== */
 .faq-section {
@@ -834,7 +853,7 @@ footer {
     justify-content: center;
     align-items: center; /* Ключевое: выравнивание шагов по центру */
     position: relative;
-    padding: 64px 20px;
+    padding: 00px 0px;
     width: 100%;
     max-width: 100%;
     overflow: visible;
@@ -1026,7 +1045,8 @@ footer {
 
 /* Общие стили для оверлея модального окна */
 .modal-overlay-form, /* <-- Изменён селектор */
-.modal-overlay-warranty {
+.modal-overlay-warranty,
+.modal-overlay-cert {
     position: fixed;
     top: 0;
     left: 0;
@@ -1043,7 +1063,8 @@ footer {
 }
 
 .modal-overlay-form.active, /* <-- Изменён селектор */
-.modal-overlay-warranty.active {
+.modal-overlay-warranty.active,
+.modal-overlay-cert.active {
     opacity: 1;
     visibility: visible;
 }
@@ -1794,7 +1815,6 @@ header {
 header.hidden {
     transform: translateY(-100%); /* Скрываем за верхнюю границу */
 }
-
 
 
 

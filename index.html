@@ -73,6 +73,7 @@
     <div class="nav-right desktop-nav">
         <nav class="nav-links">
             <a href="index.html" class="nav-link active">Главная</a>
+            <a href="index.html#services" class="nav-link">Цены</a>
             <a href="article.html" class="nav-link">Блог</a>
         </nav>
         <a href="#" class="header-claim-btn" id="header-claim">Оставить заявку</a>
@@ -86,7 +87,7 @@
                 <a href="index.html#problems" class="nav-link mobile-nav-link">Частые проблемы в печах</a>
                 <a href="index.html#approach" class="nav-link mobile-nav-link">Наш подход к ремонту</a>
                 <a href="index.html#how-we-work" class="nav-link mobile-nav-link">Как мы работаем</a>
-                <a href="index.html#services" class="nav-link mobile-nav-link">Наши услуги</a>
+                <a href="index.html#services" class="nav-link mobile-nav-link">Цены</a>
                 <a href="index.html#about1" class="nav-link mobile-nav-link">О нас</a>
                 <a href="index.html#warranty" class="nav-link mobile-nav-link">Наши гарантии</a>
                 <a href="index.html#author" class="nav-link mobile-nav-link">Автор новых технологий ремонта</a>
@@ -141,47 +142,59 @@
 
       <!-- === 2. ПРОБЛЕМЫ: дымит, не греет, трескается === -->
       <section id = "problems">
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Почему в печах часто бывают проблемы?</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; width: 100%; justify-items: center;">
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Почему в печах часто бывают проблемы?</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; width: 100%; justify-items: center;">
           <div class="glass-card">
-            <!-- ✅ SEO: Иконка проблемы -->
-            <img src="images/smoke_icon.png" alt="Почему дымит печь — причины и решение от печника" title="Почему дымит печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему печь дымит?</h3>
-            <p>
-              - Плохая тяга,</p> 
-              - Нарушена герметичность,</p>
-              - Ошибочная система каналов,</p>
+            <div class="problem-content"> <!-- Обёртка для flex -->
+                <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; flex: 1; margin-right: 10px;">Почему печь дымит?</h3> <!-- Текст слева, flex: 1 позволяет ему растягиваться -->
+                <!-- ✅ SEO: Иконка проблемы -->
+                <img src="images/smoke_icon.png" alt="Почему дымит печь — причины и решение от печника" title="Почему дымит печь" style="width: 64px; height: 64px;" loading="lazy"> <!-- Иконка справа, убран margin-bottom -->
+            </div> <!-- /problem-content -->
+            <p style="margin-top: 10px;"> <!-- Перенесённый список причин -->
+              - Плохая тяга,<br>
+              - Нарушена герметичность,<br>
+              - Ошибочная система каналов,<br>
               - Не выдержаны технологии кладки
+            </p>
           </div>
           <div class="glass-card">
-            <!-- ✅ SEO: Иконка проблемы -->
-            <img src="images/no_heat_icon.png" alt="Почему не греет печь — причины и ремонт от печника" title="Почему не греет печь" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему печь не греет?</h3>
-            <p>
-              - Тепло уходит в трубу,</p>
-              - Неправильная конструкция топливника,</p> 
-              - Нарушена циркуляция воздуха,</p> 
+            <div class="problem-content"> <!-- Обёртка для flex -->
+                <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; flex: 1; margin-right: 10px;">Почему печь не греет?</h3>
+                <!-- ✅ SEO: Иконка проблемы -->
+                <img src="images/no_heat_icon.png" alt="Почему не греет печь — причины и ремонт от печника" title="Почему не греет печь" style="width: 64px; height: 64px;" loading="lazy"> <!-- Иконка справа, убран margin-bottom -->
+            </div> <!-- /problem-content -->
+            <p style="margin-top: 10px;">
+              - Тепло уходит в трубу,<br>
+              - Неправильная конструкция топливника,<br>
+              - Нарушена циркуляция воздуха,<br>
               - Утечка тепла из печи
+            </p>
           </div>
           <div class="glass-card">
-            <!-- ✅ SEO: Иконка проблемы -->
-            <img src="images/crack_icon.png" alt="Трещины в кирпичной печи — как устранить без сноса" title="Трещины в печи" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Изменил имя файла -->
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Из-за чего трещины в печи?</h3>
-            <p>
-              - Результат неправильной эксплуатации,</p>
-              - Узкие швы,</p>
-              - В печи нет термоизоляции,</p>
+            <div class="problem-content"> <!-- Обёртка для flex -->
+                <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; flex: 1; margin-right: 10px;">Из-за чего трещины в печи?</h3>
+                <!-- ✅ SEO: Иконка проблемы -->
+                <img src="images/crack_icon.png" alt="Трещины в кирпичной печи — как устранить без сноса" title="Трещины в печи" style="width: 64px; height: 64px;" loading="lazy"> <!-- Иконка справа, убран margin-bottom -->
+            </div> <!-- /problem-content -->
+            <p style="margin-top: 10px;">
+              - Результат неправильной эксплуатации,<br>
+              - Узкие швы,<br>
+              - В печи нет термоизоляции,<br>
               - Просадка фундамента или дома
+            </p>
           </div>
           <div class="glass-card"> <!-- Новая карточка -->
-            <!-- ✅ SEO: Иконка проблемы -->
-            <img src="images/insulation_icon.png" alt="Плохая тяга - Печник из Клиники Печей сможет починить печку" title="Плохая тяга причины" style="width: 64px; height: 64px; margin-bottom: 20px;" loading="lazy"> <!-- Новое имя файла -->
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem;">Почему плохая тяга?</h3>
-            <p>
-              - Незначительная утепленность дома</p>
-              - Короткая труба</p>
-              - Засажены каналы или труба</p>
+            <div class="problem-content"> <!-- Обёртка для flex -->
+                <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; flex: 1; margin-right: 10px;">Почему плохая тяга?</h3>
+                <!-- ✅ SEO: Иконка проблемы -->
+                <img src="images/insulation_icon.png" alt="Плохая тяга - Печник из Клиники Печей сможет починить печку" title="Плохая тяга причины" style="width: 64px; height: 64px;" loading="lazy"> <!-- Иконка справа, убран margin-bottom -->
+            </div> <!-- /problem-content -->
+            <p style="margin-top: 10px;">
+              - Незначительная утепленность дома<br>
+              - Короткая труба<br>
+              - Засажены каналы или труба<br>
               - Перекрыта подача воздуха
+            </p>
           </div>
         </div>
         <p style="text-align: center; margin-top: 40px;">
@@ -189,31 +202,10 @@
         </p>
       </section>
 
-      <!-- === 3. НАШ ПОДХОД (Новая секция) === -->
-      <section id = "approach" class="approach-section"> <!-- Добавлен класс для секции -->
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Наш подход - Инженерный подход к ремонту</h2>
-        <div class="approach-content">
-          <div class="images-container-approach">
-            <img src="images/schematic_example.png" alt="Схема устройства дымооборотов печи" title="Схема дымооборотов" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy">
-            <img src="images/doc_example.png" alt="Пример страницы документа с характеристиками печи" title="Пример документа" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy">
-          </div>
-          <div class="text-content-approach">
-            <p style="font-size: 1.2rem; line-height: 2;">
-              Мы не просто восстанавливаем кирпичные печи - <strong>мы пересоздаем их изнутри</strong>, превращая старую конструкцию в новую эффективную систему отопления.</p>
-              <p style="font-size: 1.2rem; line-height: 2;">
-              Этот подход основан на глубоком <strong>понимании физики тепла, инженерных расчётах и передовых технологиях</strong>.</p>
-              <p style="font-size: 1.2rem; line-height: 2;">
-              Нами разработаны <strong>современные технологии горения</strong>, которые в несколько раз уменьшают потребление топлива, а также увеличивают теплопередачу печи и ее теплоемкость.</p>
-              <p style="font-size: 1.2rem; line-height: 2;">
-              <br><strong>Тепло</strong> - это искусство, которое мы создаем вновь и вновь.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      <!-- === 4. ЭТАПЫ РАБОТЫ (Новая секция) === -->
+      <!-- === 3. ЭТАПЫ РАБОТЫ (Новая секция) === -->
       <section id = "how-we-work">
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Как мы работаем</h2>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Как мы работаем</h2>
         <p style="text-align: center; font-size: 1.2rem; margin-bottom: 0px;">
             Мы начинаем с диагностики печи на профессиональном оборудовании, с выявления корня проблемы.<br>
             Это основополагающая часть, без которой ремонт будет не качественным.<br>
@@ -263,10 +255,34 @@
           </div>
       </section>
 
+      <!-- === 4. НАШ ПОДХОД (Новая секция) === -->
+      <section id = "approach" class="approach-section"> <!-- Добавлен класс для секции -->
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Наш подход - Инженерный подход к ремонту</h2>
+        <div class="approach-content">
+          <div class="images-container-approach">
+            <img src="images/schematic_example.png" alt="Схема устройства дымооборотов печи" title="Схема дымооборотов" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy">
+            <img src="images/doc_example.png" alt="Пример страницы документа с характеристиками печи" title="Пример документа" style="border-radius: 16px; box-shadow: var(--shadow);" loading="lazy">
+          </div>
+          <div class="text-content-approach">
+            <p style="font-size: 1.2rem; line-height: 2;">
+              Мы не просто восстанавливаем кирпичные печи - <strong>мы пересоздаем их изнутри</strong>, превращая старую конструкцию в новую эффективную систему отопления.</p>
+              <p style="font-size: 1.2rem; line-height: 2;">
+              Этот подход основан на глубоком <strong>понимании физики тепла, инженерных расчётах и передовых технологиях</strong>.</p>
+              <p style="font-size: 1.2rem; line-height: 2;">
+              Нами разработаны <strong>современные технологии горения</strong>, которые в несколько раз уменьшают потребление топлива, а также увеличивают теплопередачу печи и ее теплоемкость.</p>
+              <p style="font-size: 1.2rem; line-height: 2;">
+              <br><strong>Тепло</strong> - это искусство, которое мы создаем вновь и вновь.
+            </p>
+          </div>
+        </div>
+      </section>
+
+
+
       <!-- === 5. Наши услуги (оригинальная секция, немного изменена) === -->
       <section id="services">
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Услуги по ремонту кирпичных печей</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; width: 100%;"> <!-- Изменил min-width карточки -->
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 0px 0 20px; color: var(--accent);">Услуги по ремонту кирпичных печей</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; width: 100%;"> <!-- Изменил min-width карточки -->
           <div class="glass-card">
             <img src="images/consultation_icon.png" alt="Консультация" title="Консультация" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
             <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Консультация</h3>
@@ -290,7 +306,7 @@
           </div>
           <div class="glass-card">
             <img src="images/repair_no_demolition_icon.png" alt="Ремонт без сноса" title="Ремонт без сноса" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Ремонт без сноса</h3>
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Ремонт печи</h3>
             <!-- описание -->
             <p style="margin-bottom: 22px; text-align: center;">Решение проблем: дымит, не греет.</p>
             <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 7 000 ₽</div>
@@ -304,7 +320,7 @@
           </div>
           <div class="glass-card">
             <img src="images/structural_repair_icon.png" alt="Конструкционный ремонт" title="Конструкционный ремонт" style="width: 64px; height: 64px; margin: 0 auto 15px; display: block;" loading="lazy"> <!-- Новая иконка -->
-            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Конструкционный ремонт</h3>
+            <h3 style="color: var(--accent); margin-bottom: 18px; font-size: 1.4rem; text-align: center;">Инженерный ремонт</h3>
             <!-- описание -->
             <p style="margin-bottom: 22px; text-align: center;">Реконструкция устройсва печи</p>
             <div style="font-size: 1.3rem; font-weight: 800; text-align: center;">от 27 000 ₽</div>
@@ -313,44 +329,9 @@
         <p style="text-align: center; margin: 28px 0; color: var(--text-secondary); font-size: 1.1rem;">Минимальная стоимость вызова мастера — от 7 000 ₽.
       </section>
 
-      <!-- === 6. Клиника Печей в цифрах (обновлённая секция) === -->
-      <section id ="about1">
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Клиника Печей в цифрах</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; width: 100%;">
-            <div style="text-align: center;">
-                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">30+</div>
-                <p>Работаем с 1993 года</p>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">0!</div>
-                <p>Ни одной снесенной печи, построенной нами</p>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">400+</div>
-                <p>Печей построено или отремонтировано</p>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">22</div>
-                <p>Работаем в регионах России</p>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">4ч.</div>
-                <p>Среднее время устранения проблемы (часы)</p>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">100+</div>
-                <p>Знаем если не все, то почти все типы печей и каминов</p>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 3.5rem; font-weight: 800; color: var(--accent);">25%</div>
-                <p>Среднее повышение КПД после ремонта</p>
-            </div>
-        </div>
-      </section>
-
-      <!-- === 7. О НАС (Новая секция) === -->
+      <!-- === 6. О НАС (Новая секция) === -->
       <section id = "about2">
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Кто мы?</h2>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Кто мы?</h2>
         <div class="glass-card">
           <!-- <p style="font-size: 1.2rem; line-height: 1.8; text-align: center;"> -->
             <!-- Команда инженеров и печников. -->
@@ -373,9 +354,44 @@
         </div>
       </section>
 
+      <!-- === 7. Клиника Печей в цифрах (обновлённая секция) === -->
+      <section id ="about1">
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Клиника Печей в цифрах</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; width: 100%;">
+            <div style="text-align: center;">
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--accent);">30+</div>
+                <p>Работаем с 1993 года</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--accent);">0!</div>
+                <p>Ни одной снесенной печи, построенной нами</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--accent);">400+</div>
+                <p>Печей построено или отремонтировано</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--accent);">22</div>
+                <p>Работаем в регионах России</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--accent);">4ч.</div>
+                <p>Среднее время устранения проблемы (часы)</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--accent);">100+</div>
+                <p>Знаем если не все, то почти все типы печей и каминов</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2.4rem; font-weight: 800; color: var(--accent);">25%</div>
+                <p>Среднее повышение КПД после ремонта</p>
+            </div>
+        </div>
+      </section>
+
       <!-- === 8. СЕРТИФИКАЦИЯ И ГАРАНТИИ === -->
       <section id = "warranty" class="cert-and-warranty-section">
-          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Сертификация услуг и наши гарантии</h2>
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Сертификация услуг и наши гарантии</h2>
           <div class="glass-card">
               <div class="cert-and-warranty-content">
                   <div class="images-container">
@@ -405,7 +421,7 @@
           </div>
       </section>
 
-      <!-- === МОДАЛЬНЫЕ ОКНА ДЛЯ ИЗОБРАЖЕНИЙ === -->
+        <!-- === МОДАЛЬНЫЕ ОКНА ДЛЯ ИЗОБРАЖЕНИЙ === -->
       <!-- Модальное окно для сертификата -->
       <div class="modal-overlay-cert" id="cert-modal">
         <div class="modal-cert">
@@ -424,7 +440,7 @@
 
       <!-- === 9. Технологии от Андрея Захарченко (оригинальная секция, немного изменена) === -->
       <section id = "author">
-        <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Автор инновационных решений в ремонте печей</h2>
+        <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Автор инновационных решений в ремонте печей</h2>
         <div class="founder-card">
           <div class="founder-content">
             <div>
@@ -450,7 +466,7 @@
 
       <!-- === 10. НАШИ РАБОТЫ (анимированная лента) === -->
       <section id = "gallery" class="works-slider-section">
-          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 20px; color: var(--accent);">Галерея работ</h2>
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 20px; color: var(--accent);">Галерея работ</h2>
           <div class="works-slider-container">
               <div class="works-slider-track">
                   <!-- Карточки работ будут дублированы для бесконечности -->
@@ -514,7 +530,7 @@
 
       <!-- === 11. БЛОГ (Новая секция - динамическая) === -->
       <section id="blog-section-main">
-          <h2 style="text-align: center; font-size: 2.2rem; margin: 120px 0 40px; color: var(--accent);">Истории ремонтов и полезные статьи</h2>
+          <h2 style="text-align: center; font-size: 2.2rem; margin: 60px 0 40px; color: var(--accent);">Истории ремонтов и полезные статьи</h2>
           <!-- Контейнер для карточек статей -->
           <div id="blog-grid-main" style="width: 100%;">
               <!-- Карточки будут вставлены сюда JavaScript'ом -->
@@ -674,7 +690,7 @@
   <!-- === ПОДВАЛ САЙТА (обновлённый) === -->
   <footer style="background-color: var(--text-primary-light); margin-top: auto; padding: 40px 0 40px; border-top: 1px solid var(--card-border);">
       <div class="container">
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 40px; width: 100%;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 25px; width: 100%;">
               <!-- Столбец 1: Название и описание -->
               <div style="text-align: left;">
                   <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px;">Клиника Печей</h3>
@@ -760,24 +776,25 @@
   <div id="formModal" class="modal-overlay-form"> <!-- <-- Изменён класс -->
     <div class="modal-cert">
       <span class="modal-close-cert" id="closeFormModal">&times;</span>
-      <h2 style="color: var(--accent);">Вызвать печника</h2>
+      <h2 style="color: var(--accent);">Заявка на ремонт печи</h2>
       <form id="stoveForm">
-        <label for="name">Ваше имя:</label>
-        <input type="text" id="name" name="name" required>
+        <label for="name" style="margin: 20px 0px 0px">Введите Ваше имя: *</label>
+        <input type="text" id="name" name="name" required placeholder="Иванов Иван Иваныч">
 
-        <label for="location">Укажите местоположение объекта:</label>
-        <input type="text" id="location" name="location" required placeholder="Город, улица, номер дома">
-        
-        <label for="problem">Опишите текущую проблему:</label>
+        <label for="location" style="margin: 20px 0px 0px">Укажите адрес, где необходим ремонт: *</label>
+        <input type="text" id="location" name="location" required placeholder="Регион, Поселок, Улица, Номер дома">
+
+        <label for="problem" style="margin: 20px 0px 0px">Опишите текущую проблему: *</label>
         <textarea id="problem" name="problem" required placeholder="Например, дым идет не в трубу, а в комнату..."></textarea>
 
-        <label for="photoUrl">Приложите фото печи и/или проблемного места (вставьте ссылку на изображение):</label>
+        <label for="photoUrl" style="margin: 20px 0px 0px">Приложите фото печи и/или проблемы <small>(вставьте ссылку на изображение - необязательно)</small>:</label>
         <input type="url" id="photoUrl" name="photoUrl" placeholder="https://example.com/photo.jpg">
 
-        <label for="contacts">Ваши контактные данные:</label>
-        <input type="text" id="contacts" name="contacts" required placeholder="Телефон или email">
+        <label for="contacts" style="margin: 20px 0px 0px">Ваши контактные данные: *</label>
+        <input type="text" id="contacts" name="contacts" required placeholder="Телефон, E-mail, VK или Telegram" style="margin: 0px 0px 20px">
 
         <button type="submit">Отправить заявку</button>
+        <label for="contacts" style="margin: 20px 0px 0px"><small>Мы свяжемся с Вами в течении двух рабочих дней, через предоставленные Вами контакты</small></label>
       </form>
       <div id="formMessage"></div>
     </div>

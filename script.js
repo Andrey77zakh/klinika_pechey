@@ -950,6 +950,3 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
 });
 
-
-
-

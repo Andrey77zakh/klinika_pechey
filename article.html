@@ -10,64 +10,77 @@
     как отремонтировать печь, сколько стоит починить печку, почему печь не греет, как сделать ремонт топки печи, русской печи или любой дровяной печи. 
     Советы эксперта.">
 
-    <!-- === FAVICON (иконка сайта) === -->
-    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="images/favicon.ico" sizes="32x32" type="image/x-icon">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <!-- === FAVICON (иконка сайта) === -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon.ico" sizes="32x32" type="image/x-icon">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  
+  <!-- === СТИЛИ САЙТА === -->
+  <link rel="stylesheet" href="styles.css">
 
-    <!-- === СТИЛИ САЙТА === -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- === ШРИФТ === -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter  :wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- === ШРИФТ === -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light"> <!-- Установлена светлая тема -->
 
 <!-- === ШАПКА САЙТА === -->
-</head>
-<body class="theme-light">
-    <header id="main-header">
-        <a href="index.html" class="logo-link">
-            <img src="images/icon.png" alt="Логотип Клиники Печей" title="Клиника Печей" class="logo-icon" loading="lazy">
-            <span class="logo-text">Клиника Печей</span>
-        </a>
-        <div class="nav-right">
-            <nav class="nav-links">
-                <a href="index.html" class="nav-link">Главная</a>
-                <a href="article.html" class="nav-link active">Блог</a>
-            </nav>
-            <a href="#" class="header-claim-btn" id="header-claim">Связаться с печником</a>
-        </div>
-  <!-- === КНОПКА ГАМБУРГЕР МЕНЮ === -->
+<header id="main-header">
+    <div class="header-content">
+        <!-- === КНОПКА ГАМБУРГЕР МЕНЮ (слева) === -->
         <button class="hamburger-btn" id="hamburger-btn" aria-label="Открыть меню">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
         </button>
 
-        <!-- === МОБИЛЬНОЕ МЕНЮ === -->
-        <div class="mobile-menu-overlay" id="mobile-menu-overlay">
-            <div class="mobile-menu" id="mobile-menu">
-                <!-- === ОСНОВНОЕ МЕНЮ === -->
-                <nav class="mobile-nav-links">
-                    <a href="index.html#problems" class="nav-link mobile-nav-link">Частые проблемы в печах</a>
-                    <a href="index.html#approach" class="nav-link mobile-nav-link">Наш подход к ремонту</a>
-                    <a href="index.html#how-we-work" class="nav-link mobile-nav-link">Как мы работаем</a>
-                    <a href="index.html#services" class="nav-link mobile-nav-link">Наши услуги</a>
-                    <a href="index.html#about1" class="nav-link mobile-nav-link">О нас</a>
-                    <a href="index.html#warranty" class="nav-link mobile-nav-link">Наши гарантии</a>
-                    <a href="index.html#author" class="nav-link mobile-nav-link">Автор новых технологий ремонта</a>
-                    <a href="index.html#gallery" class="nav-link mobile-nav-link">Галерея работ</a>
-                    <a href="index.html#blog-section-main" class="nav-link mobile-nav-link">Блог</a>
-                    <a href="index.html#faq" class="nav-link mobile-nav-link">Частые вопросы</a>
-                    <a href="#" class="btn mobile-nav-link" id="mobile-claim">Вызвать печника</a>
-                </nav>
-                <!-- === КОНТАКТЫ В МЕНЮ (внизу) === -->
-                <div class="mobile-contacts">
-                    <a href="tel:+79602188400" class="nav-link mobile-nav-link">+7 (960) 218-84-00</a>
-                    <a href="mailto:klinika-pechey@mail.ru" class="nav-link mobile-nav-link">klinika-pechey@mail.ru</a>
-                </div>
+        <!-- === ЛОГОТИП И НАЗВАНИЕ (по центру) - только для мобильных --->
+        <a href="index.html" class="logo-link mobile-logo-centered">
+            <img src="images/icon.png" alt="Ремонт кирпичной печки" title="Логотип Клиника Печей" class="logo-icon" loading="lazy">
+            <span class="logo-text">Клиника Печей</span>
+        </a>
+
+        <!-- Пустой div для выравнивания логотипа по центру -->
+        <div class="header-placeholder"></div>
+    </div>
+
+    <!-- === ПРАВАЯ ЧАСТЬ ШАПКИ (для десктопа) - СКРЫТА НА МОБИЛЬНЫХ --->
+    <div class="nav-right desktop-nav">
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="index.html#services" class="nav-link">Цены</a>
+            <a href="article.html" class="nav-link active">Блог</a>
+        </nav>
+        <a href="#" class="header-claim-btn" id="header-claim">Вызвать печника</a>
+    </div>
+
+    <!-- === МОБИЛЬНОЕ МЕНЮ (Telegram-стиль, слева) === -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <div class="mobile-menu" id="mobile-menu">
+            <!-- === ОСНОВНОЕ МЕНЮ === -->
+            <nav class="mobile-nav-links">
+                <a href="index.html#problems" class="nav-link mobile-nav-link">Частые проблемы в печах</a>
+                <a href="index.html#approach" class="nav-link mobile-nav-link">Наш подход к ремонту</a>
+                <a href="index.html#how-we-work" class="nav-link mobile-nav-link">Как мы работаем</a>
+                <a href="index.html#services" class="nav-link mobile-nav-link">Цены</a>
+                <a href="index.html#about1" class="nav-link mobile-nav-link">О нас</a>
+                <a href="index.html#warranty" class="nav-link mobile-nav-link">Наши гарантии</a>
+                <a href="index.html#author" class="nav-link mobile-nav-link">Автор новых технологий ремонта</a>
+                <a href="index.html#gallery" class="nav-link mobile-nav-link">Галерея работ</a>
+                <a href="index.html#blog-section-main" class="nav-link mobile-nav-link">Блог</a>
+                <a href="index.html#faq" class="nav-link mobile-nav-link">Частые вопросы</a>
+            </nav>
+            <div class="mobile-claim">
+                <a href="#" class="btn mobile-nav-link" id="mobile-claim">Вызвать печника</a>
+            </div>
+            <!-- === КОНТАКТЫ В МЕНЮ (внизу, мелким шрифтом) === -->
+            <div class="mobile-contacts">
+                <a href="tel:+79602188400" class="nav-link mobile-nav-link">+7 (960) 218-84-00</a>
+                <a href="mailto:klinika-pechey@mail.ru" class="nav-link mobile-nav-link">klinika-pechey@mail.ru</a>
             </div>
         </div>
-    </header>
+    </div>
+</header>
+
 
     <div class="page">
         <div class="container">
