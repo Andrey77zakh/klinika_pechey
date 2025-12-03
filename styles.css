@@ -571,8 +571,7 @@ header {
 /* ===== Стили карточки проблемы ===== */
 .problem-content {
     display: flex; /* <-- Используем flexbox */
-    align-items: flex-start; /* <-- Выравнивание по верхнему краю */
-    gap: 5px; /* <-- Отступ между текстом и иконкой */
+    align-items: center;/*- Выравнивание по верхнему краю */
     width: 100%; /* <-- Занимает всю ширину родителя (.glass-card) */
 }
 
@@ -832,8 +831,8 @@ footer {
 /* Дополнительные стили для очень узких экранов */
 @media (max-width: 324px) {
     .approach-content {
-        gap: 30px; /* Уменьшаем общий отступ */
-        padding: 24px 16px; /* Уменьшаем внутренние отступы */
+        gap: 10px; /* Уменьшаем общий отступ */
+        padding: 10px 10px; /* Уменьшаем внутренние отступы */
     }
     .images-container-approach {
         gap: 8px; /* Уменьшаем отступ между изображениями */
@@ -938,7 +937,7 @@ footer {
         display: block !important; /* Обычный блок */
         justify-content: center !important; /* Отключаем justify-content */
         align-items: center !important; /* Отключаем align-items */
-        padding: 25px !important; /* Отступы */
+        padding: 15px !important; /* Отступы */
         width: fit-content !important;
         max-width: 100% !important;
         overflow: visible !important;
@@ -971,10 +970,10 @@ footer {
         background: var(--card-bg) !important; /* Белый фон */
         border: 1px solid var(--card-border) !important; /* Граница */
         border-radius: 24px !important; /* Скругленные углы */
-        padding: 15px !important; /* Внутренние отступы */
+        padding: 10px !important; /* Внутренние отступы */
         box-shadow: var(--shadow) !important; /* Тень */
         backdrop-filter: var(--glass) !important; /* Эффект размытия */
-        margin-bottom: 25px !important; /* Отступ снизу (20px между плашками) */
+        margin-bottom: 15px !important; /* Отступ снизу (20px между плашками) */
         position: relative !important; /* Для позиционирования */
         text-align: left !important; /* Выравнивание текста */
         max-width: 600px !important; /* Устанавливаем максимальную ширину */
@@ -989,8 +988,8 @@ footer {
     }
 
     .timeline-step-icon-wrapper {
-        width: 64px !important;
-        height: 64px !important;
+        width: 48px !important;
+        height: 48px !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
@@ -1005,8 +1004,8 @@ footer {
     }
 
     .timeline-step-icon-wrapper img {
-        width: 70% !important;
-        height: 70% !important;
+        width: 60% !important;
+        height: 60% !important;
         object-fit: contain !important;
         max-width: 100% !important;
         max-height: 100% !important;
@@ -1014,7 +1013,7 @@ footer {
 
     .timeline-step-text {
         margin: 0px !important;
-        font-size: 1.1rem !important;
+        font-size: 0.9rem !important;
         font-weight: 500 !important;
         color: var(--text) !important;
         line-height: 1.4 !important;
@@ -1315,7 +1314,7 @@ footer {
     }
 
     .text-content {
-        padding: 0 10px; /* Небольшие отступы по бокам текста */
+        padding: 0 5px; /* Небольшие отступы по бокам текста */
     }
 }
 
@@ -1329,7 +1328,11 @@ footer {
     }
 }
 
-/* ===== СТИЛИ СЕКЦИИ "НАШИ РАБОТЫ" (анимированная лента) ===== */
+
+
+
+
+/* ===== СТИЛИ СЕКЦИИ "НАШИ РАБОТЫ" (с ползунком и ручным управлением) ===== */
 .works-slider-section {
     overflow: hidden; /* Скрываем переполнение за пределами контейнера */
     padding: 20px 0; /* Небольшие отступы сверху/снизу */
@@ -1337,15 +1340,38 @@ footer {
 
 .works-slider-container {
     width: 100%;
-    overflow: hidden; /* ВАЖНО: скрывает изображения за краями контейнера */
-    position: relative;
+    overflow-x: auto; /* ВАЖНО: включает горизонтальный скролл и ползунок */
+    overflow-y: hidden; /* Скрываем вертикальный скролл */
     padding: 20px 0; /* Отступы для "дыхания" ленты */
+    /* Стилизация ползунка */
+    scrollbar-width: thin; /* Для Firefox */
+    scrollbar-color: #888 #f1f1f1; /* Цвет ползунка и фона полосы (Firefox) */
+}
+
+.works-slider-container::-webkit-scrollbar {
+    height: 12px; /* Высота горизонтального ползунка */
+}
+
+.works-slider-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Цвет фона полосы прокрутки */
+    border-radius: 10px;
+}
+
+.works-slider-container::-webkit-scrollbar-thumb {
+    background: #888; /* Цвет ползунка */
+    border-radius: 10px;
+}
+
+.works-slider-container::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Цвет ползунка при наведении */
 }
 
 .works-slider-track {
     display: flex; /* Располагаем слайды в ряд */
-    width: fit-content; /* Ширина по содержимому (все слайды) */
-    animation: slideAnimation 40s linear infinite; /* Анимация: 30с, линейно, бесконечно. Можете изменить 30s на другое значение для скорости */
+    /* УБРАНО: width: fit-content; */
+    /* УБРАНО: animation */
+    /* УБРАНО: transform */
+    /* width теперь зависит от содержимого, которое может быть больше, чем контейнер */
 }
 
 .works-slide {
@@ -1355,22 +1381,17 @@ footer {
     box-shadow: var(--shadow); /* Тень */
     overflow: hidden; /* Обрезаем, если нужно (например, для скругления) */
     width: 300px; /* Фиксированная ширина слайда */
-    /* УБРАЛИ фиксированную высоту */
     display: flex;
     flex-direction: column; /* Располагаем изображение и текст вертикально */
     align-items: center; /* Центрируем содержимое по горизонтали */
-    /* Убираем жёсткую высоту, позволяя содержимому определять высоту */
 }
 
 .works-slide img {
     width: 100%; /* Изображение занимает всю ширину слайда */
-    /* УБРАЛИ фиксированную высоту */
-    /* УБРАЛИ object-fit: cover; - теперь изображение масштабируется пропорционально */
     height: auto; /* Высота определяется пропорционально ширине */
     display: block; /* Убираем возможные пробелы */
     border-top-left-radius: 16px; /* Скругление верхних углов изображения */
     border-top-right-radius: 16px; /* Скругление верхних углов изображения */
-    /* УБРАНО: object-fit: cover; */
 }
 
 /* ===== СТИЛИ ТЕКСТА ПОД ИЗОБРАЖЕНИЕМ В ЛЕНТЕ ===== */
@@ -1381,7 +1402,6 @@ footer {
     font-size: 1rem; /* Размер шрифта */
     color: var(--text-secondary); /* Цвет текста */
     padding: 0 5px; /* Небольшие внутренние отступы по бокам */
-    /* white-space: nowrap; - УБРАНО, чтобы текст мог переноситься */
     overflow: hidden; /* Скрываем переполнение */
     text-overflow: ellipsis; /* Добавляем многоточие, если текст не помещается в одну строку */
     flex-shrink: 0; /* Не сжимаем блок текста */
@@ -1391,28 +1411,11 @@ footer {
     box-sizing: border-box; /* Включаем padding в расчёт ширины */
 }
 
-/* Анимация прокрутки */
-@keyframes slideAnimation {
-    from {
-        transform: translateX(0); /* Начальная позиция */
-    }
-    to {
-        transform: translateX(-50%); /* Конечная позиция: сдвиг на 50% (длина одного набора) */
-    }
-}
-
-/* Псевдокласс для остановки анимации при наведении (опционально) */
-.works-slider-container:hover .works-slider-track {
-    animation-play-state: paused; /* Останавливаем анимацию при наведении */
-}
-
 /* ===== АДАПТИВНЫЕ СТИЛИ Наши Работы===== */
 @media (max-width: 900px) {
     .works-slide {
         width: 250px; /* Уменьшаем ширину слайда */
-        /* Высота теперь зависит от изображения и текста */
     }
-    /* works-slide img и works-slide-text адаптируются автоматически */
     .works-slide-text {
         font-size: 0.9rem; /* Уменьшаем размер шрифта */
     }
@@ -1431,6 +1434,107 @@ footer {
         margin: 80px 0; /* Уменьшаем внешние отступы */
     }
 }
+
+
+
+/* ===== СТИЛИ ИКОНКИ УВЕЛИЧЕНИЯ ===== */
+.works-slide {
+    position: relative; /* ВАЖНО: для позиционирования иконки */
+}
+
+.zoom-icon {
+    position: absolute;
+    top: 10px; /* Отступ от верхнего края слайда */
+    right: 10px; /* Отступ от правого края слайда */
+    width: 30px; /* Ширина иконки */
+    height: 30px; /* Высота иконки */
+    z-index: 10; /* Поверх изображения */
+    cursor: pointer; /* Курсор указывает на кликабельность */
+    display: flex; /* Центрируем содержимое */
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Изображение масштабируется, не обрезаясь */
+}
+
+/* Опционально: hover эффект для иконки */
+.zoom-icon:hover .zoom-icon-img {
+    opacity: 0.8; /* Слегка затемняем при наведении */
+    transform: scale(1.1); /* Легкое увеличение */
+    transition: opacity 0.2s, transform 0.2s; /* Плавный переход */
+}
+
+
+/* ===== СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ИЗОБРАЖЕНИЯ ГАЛЕРЕИ ===== */
+/* Оверлей (затемнение фона) - переопределяет opacity и visibility из общего .modal-overlay */
+.modal-overlay.gallery-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Должен быть выше всего */
+    cursor: pointer; /* Курсор указывает, что можно кликнуть для закрытия */
+
+    /* ЯВНО переопределяем свойства, установленные в общем .modal-overlay */
+    opacity: 1; /* Убедиться, что видимо */
+    visibility: visible; /* Убедиться, что видимо */
+}
+
+/* Контейнер для изображения внутри оверлея */
+.modal-overlay.gallery-image-overlay > div {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+/* Изображение в модальном окне */
+.modal-overlay.gallery-image-overlay img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    border-radius: 8px; /* Опционально: скругление углов */
+    object-fit: contain; /* Важно: изображение масштабируется пропорционально, не обрезаясь */
+}
+
+/* Кнопка закрытия (крестик) */
+.modal-close-btn.gallery-image-close {
+    position: absolute;
+    top: -40px; /* Размещаем над изображением */
+    right: 0; /* Прижимаем к правому краю контейнера изображения */
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    z-index: 10001; /* Должен быть выше изображения */
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none; /* Убираем фон */
+    border: none; /* Убираем границу */
+    padding: 0; /* Убираем внутренние отступы */
+}
+
+/* Опционально: hover эффект для крестика */
+.modal-close-btn.gallery-image-close:hover {
+    color: #ccc; /* Светлее при наведении */
+}
+
+
+
+
+
 
 /* ===== АДАПТИВНЫЕ СТИЛИ ===== */
 @media (max-width: 900px) {
@@ -1818,3 +1922,256 @@ header.hidden {
 
 
 
+
+/* ===== ДОПОЛНИТЕЛЬНАЯ АДАПТАЦИЯ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ (ШИРИНА < 800PX) ===== */
+@media (max-width: 800px) {
+  /* 1. Уменьшение размеров текста */
+  body {
+    font-size: 0.9rem; /* Уменьшаем основной шрифт */
+  }
+
+  .hero h1 {
+    font-size: 2rem; /* Уменьшаем заголовок героя */
+  }
+
+  .hero p {
+    font-size: 0.8rem; /* Уменьшаем текст героя */
+  }
+
+  .article-content p,
+  .faq-answer p,
+  .blog-card p,
+  .mobile-contacts .mobile-nav-link,
+  .timeline-step-text,
+  .founder-card p,
+  .about-us-content .text-content p,
+  .cert-and-warranty-content .text-content p {
+    font-size: 0.9rem; /* Уменьшаем основной текст в статьях, FAQ, карточках, меню, этапах, о нас, гарантиях */
+  }
+
+  .faq-question span,
+  .mobile-nav-link,
+  .founder-card h3,
+  .about-us-content .text-content h3,
+  .cert-and-warranty-content .text-content h3 {
+    font-size: 1rem; /* Уменьшаем подзаголовки */
+  }
+
+  .blog-card h3,
+  .section-title {
+    font-size: 1.1rem; /* Уменьшаем заголовки карточек блога и секций */
+  }
+
+  /* 1a. Уменьшение размера заголовков, переопределяя инлайновые стили */
+  /* Целевое правило для h2 с инлайновым font-size */
+  h2[style*="font-size"] {
+    font-size: 1.2rem !important; /* Уменьшаем h2 с инлайновым стилем */
+  }
+
+  /* Целевое правило для h3 с инлайновым font-size (если есть) */
+  h3[style*="font-size"] {
+    font-size: 1.1rem !important; /* Уменьшаем h3 с инлайновым стилем */
+  }
+
+  /* Целевое правило для h4 с инлайновым font-size (если есть) */
+  h4[style*="font-size"] {
+    font-size: 1rem !important; /* Уменьшаем h4 с инлайновым стилем */
+  }
+
+  /* 2. Уменьшение отступов */
+  .container {
+    padding: 0 10px; /* Уменьшаем отступы контейнера */
+  }
+
+  .hero {
+    padding: 80px 0 60px; /* Уменьшаем отступы героя */
+  }
+
+  .hero-content {
+    padding: 20px 10px; /* Уменьшаем внутренние отступы героя */
+  }
+
+  .glass-card,
+  .founder-card {
+    padding: 15px; /* Уменьшаем внутренние отступы карточек */
+  }
+
+  .faq-item {
+    margin-bottom: 12px; /* Уменьшаем нижний отступ вопросов FAQ */
+  }
+
+  .faq-question {
+    padding: 14px 20px; /* Уменьшаем внутренние отступы вопросов FAQ */
+  }
+
+  .faq-answer {
+    padding: 0 20px; /* Уменьшаем внутренние отступы ответов FAQ */
+  }
+
+  .faq-answer.open {
+    padding: 20px; /* Уменьшаем внутренние отступы открытых ответов FAQ */
+  }
+
+  .modal {
+    padding: 30px; /* Уменьшаем внутренние отступы модального окна */
+  }
+
+  .modal p {
+    font-size: 1rem; /* Уменьшаем размер шрифта в модальном окне */
+  }
+
+  .gallery-item,
+  .works-slide {
+    margin-right: 15px; /* Уменьшаем отступ между элементами галереи/ленты */
+  }
+
+  .works-slide {
+    width: 250px; /* Уменьшаем ширину слайда */
+  }
+
+  .works-slide-text {
+    font-size: 0.9rem; /* Уменьшаем размер шрифта текста под слайдом */
+    margin-top: 8px; /* Уменьшаем отступ сверху */
+    margin-bottom: 8px; /* Уменьшаем отступ снизу */
+  }
+
+  .blog-grid {
+    gap: 20px; /* Уменьшаем отступ между карточками блога */
+  }
+
+  .blog-card-content {
+    padding: 18px; /* Уменьшаем внутренние отступы карточки блога */
+  }
+
+  .founder-content {
+    padding: 10px; /* Уменьшаем внутренние отступы карточки "о нас" */
+    gap: 20px; /* Уменьшаем отступ между текстом и изображением */
+  }
+
+  .cert-and-warranty-content {
+    padding: 0px; /* Уменьшаем внутренние отступы секции гарантий */
+    gap: 20px; /* Уменьшаем отступ между текстом и изображениями */
+  }
+
+  .text-content-approach p,
+  .text-content p {
+    font-size: 0.9rem; /* Уменьшаем размер шрифта в текстовых блоках */
+  }
+
+  /* 3. Адаптация шапки */
+  .logo-text {
+    font-size: 1.1rem; /* Уменьшаем размер текста логотипа */
+  }
+
+  .logo-icon {
+    width: 26px; /* Уменьшаем ширину иконки логотипа */
+    height: 26px; /* Уменьшаем высоту иконки логотипа */
+  }
+
+  header {
+    height: 64px; /* Уменьшаем высоту шапки */
+    padding: 0 16px; /* Уменьшаем внутренние отступы шапки */
+  }
+
+  /* 4. Специфика страниц статей (blog1, blog2 и т.д.) */
+  /* Установка фона для .article-hero-bg на конкретной странице */
+  /* Эта часть должна быть адаптирована в HTML/JS для каждой статьи */
+  /* Пример для blog1.html: */
+  /* body.blog1 .article-hero-bg { background-image: url('images/blog1/head.png'); } */
+  /* body.blog2 .article-hero-bg { background-image: url('images/blog2/head.png'); } */
+  /* и т.д. */
+
+  /* Скрытие подзаголовка в .article-hero-content */
+  .article-hero-content p {
+    display: none !important; /* Скрываем подзаголовок, переопределяет inline */
+  }
+
+  /* Уменьшение заголовка в .article-hero-content */
+  .article-hero-content h1 {
+    font-size: 1.8rem !important; /* Уменьшаем размер заголовка статьи, переопределяет inline */
+    margin-bottom: 10px; /* Уменьшаем отступ снизу */
+  }
+
+  /* Уменьшение внутренних отступов .article-hero-content */
+  .article-hero-content {
+    padding: 15px 20px; /* Уменьшаем внутренние отступы */
+    background: rgba(0, 0, 0, 0.4); /* Возможно, немного темнее фон для контраста при уменьшении */
+  }
+
+  /* Уменьшение отступа у основного контента статьи */
+  .article-content {
+    padding: 15px 15px 0; /* Уменьшаем внутренние отступы */
+    border-top-left-radius: 16px; /* Уменьшаем скругление */
+    border-top-right-radius: 16px; /* Уменьшаем скругление */
+    transform: translateY(-32px); /* Поднимаем основной контент чуть выше */
+  }
+
+  /* Уменьшение размера изображений в статье */
+  .article-content img {
+    max-width: 100%; /* Изображения занимают всю ширину */
+    border-radius: 12px; /* Уменьшаем скругление */
+  }
+
+  .float-right,
+  .float-left {
+    max-width: 50%; /* Ограничиваем ширину плавающих изображений */
+    margin-bottom: 10px; /* Уменьшаем отступ снизу */
+  }
+
+  /* 5. Общие улучшения */
+  .btn {
+    padding: 14px 30px; /* Уменьшаем внутренние отступы кнопок */
+    font-size: 1.1rem; /* Уменьшаем размер шрифта кнопок */
+  }
+
+  .header-claim-btn {
+    padding: 8px 16px; /* Уменьшаем внутренние отступы кнопки в шапке */
+    font-size: 0.95rem; /* Уменьшаем размер шрифта кнопки в шапке */
+  }
+
+  .timeline-step-text {
+    font-size: 1rem; /* Уменьшаем размер шрифта текста этапов */
+    margin-top: 110px; /* Уменьшаем отступ сверху для текста этапов */
+  }
+
+  .modal-cert,
+  .modal-warranty {
+    padding: 20px; /* Уменьшаем внутренние отступы модальных окон изображений */
+  }
+
+  #stoveForm input,
+  #stoveForm textarea,
+  #stoveForm button {
+    padding: 10px; /* Уменьшаем внутренние отступы элементов формы */
+  }
+
+  /* 6. Уменьшение текста под иконками в герое (переопределяет inline-стиль) */
+  .hero-content div p {
+    font-size: 0.8rem !important; /* Уменьшаем размер шрифта текста под иконками */
+    margin: 2px 0; /* Можно немного уменьшить вертикальные отступы между строками */
+  }
+
+  /* Также уменьшаем иконки, если нужно */
+  .hero-content div img {
+    width: 40px !important; /* Уменьшаем ширину иконки */
+    height: 40px !important; /* Уменьшаем высоту иконки */
+    margin-bottom: 5px !important; /* Уменьшаем отступ снизу у иконки */
+  }
+
+  /* Возможно, стоит уменьшить gap между блоками и общий отступ */
+  .hero-content > div[style*="gap"] { /* Целевое правило для flex-контейнера */
+    gap: 15px !important; /* Уменьшаем отступ между блоками иконок */
+  }
+
+  .hero-content > div[style*="margin-top: 30px"] { /* Целевое правило для flex-контейнера */
+    margin-top: 20px !important; /* Уменьшаем верхний отступ блока иконок */
+  }
+
+  /* 7. (Опционально) Более мягкий сброс отступов у изображений, если они заданы inline */
+  /* Применяется осторожно, только к изображениям в статьях */
+  .article-content img[style*="margin"],
+  .article-content img[style*="padding"] {
+      margin: inherit; /* Пытаемся наследовать от родителя или сбросить к базовому значению */
+      padding: inherit;
+  }
+}

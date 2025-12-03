@@ -1,25 +1,3 @@
-//ФАЙЛ -------INDEX------!!!!!
-
-// === МОДАЛЬНОЕ ОКНО (только для index.html и других страниц, где есть #modal) ===
-//function initializeModal() {
-    //const modal = document.getElementById('modal');
-    //const claimButtons = document.querySelectorAll('#header-claim, #hero-claim, #footer-claim');
-    //const modalContinue = document.getElementById('modal-continue');
-
-   // if (!modal || !claimButtons.length || !modalContinue) {
-   //     console.warn("Элементы модального окна не найдены, инициализация пропущена.");   return; }
-
-   // claimButtons.forEach(btn => {
-   //     btn.addEventListener('click', (e) => {    e.preventDefault();  modal.classList.add('active'); }); });
-
-   // modalContinue.addEventListener('click', () => {
-   //     modal.classList.remove('active');
-   //     window.open('https://docs.google.com/forms/d/e/1FAIpQLSd43JD1m9aXU2vwiuilfgVJm-o7o_XOiPeAFBwVYSxU_r_9Mg/viewform  ', '_blank'); });
-
-   // modal.addEventListener('click', (e) => {
-   //     if (e.target === modal) {modal.classList.remove('active');} });
-
-
 // === FAQ АККОРДЕОН (только для index.html, где есть .faq-question) ===
 function initializeFaq() {
     const faqQuestions = document.querySelectorAll('.faq-question');
@@ -396,9 +374,6 @@ function initializeBlogLink() {
 
     // Пройдемся по всем ссылкам
     navLinks.forEach(link => {
-        // Проверяем, ведёт ли ссылка на article.html (страницу со списком статей)
-        // или является ли текущая страница (например, blog1.html) отличной от index.html
-        // и при этом ссылка ведёт на article.html
         if (link.getAttribute('href') === 'article.html') {
             // Убираем класс 'active' у всех ссылок
             navLinks.forEach(l => l.classList.remove('active'));
@@ -552,20 +527,6 @@ function initializeHamburgerMenu() {
       }
     });
   });
-
-  // Обработчик для кнопок
- // claimButtons.forEach((btn, index) => {
-   // console.log(`Setting up handler for claim button ${index}:`, btn);
-   // btn.addEventListener('click', (e) => {
-   //   console.log('=== CLICK ON CLAIM BUTTON DETECTED ===');
-   //   console.log('Clicked claim button:', btn);
-  //    console.log('Clicked claim button text:', btn.textContent.trim());
-      
-  //    setTimeout(() => {
-  //      closeMenu();
-  //    }, 100);
- //   });
- // });
 
   // === СВАЙП ДЛЯ ЗАКРЫТИЯ МЕНЮ (Telegram-стиль: свайп влево по меню, чтобы задвинуть его влево) ===
   // Touch events для мобильных устройств
@@ -764,6 +725,33 @@ function initializeHamburgerMenu() {
 
 
 
+// === ФУНКЦИОНАЛЬНОСТЬ МОДАЛЬНОГО ОКНА ДЛЯ ПРОИЗВОЛЬНЫХ ИЗОБРАЖЕНИЙ (только для index.html, где есть .zoomable-image) ===
+function initializeZoomableImages() {
+    const zoomableImages = document.querySelectorAll('.zoomable-image');
+    if (!zoomableImages.length) {
+        console.warn("Элементы для увеличения (.zoomable-image) не найдены, инициализация пропущена.");
+        return;
+    }
+
+    zoomableImages.forEach(img => {
+        img.addEventListener('click', (event) => {
+            const fullSrc = img.getAttribute('data-full-src');
+            if (fullSrc) {
+                console.log("Клик на масштабируемое изображение. Открываем:", fullSrc);
+                // Вызываем существующую функцию открытия модального окна
+                openImageModal(fullSrc, img.getAttribute('alt') || 'Увеличенное изображение', function() {
+                    // Для масштабируемых изображений вне галереи может не требоваться возобновление автопрокрутки.
+                    // Оставьте пустую функцию или добавьте другую логику, если нужно.
+                    console.log("Модальное окно для масштабируемого изображения закрыто.");
+                    // scheduleResumeAutoScroll(); // <-- Раскомментируйте, если хотите возобновлять прокрутку и тут, но это может быть неуместно.
+                });
+            }
+        });
+    });
+}
+
+
+
 
 // === ФУНКЦИОНАЛЬНОСТЬ НОВОГО МОДАЛЬНОГО ОКНА ДЛЯ ФОРМЫ ===
 function initializeNewFormModal() {
@@ -810,6 +798,536 @@ function initializeNewFormModal() {
     });
 }
 
+
+
+
+
+// === ФУНКЦИОНАЛЬНОСТЬ ГАЛЕРЕИ РАБОТ (улучшенная автопрокрутка + ручное вмешательство) ===
+function initializeGalleryScroll() {
+    const sliderContainer = document.querySelector('.works-slider-container');
+    const sliderTrack = document.querySelector('.works-slider-track');
+
+    if (!sliderContainer || !sliderTrack) {
+        console.warn("Элементы галереи работ не найдены, инициализация пропущена.");
+        return;
+    }
+
+    // --- ПЕРЕМЕННЫЕ ---
+    let autoScrollInterval = null;
+    const resumeDelay = 3000; // Задержка в миллисекундах (3 секунды) перед возобновлением
+    let scrollTimeoutId = null;
+    let isManualInteraction = false; // Флаг, указывающий, было ли ручное взаимодействие
+
+    // Рассчитываем ширину одного полного набора слайдов (13 слайдов)
+    const slides = Array.from(sliderTrack.querySelectorAll('.works-slide'));
+    const originalSlidesCount = 13;
+    const originalSlidesSubset = slides.slice(0, originalSlidesCount);
+    const originalSlidesWidth = originalSlidesSubset.reduce((acc, slide) => acc + slide.offsetWidth + 20, -20); // 20 - margin-right, -20 т.к. последний не имеет правого маргина
+
+    console.log("Ширина ОДНОГО полного набора слайдов (13 шт.):", originalSlidesWidth); // Отладка
+
+    // --- ФУНКЦИИ ---
+
+    // Функция для начала автоматической прокрутки
+    function startAutoScroll() {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+        }
+        console.log("Автопрокрутка запущена.");
+        autoScrollInterval = setInterval(() => {
+            // Проверяем, достигли ли конца первого набора *после* добавления шага
+            // Для этого проверим scrollLeft *до* изменения
+            const currentScrollLeft = sliderContainer.scrollLeft;
+            const step = 1; // Шаг прокрутки
+            let newScrollLeft = currentScrollLeft + step;
+
+            // Проверяем, нужно ли "перемотать"
+            // "Перематываем", если мы находимся *внутри* или *на краю* первого набора и следующий шаг выходит за его пределы
+            if (currentScrollLeft < originalSlidesWidth && newScrollLeft >= originalSlidesWidth) {
+                // "Перематываем" в начало первого набора
+                sliderContainer.scrollLeft = 0;
+                console.log("Автопрокрутка: перемотка в начало."); // Отладка
+            } else {
+                // Применяем обычный шаг
+                sliderContainer.scrollLeft = newScrollLeft;
+            }
+        }, 30); // Интервал для плавности
+    }
+
+    // Функция для остановки автоматической прокрутки
+    function stopAutoScroll() {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+            console.log("Автопрокрутка остановлена.");
+        }
+    }
+
+    // Функция для возобновления автопрокрутки через задержку
+    function scheduleResumeAutoScroll() {
+        // Сбрасываем предыдущий таймер, если он был
+        if (scrollTimeoutId) {
+            clearTimeout(scrollTimeoutId);
+        }
+        // Устанавливаем таймер для возобновления
+        scrollTimeoutId = setTimeout(() => {
+            console.log("Возобновление автопрокрутки после таймера.");
+            startAutoScroll();
+            isManualInteraction = false; // Сбрасываем флаг
+        }, resumeDelay);
+    }
+
+    // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
+
+    // 1. Обработчик для ручного скролла - ТОЛЬКО ДЛЯ КОРРЕКЦИИ ПОЗИЦИИ И ПРЕДОТВРАЩЕНИЯ ПРОБЛЕМ
+    function handleScroll() {
+        let currentScroll = sliderContainer.scrollLeft;
+        if (currentScroll >= originalSlidesWidth) {
+            console.log("Коррекция позиции (handleScroll): перемотка в начало.");
+            sliderContainer.scrollLeft = 0;
+        } else if (currentScroll < 0) { // Защита от случайного отрицательного значения
+            console.log("Коррекция позиции (handleScroll): перемотка в конец.");
+            sliderContainer.scrollLeft = originalSlidesWidth;
+        }
+        // Не останавливаем автопрокрутку здесь!
+    }
+
+    // 2. Обработчик для колеса мыши - останавливает и предотвращает горизонтальный скролл
+    function handleWheel(event) {
+        if (event.deltaX !== 0) { // Проверяем, был ли горизонтальный скролл
+            event.preventDefault(); // Предотвращаем стандартное поведение горизонтального скролла
+            // Останавливаем автопрокрутку при любом горизонтальном колесике
+            if (!isManualInteraction) {
+                 console.log("Ручное вмешательство обнаружено (wheel).");
+                 isManualInteraction = true;
+                 stopAutoScroll();
+            }
+            // Применяем изменение scrollLeft вручную
+            sliderContainer.scrollLeft += event.deltaX;
+            // Перезапускаем таймер при ручном скролле
+            scheduleResumeAutoScroll();
+        }
+        // Вертикальный скролл не предотвращается и передается странице
+    }
+
+    // 3. Обработчики для touch (свайп) - останавливает
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartScrollLeft = 0;
+    let isTouchMovingHorizontally = false;
+
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartScrollLeft = sliderContainer.scrollLeft;
+        isTouchMovingHorizontally = false; // Сбрасываем флаг при новом касании
+        // Сбрасываем таймер при начале касания
+        if (scrollTimeoutId) {
+            clearTimeout(scrollTimeoutId);
+        }
+    }
+
+    function handleTouchMove(e) {
+        if (isTouchMovingHorizontally) {
+            e.preventDefault(); // Предотвращаем прокрутку страницы по горизонтали
+            const touchCurrentX = e.touches[0].clientX;
+            const deltaX = touchStartX - touchCurrentX; // deltaX > 0 значит движение влево (влево = увеличение scrollLeft)
+
+            // Останавливаем автопрокрутку при первом горизонтальном движении
+            if (!isManualInteraction) {
+                console.log("Ручное вмешательство обнаружено (touchmove horizontal).");
+                isManualInteraction = true;
+                stopAutoScroll();
+            }
+
+            // Применяем изменение
+            sliderContainer.scrollLeft = touchStartScrollLeft + deltaX;
+            // Перезапускаем таймер при ручном скролле
+            scheduleResumeAutoScroll();
+        } else {
+            // Проверяем направление свайпа
+            const touchCurrentX = e.touches[0].clientX;
+            const touchCurrentY = e.touches[0].clientY;
+
+            const deltaX = Math.abs(touchCurrentX - touchStartX);
+            const deltaY = Math.abs(touchCurrentY - touchStartY);
+
+            // Если горизонтальное движение больше вертикального и превышает порог
+            if (deltaX > deltaY && deltaX > 10) {
+                isTouchMovingHorizontally = true; // Устанавливаем флаг
+                // Останавливаем автопрокрутку при определении горизонтального движения
+                if (!isManualInteraction) {
+                    console.log("Ручное вмешательство обнаружено (touchmove horizontal detected).");
+                    isManualInteraction = true;
+                    stopAutoScroll();
+                }
+                e.preventDefault(); // Предотвращаем прокрутку страницы
+
+                // Применяем изменение сразу
+                const currentDeltaX = touchStartX - touchCurrentX;
+                sliderContainer.scrollLeft = touchStartScrollLeft + currentDeltaX;
+                scheduleResumeAutoScroll();
+            }
+            // Если направление не определено как горизонтальное, не вызываем preventDefault,
+            // и событие может быть обработано браузером как вертикальная прокрутка страницы.
+        }
+    }
+
+    function handleTouchEnd() {
+        // Сбрасываем флаг горизонтального движения
+        isTouchMovingHorizontally = false;
+        // Если была остановка, устанавливаем таймер для возобновления
+        if (isManualInteraction) {
+             scheduleResumeAutoScroll();
+        }
+    }
+
+    // 4. Обработчики для drag мышью (тащении ползунка) - останавливает
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+
+    function handleMouseDown(e) {
+        // Останавливаем автопрокрутку при нажатии на контейнер
+        if (!isManualInteraction) {
+            console.log("Ручное вмешательство обнаружено (mousedown).");
+            isManualInteraction = true;
+            stopAutoScroll();
+        }
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartScrollLeft = sliderContainer.scrollLeft;
+
+        // Сбрасываем таймер при начале перетаскивания
+        if (scrollTimeoutId) {
+            clearTimeout(scrollTimeoutId);
+        }
+
+        e.preventDefault();
+        sliderContainer.style.cursor = 'grabbing';
+        sliderTrack.style.userSelect = 'none';
+    }
+
+    function handleMouseMove(e) {
+        if (!isDragging) return;
+
+        const dragCurrentX = e.clientX;
+        const deltaX = dragStartX - dragCurrentX; // deltaX > 0 значит движение влево (влево = увеличение scrollLeft)
+
+        // Применяем изменение
+        sliderContainer.scrollLeft = dragStartScrollLeft + deltaX;
+
+        // Перезапускаем таймер при ручном скролле
+        scheduleResumeAutoScroll();
+    }
+
+    function handleMouseUp() {
+        if (!isDragging) return;
+
+        isDragging = false;
+        sliderContainer.style.cursor = 'grab';
+        sliderTrack.style.userSelect = '';
+
+        // Устанавливаем таймер для возобновления автопрокрутки после окончания перетаскивания
+        if (isManualInteraction) { // Проверяем, была ли остановка
+             scheduleResumeAutoScroll();
+        }
+    }
+
+    // --- ИНИЦИАЛИЗАЦИЯ (ПЕРВЫЙ БЛОК) ---
+    // Начинаем автопрокрутку при загрузке
+    startAutoScroll();
+
+    // Добавляем слушатели
+    sliderContainer.addEventListener('scroll', handleScroll);
+    sliderContainer.addEventListener('wheel', handleWheel, { passive: false });
+    sliderContainer.addEventListener('touchstart', handleTouchStart);
+    sliderContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
+    sliderContainer.addEventListener('touchend', handleTouchEnd);
+
+    // Новые слушатели для drag мышью
+    sliderContainer.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    // Устанавливаем начальный стиль курсора для подсказки
+    sliderContainer.style.cursor = 'grab';
+
+    // --- НОВОЕ: Обработчики кликов на иконку увеличения ---
+    // Функция для обработки клика на иконку увеличения
+    function handleZoomIconClick(event) {
+        const clickedZoomIcon = event.target.closest('.zoom-icon'); // Находим ближайший родительский .zoom-icon
+        if (clickedZoomIcon && sliderContainer.contains(clickedZoomIcon)) {
+            const fullImageSrc = clickedZoomIcon.getAttribute('data-full-src');
+            if (fullImageSrc) {
+                console.log("Клик на иконку увеличения. Останавливаем автопрокрутку. Открываем:", fullImageSrc);
+                // Останавливаем автопрокрутку (аналогично ручному взаимодействию)
+                if (!isManualInteraction) {
+                    isManualInteraction = true;
+                    stopAutoScroll();
+                }
+                // Сбрасываем таймер, чтобы автопрокрутка не возобновилась сразу после закрытия
+                if (scrollTimeoutId) {
+                    clearTimeout(scrollTimeoutId);
+                }
+
+                // --- ТУТ ВАША ЛОГИКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА ---
+                openImageModal(fullImageSrc, 'Увеличенное изображение', scheduleResumeAutoScroll); // Передаём путь, альт. текст и функцию onClose
+            }
+        }
+    }
+
+// Функция для открытия модального окна с изображением (полностью изолированное с stopPropagation)
+function openImageModal(imageSrc, imageAlt) {
+    console.log("Открываю модальное окно для:", imageSrc); // Отладочное сообщение
+
+    // Создаём оверлей
+    const overlay = document.createElement('div');
+    // Применяем ВСЕ стили напрямую через .style
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = '10000'; // Высокий z-index
+    overlay.style.cursor = 'pointer';
+    overlay.style.opacity = '1'; // Явно устанавливаем, чтобы был виден
+    overlay.style.visibility = 'visible'; // Явно устанавливаем, чтобы был виден
+
+    // --- ОСНОВНОЕ ИЗМЕНЕНИЕ: Останавливаем всплытие событий ---
+    // Это предотвратит срабатывание глобальных обработчиков на события внутри этого overlay
+    overlay.addEventListener('click', function(event) {
+        // Остановить всплытие клика от самого оверлея
+        event.stopPropagation();
+    });
+    // Можно также остановить и другие события, если глобальная система их использует
+    // overlay.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+    // overlay.addEventListener('mouseup', function(e) { e.stopPropagation(); });
+    // overlay.addEventListener('touchstart', function(e) { e.stopPropagation(); });
+    // overlay.addEventListener('touchend', function(e) { e.stopPropagation(); });
+
+    // Создаём контейнер для изображения
+    const imgContainer = document.createElement('div');
+    imgContainer.style.position = 'relative';
+    imgContainer.style.maxWidth = '90%';
+    imgContainer.style.maxHeight = '90%';
+
+    // Создаём само изображение
+    const modalImg = document.createElement('img');
+    modalImg.src = imageSrc;
+    modalImg.alt = imageAlt || 'Увеличенное изображение';
+    modalImg.style.maxWidth = '100%';
+    modalImg.style.maxHeight = '100%';
+    modalImg.style.display = 'block';
+    modalImg.style.borderRadius = '8px'; // Опционально
+    modalImg.style.objectFit = 'contain'; // Важно: изображение масштабируется пропорционально, не обрезаясь
+
+    // Создаём кнопку закрытия (крестик)
+    const closeBtn = document.createElement('span');
+    closeBtn.innerHTML = '&times;'; // Символ крестика
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '-40px';
+    closeBtn.style.right = '0';
+    closeBtn.style.fontSize = '36px';
+    closeBtn.style.fontWeight = 'bold';
+    closeBtn.style.color = 'white';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.zIndex = '10001'; // Должен быть выше изображения
+    closeBtn.style.lineHeight = '1';
+    closeBtn.style.width = '40px';
+    closeBtn.style.height = '40px';
+    closeBtn.style.display = 'flex';
+    closeBtn.style.alignItems = 'center';
+    closeBtn.style.justifyContent = 'center';
+    closeBtn.style.background = 'none';
+    closeBtn.style.border = 'none';
+    closeBtn.style.padding = '0';
+
+    // Добавляем элементы в DOM
+    imgContainer.appendChild(modalImg);
+    imgContainer.appendChild(closeBtn);
+    overlay.appendChild(imgContainer);
+    document.body.appendChild(overlay);
+
+    // --- ЛОКАЛЬНАЯ ЛОГИКА ЗАКРЫТИЯ ---
+    // Функция закрытия модального окна
+    function closeModal() {
+        console.log("Закрытие модального окна изображения. Возобновляем автопрокрутку.");
+        // Удаляем оверлей и его содержимое
+        if (overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
+        }
+        // Возобновляем автопрокрутку через таймер (как при других ручных взаимодействиях)
+        scheduleResumeAutoScroll();
+
+        // Удаляем глобальные обработчики, чтобы они не накапливались при открытии нескольких окон
+        document.removeEventListener('keydown', handleEscKey);
+    }
+
+    // Обработчик для закрытия по клику на крестик
+    closeBtn.addEventListener('click', function(event) {
+            // Остановить всплытие клика от крестика
+            event.stopPropagation();
+            closeModal();
+    });
+
+    // Обработчик для закрытия по клику на оверлей (но не на контейнер с изображением)
+    overlay.addEventListener('click', (e) => {
+        // Если кликнули непосредственно по оверлею, а не по его дочерним элементам
+        if (e.target === overlay) {
+            closeModal();
+        }
+        // Всплытие уже остановлено выше для *любого* клика на overlay
+    });
+
+    // Локальная функция для закрытия по клавише Escape
+    function handleEscKey(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    // Глобальный обработчик для закрытия по Esc
+    document.addEventListener('keydown', handleEscKey);
+
+    // --- /ЛОКАЛЬНАЯ ЛОГИКА ЗАКРЫТИЯ ---
+}
+
+    // Добавляем обработчик клика на контейнер, чтобы отфильтровать клики по иконке
+    sliderContainer.addEventListener('click', handleZoomIconClick);
+
+    // --- /НОВОЕ ---
+} // Конец функции initializeGalleryScroll
+
+// Вызов функции инициализации, когда DOM готов
+document.addEventListener('DOMContentLoaded', initializeGalleryScroll);
+
+
+
+
+
+
+
+// === ГЛОБАЛЬНАЯ ФУНКЦИЯ ОТКРЫТИЯ МОДАЛЬНОГО ОКНА ИЗОБРАЖЕНИЯ ===
+// Принимает путь к изображению, альт. текст и функцию onClose, которая вызывается при закрытии
+function openImageModal(imageSrc, imageAlt, onClose) {
+    console.log("Открываю модальное окно для:", imageSrc); // Отладочное сообщение
+
+    // Создаём оверлей
+    const overlay = document.createElement('div');
+    // Применяем ВСЕ стили напрямую через .style
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = '10000'; // Высокий z-index
+    overlay.style.cursor = 'pointer';
+    overlay.style.opacity = '1'; // Явно устанавливаем, чтобы был виден
+    overlay.style.visibility = 'visible'; // Явно устанавливаем, чтобы был виден
+
+    // Создаём контейнер для изображения
+    const imgContainer = document.createElement('div');
+    imgContainer.style.position = 'relative';
+    imgContainer.style.maxWidth = '90%';
+    imgContainer.style.maxHeight = '90%';
+
+    // Создаём само изображение
+    const modalImg = document.createElement('img');
+    modalImg.src = imageSrc;
+    modalImg.alt = imageAlt || 'Увеличенное изображение';
+    modalImg.style.maxWidth = '100%';
+    modalImg.style.maxHeight = '100%';
+    modalImg.style.display = 'block';
+    modalImg.style.borderRadius = '8px'; // Опционально
+    modalImg.style.objectFit = 'contain'; // Важно: изображение масштабируется пропорционально, не обрезаясь
+
+    // Создаём кнопку закрытия (крестик)
+    const closeBtn = document.createElement('span');
+    closeBtn.innerHTML = '&times;'; // Символ крестика
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '-40px';
+    closeBtn.style.right = '0';
+    closeBtn.style.fontSize = '36px';
+    closeBtn.style.fontWeight = 'bold';
+    closeBtn.style.color = 'white';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.zIndex = '10001'; // Должен быть выше изображения
+    closeBtn.style.lineHeight = '1';
+    closeBtn.style.width = '40px';
+    closeBtn.style.height = '40px';
+    closeBtn.style.display = 'flex';
+    closeBtn.style.alignItems = 'center';
+    closeBtn.style.justifyContent = 'center';
+    closeBtn.style.background = 'none';
+    closeBtn.style.border = 'none';
+    closeBtn.style.padding = '0';
+
+    // Добавляем элементы в DOM
+    imgContainer.appendChild(modalImg);
+    imgContainer.appendChild(closeBtn);
+    overlay.appendChild(imgContainer);
+    document.body.appendChild(overlay);
+
+    // --- ЛОКАЛЬНАЯ ЛОГИКА ЗАКРЫТИЯ ---
+    // Функция закрытия модального окна
+    function closeModal() {
+        console.log("Закрытие модального окна изображения.");
+        // Удаляем оверлей и его содержимое
+        if (overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
+        }
+        // Вызываем переданную функцию onClose, например, scheduleResumeAutoScroll
+        if (onClose && typeof onClose === 'function') {
+            onClose();
+        }
+        // Удаляем глобальные обработчики, чтобы они не накапливались при открытии нескольких окон
+        document.removeEventListener('keydown', handleEscKey);
+    }
+
+    // Обработчик для закрытия по клику на крестик
+    closeBtn.addEventListener('click', function(event) {
+         // Остановить всплытие клика от крестика
+         event.stopPropagation();
+         closeModal();
+    });
+
+    // Обработчик для закрытия по клику на оверлей (но не на контейнер с изображением)
+    overlay.addEventListener('click', (e) => {
+        // Если кликнули непосредственно по оверлею, а не по его дочерним элементам
+        if (e.target === overlay) {
+            closeModal();
+        }
+        // Всплытие уже остановлено выше для *любого* клика на overlay - НЕТ, ЭТО НЕ ТАК
+        // Всплытие останавливается ТОЛЬКО в обработчике closeBtn
+    });
+
+    // Локальная функция для закрытия по клавише Escape
+    function handleEscKey(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    // Глобальный обработчик для закрытия по Esc
+    document.addEventListener('keydown', handleEscKey);
+}
+
+
+
+
+
+
+
+
 // === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация функций, которые могут понадобиться на разных страницах
@@ -824,16 +1342,13 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeNewFormModal(); // <-- ДОБАВИЛИ НОВУЮ ИНИЦИАЛИЗАЦИЮ
         initializeFaq(); // Инициализируем FAQ для index.html
         initializeImageModals(); // Инициализируем модальные окна изображений для index.html
+        // --- ДОБАВИЛИ ВЫЗОВ НОВОЙ ФУНКЦИИ ГАЛЕРЕИ ---
+        initializeZoomableImages(); // <-- ДОБАВЬТЕ ЭТУ СТРОКУ
     }
 
     // Проверяем, находимся ли мы на странице article.html
     if (document.getElementById('-')) { // Используем ID из Вашего article.html
-        // Находимся на article.html
         loadAndRenderBlogCardsArticles('-');
-        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
-        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
-        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
-        // initializePageModal();
     }
 
     // Проверяем, находимся ли мы на странице статьи (например, blog1.html, blog2.html и т.д.)
@@ -844,10 +1359,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const slug = path.split('/').pop().replace('.html', '');
         // Вызываем функцию для загрузки *других* статей
         loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
-        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
-        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
-        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
-        // initializePageModal();
     }
 
     // Инициализация копирования и скрытия шапки, если элементы существуют
@@ -902,51 +1413,3 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn("Форма с id='stoveForm' не найдена на этой странице.");
     }
 });
-
-
-
-// === ВЫЗОВ ФУНКЦИЙ ЗАГРУЗКИ СТАТЕЙ И ИНИЦИАЛИЗАЦИИ ===
-document.addEventListener('DOMContentLoaded', function() {
-    // Инициализация функций, которые могут понадобиться на разных страницах
-    initializeBlogLink(); // Активация ссылки "Блог" работает везде
-    initializeHamburgerMenu(); // Инициализация гамбургер-меню (Telegram-стиль) работает везде
-
-    // Проверяем, находимся ли мы на странице index.html
-    if (document.getElementById('blog-grid-main')) {
-        // Находимся на index.html
-        loadAndRenderBlogCardsMain('blog-grid-main', 10);
-        // initializeModal(); // <-- ЗАКОММЕНТИРОВАЛИ ИЛИ УДАЛИЛИ СТАРУЮ ИНИЦИАЛИЗАЦИЮ
-        initializeNewFormModal(); // <-- ДОБАВИЛИ НОВУЮ ИНИЦИАЛИЗАЦИЮ
-        initializeFaq(); // Инициализируем FAQ для index.html
-        initializeImageModals(); // Инициализируем модальные окна изображений для index.html
-    }
-
-    // Проверяем, находимся ли мы на странице article.html
-    if (document.getElementById('-')) { // Используем ID из Вашего article.html
-        // Находимся на article.html
-        loadAndRenderBlogCardsArticles('-');
-        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
-        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
-        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
-        // initializePageModal();
-    }
-
-    // Проверяем, находимся ли мы на странице статьи (например, blog1.html, blog2.html и т.д.)
-    if (document.getElementById('other-articles-grid')) {
-        // Находимся на странице статьи (например, blog1.html)
-        // Определяем slug текущей статьи из URL
-        const path = window.location.pathname;
-        const slug = path.split('/').pop().replace('.html', '');
-        // Вызываем функцию для загрузки *других* статей
-        loadAndRenderOtherBlogCards('other-articles-grid', slug, 10);
-        // initializePageModal(); // <-- МОЖЕТ ТАКЖЕ ИСПОЛЬЗОВАТЬ СТАРУЮ ФОРМУ, НАДО ПРОВЕРИТЬ
-        // УБЕДИТЕСЬ, ЧТО initializePageModal НЕ ОТКРЫВАЕТ СТАРУЮ ФОРМУ
-        // ЕСЛИ ОНА ТАМ НЕ НУЖНА, МОЖНО ЗАКОММЕНТИРОВАТЬ
-        // initializePageModal();
-    }
-
-    // Инициализация копирования и скрытия шапки, если элементы существуют
-    initializeCopyButtons(); // Копирование работает на index.html, article.html, blog1.html и т.д.
-    initializeHeaderHide(); // Скрытие шапки работает на index.html, article.html, blog1.html и т.д.
-});
-
