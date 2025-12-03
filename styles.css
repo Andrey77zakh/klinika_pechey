@@ -35,10 +35,10 @@ body {
     background: var(--bg-gradient);      /* Устанавливаем градиентный фон */
     color: var(--text);                 /* Цвет текста */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* Шрифт */
-    line-height: 1.6;                   /* Межстрочный интервал */
+    line-height: 1.5;                   /* Межстрочный интервал */
     transition: background 0.4s;        /* Плавный переход фона */
     overflow-x: hidden;                 /* Скрываем горизонтальный скролл */
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
 /* ===== ОГРАНИЧЕНИЕ ШИРИНЫ КОНТЕНТА ===== */
@@ -1620,7 +1620,7 @@ footer {
 .blog-grid {
     display: grid; /* Сетка для карточек */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Адаптивные колонки */
-    gap: 40px; /* Отступ между карточками */
+    gap: 20px; /* Отступ между карточками */
     width: 100%; /* Ширина сетки */
 }
 
@@ -1919,6 +1919,8 @@ header {
 header.hidden {
     transform: translateY(-100%); /* Скрываем за верхнюю границу */
 }
+
+
 
 
 
