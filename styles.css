@@ -505,7 +505,7 @@ header {
     background: rgba(0, 0, 0, 0.25);    /* Полупрозрачный черный фон */
     backdrop-filter: blur(8px);         /* Эффект размытия */
     border-radius: 24px;                /* Скругленные углы */
-    padding: 40px 30px;                 /* Внутренние отступы */
+    padding: 20px 20px;                 /* Внутренние отступы */
 }
 
 .hero h1 {
@@ -2162,11 +2162,13 @@ header.hidden {
 
   /* Возможно, стоит уменьшить gap между блоками и общий отступ */
   .hero-content > div[style*="gap"] { /* Целевое правило для flex-контейнера */
-    gap: 15px !important; /* Уменьшаем отступ между блоками иконок */
+    gap: 10px !important; /* Уменьшаем отступ между блоками иконок */
   }
 
   .hero-content > div[style*="margin-top: 30px"] { /* Целевое правило для flex-контейнера */
     margin-top: 20px !important; /* Уменьшаем верхний отступ блока иконок */
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   /* 7. (Опционально) Более мягкий сброс отступов у изображений, если они заданы inline */
